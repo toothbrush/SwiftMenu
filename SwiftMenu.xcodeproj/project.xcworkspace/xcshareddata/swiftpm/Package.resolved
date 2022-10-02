@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "bluesocket",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/IBM-Swift/BlueSocket.git",
+      "state" : {
+        "revision" : "c9894fd117457f1d006575fbfb2fdfd6f79eac03",
+        "version" : "1.0.200"
+      }
+    },
+    {
+      "identity" : "swift-http-server",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bjtj/swift-http-server",
+      "state" : {
+        "revision" : "1f17a3ad4f0e326b40fda5a82543bf64f2378e22",
+        "version" : "0.1.23"
+      }
+    }
+  ],
+  "version" : 2
+}

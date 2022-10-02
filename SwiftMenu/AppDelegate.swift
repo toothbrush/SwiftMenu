@@ -6,15 +6,51 @@
 //
 
 import Cocoa
+import SwiftHttpServer
+
+let PORT = 3000
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    
-
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        let server = HttpServer(hostname: nil, port: PORT, backlog: 6, reusePort: true)
+        server.monitor(monitorName: "SwiftMenu-http-server") {
+            (name, status, error) in
+            if let port = server.listeningPort {
+                print(" [\(name ?? "nil") :\(port)] HTTP SERVER Status changed to '\(status)'")
+            }
+        }
+
+        class GetHandler: HttpRequestHandler {
+
+            var dumpBody: Bool = true
+
+            func onHeaderCompleted(header: HttpHeader, request: HttpRequest,  response: HttpResponse) throws {
+            }
+
+            func onBodyCompleted(body: Data?, request: HttpRequest, response: HttpResponse) throws {
+                response.status = .ok
+                response.data = "Hello\n".data(using: .utf8)
+            }
+        }
+
+        do {
+            try server.route(pattern: "/", handler: GetHandler())
+        } catch let error {
+            print(error)
+        }
+        let queue = DispatchQueue.global(qos: .default)
+        queue.async {
+            do {
+                try server.run()
+                print("Visit localhost:\(PORT) in your web browser")
+            } catch let error {
+                print(error)
+            }
+        }
+
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
