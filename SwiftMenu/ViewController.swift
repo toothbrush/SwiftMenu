@@ -11,13 +11,14 @@ import SwiftHttpServer
 class ViewController: NSViewController {
 
     @IBOutlet weak var text: NSTextField!
+    @IBOutlet weak var inputField: NSTextField!
 
     let PORT = 3000
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var passwords = [
+        let passwords = [
             "thies",
             "is",
             "a big test",
