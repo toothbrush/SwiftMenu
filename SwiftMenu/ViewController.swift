@@ -81,6 +81,10 @@ extension ViewController: NSTableViewDataSource {
 
 extension ViewController: NSTableViewDelegate {
 
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
+        return MyNSTableRowView()
+    }
+
     fileprivate enum CellIdentifiers {
         static let NameCell = "NameCellID"
     }
