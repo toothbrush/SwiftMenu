@@ -12,3 +12,8 @@ POST /get_password_entry # Can return 4xx if user cancels
 
 Hitting `Esc`, `C-c` or `C-g` at any time the app has focus should hide it and return focus to
 whatever app had focus previously.
+
+## Check if it's alive, start otherwise
+
+Doing a `curl localhost:3000` is extremely fast if the app is down; we can then start it and wait a
+while and try again.

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DA9DAF8B28EA5FE9008EAF53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA9DAF8A28EA5FE9008EAF53 /* Main.storyboard */; };
 		DA9DAF9328EA66CF008EAF53 /* SwiftHttpServer in Frameworks */ = {isa = PBXBuildFile; productRef = DA9DAF9228EA66CF008EAF53 /* SwiftHttpServer */; };
+		DA9DAF9528EA769E008EAF53 /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9428EA769E008EAF53 /* Handlers.swift */; };
 		DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173DF28EA424500EFE3FC /* AppDelegate.swift */; };
 		DAC173E228EA424500EFE3FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E128EA424500EFE3FC /* ViewController.swift */; };
 		DAC173E528EA424500EFE3FC /* SwiftMenu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E328EA424500EFE3FC /* SwiftMenu.xcdatamodeld */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		DA9DAF8A28EA5FE9008EAF53 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		DA9DAF9428EA769E008EAF53 /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
 		DAC173DC28EA424500EFE3FC /* SwiftMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC173DF28EA424500EFE3FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAC173E128EA424500EFE3FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				DAC173E628EA424700EFE3FC /* Assets.xcassets */,
 				DAC173EB28EA424700EFE3FC /* SwiftMenu.entitlements */,
 				DAC173E328EA424500EFE3FC /* SwiftMenu.xcdatamodeld */,
+				DA9DAF9428EA769E008EAF53 /* Handlers.swift */,
 			);
 			path = SwiftMenu;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			files = (
 				DAC173E528EA424500EFE3FC /* SwiftMenu.xcdatamodeld in Sources */,
 				DAC173E228EA424500EFE3FC /* ViewController.swift in Sources */,
+				DA9DAF9528EA769E008EAF53 /* Handlers.swift in Sources */,
 				DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
