@@ -17,3 +17,18 @@ whatever app had focus previously.
 
 Doing a `curl localhost:3000` is extremely fast if the app is down; we can then start it and wait a
 while and try again.
+
+# Searching
+
+Idea: no regex fanciness, but:
+
+asdf fdas
+^--  ^--
+
+Treat the first whitespace-separated word as a search string anchored by `^`, and the others as
+simple substrings? (order unimportant?)
+
+If you want to find `finger` by typing `ing` you may have to prepend a space so it's actually the
+first, not zeroth, filter word?
+
+Something to try.
