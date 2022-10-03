@@ -93,6 +93,7 @@ class ShowHandler: HttpRequestHandler {
             self.vc.inputField.becomeFirstResponder()
             NSApp.mainWindow?.firstResponder?.resignFirstResponder()
             NSApp.mainWindow?.makeFirstResponder(self.vc.inputField)
+            self.vc.password_table_view.selectRowIndexes([0], byExtendingSelection: false)
         }
     }
 }
