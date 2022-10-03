@@ -12,6 +12,7 @@
 		DA9DAF9528EA769E008EAF53 /* Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9428EA769E008EAF53 /* Handlers.swift */; };
 		DA9DAF9728EA81AC008EAF53 /* PasswordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */; };
 		DA9DAF9A28EA888F008EAF53 /* PathKit in Frameworks */ = {isa = PBXBuildFile; productRef = DA9DAF9928EA888F008EAF53 /* PathKit */; };
+		DA9DAF9C28EA91BB008EAF53 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9B28EA91BB008EAF53 /* Collection.swift */; };
 		DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173DF28EA424500EFE3FC /* AppDelegate.swift */; };
 		DAC173E228EA424500EFE3FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E128EA424500EFE3FC /* ViewController.swift */; };
 		DAC173E528EA424500EFE3FC /* SwiftMenu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E328EA424500EFE3FC /* SwiftMenu.xcdatamodeld */; };
@@ -22,6 +23,7 @@
 		DA9DAF8A28EA5FE9008EAF53 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DA9DAF9428EA769E008EAF53 /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
 		DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordList.swift; sourceTree = "<group>"; };
+		DA9DAF9B28EA91BB008EAF53 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		DAC173DC28EA424500EFE3FC /* SwiftMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC173DF28EA424500EFE3FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAC173E128EA424500EFE3FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			children = (
 				DA9DAF8A28EA5FE9008EAF53 /* Main.storyboard */,
 				DAC173DF28EA424500EFE3FC /* AppDelegate.swift */,
+				DA9DAF9B28EA91BB008EAF53 /* Collection.swift */,
 				DA9DAF9428EA769E008EAF53 /* Handlers.swift */,
 				DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */,
 				DAC173E128EA424500EFE3FC /* ViewController.swift */,
@@ -155,6 +158,7 @@
 				DAC173E528EA424500EFE3FC /* SwiftMenu.xcdatamodeld in Sources */,
 				DAC173E228EA424500EFE3FC /* ViewController.swift in Sources */,
 				DA9DAF9728EA81AC008EAF53 /* PasswordList.swift in Sources */,
+				DA9DAF9C28EA91BB008EAF53 /* Collection.swift in Sources */,
 				DA9DAF9528EA769E008EAF53 /* Handlers.swift in Sources */,
 				DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */,
 			);

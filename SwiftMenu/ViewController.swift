@@ -10,7 +10,7 @@ import SwiftHttpServer
 
 class ViewController: NSViewController {
 
-    @IBOutlet weak var text: NSTextField!
+    @IBOutlet weak var password_table_view: NSTableView!
     @IBOutlet weak var inputField: NSTextField!
 
     let PORT = 3000
@@ -26,6 +26,9 @@ class ViewController: NSViewController {
             "a big test",
         ]
         updatePasswordDisplay()
+
+        password_table_view.delegate = self
+        password_table_view.dataSource = self
 
         let server = HttpServer(hostname: nil, port: PORT, backlog: 6, reusePort: true)
         server.monitor(monitorName: "SwiftMenu-http-server") {
@@ -55,7 +58,7 @@ class ViewController: NSViewController {
     }
 
     func updatePasswordDisplay() {
-        text.stringValue = passwords.joined(separator: "\n")
+        password_table_view.reloadData()
     }
 
 
@@ -68,3 +71,44 @@ class ViewController: NSViewController {
 
 }
 
+extension ViewController: NSTableViewDataSource {
+
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return passwords.count
+    }
+
+}
+
+extension ViewController: NSTableViewDelegate {
+
+    fileprivate enum CellIdentifiers {
+        static let NameCell = "NameCellID"
+    }
+
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        var text: String = ""
+        var cellIdentifier: String = ""
+
+        guard let item = passwords[safe: row] else {
+            return nil
+        }
+
+        if tableColumn == tableView.tableColumns[0] {
+            text = item
+            cellIdentifier = CellIdentifiers.NameCell
+        }
+
+        if let ident = tableColumn?.identifier {
+            if let cell = tableView.makeView(withIdentifier: ident, owner: self) as? NSTableCellView {
+                if ident.rawValue == cellIdentifier {
+                    cell.textField?.stringValue = text
+                }
+                return cell
+            }
+            else {
+                return nil
+            }
+        }
+        return nil
+    }
+}
