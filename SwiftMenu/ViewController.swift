@@ -15,17 +15,17 @@ class ViewController: NSViewController {
 
     let PORT = 3000
 
+    var passwords : [String] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let passwords = [
+        passwords = [
             "thies",
             "is",
             "a big test",
         ]
-
-        text.stringValue = passwords.joined(separator: "\n")
-        // Do any additional setup after loading the view.
+        updatePasswordDisplay()
 
         let server = HttpServer(hostname: nil, port: PORT, backlog: 6, reusePort: true)
         server.monitor(monitorName: "SwiftMenu-http-server") {
@@ -38,6 +38,7 @@ class ViewController: NSViewController {
         do {
             try server.route(pattern: "/", handler: HelloHandler(vc: self))
             try server.route(pattern: "/show", handler: ShowHandler(vc: self))
+            try server.route(pattern: "/update_password_list", handler: ReloadHandler(vc: self))
         } catch let error {
             print(error)
         }
@@ -51,6 +52,10 @@ class ViewController: NSViewController {
             }
         }
 
+    }
+
+    func updatePasswordDisplay() {
+        text.stringValue = passwords.joined(separator: "\n")
     }
 
 
