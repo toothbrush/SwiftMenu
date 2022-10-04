@@ -95,6 +95,30 @@ class ShowHandler: HttpRequestHandler {
     }
 }
 
+class HideHandler: HttpRequestHandler {
+    var dumpBody: Bool = true
+    var vc: ViewController
+
+    init(vc: ViewController) {
+        self.vc = vc
+    }
+
+    func onHeaderCompleted(header: HttpHeader, request: HttpRequest,  response: HttpResponse) throws {
+        if request.method != "POST" {
+            throw HttpServerError.illegalArgument(string: "\(request.path) only accepts POST requests.")
+        }
+    }
+
+    func onBodyCompleted(body: Data?, request: HttpRequest, response: HttpResponse) throws {
+        response.status = .ok
+        response.data = "Did hide window\n".data(using: .utf8)
+
+        DispatchQueue.main.async {
+            NSApp.hide(NSApp.mainWindow)
+        }
+    }
+}
+
 //TODO superclass which can require POST without code duplication
 
 class PasswordQueryHandler: HttpRequestHandler {
