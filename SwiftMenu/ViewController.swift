@@ -15,6 +15,8 @@ class ViewController: NSViewController {
 
     weak var semaphore: DispatchSemaphore?
 
+    var globalSuccess = false
+
     let PORT = 3000
 
     var passwords : [String] = []
@@ -117,10 +119,12 @@ extension ViewController: NSTableViewDelegate {
 extension ViewController: NSTextFieldDelegate {
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         var iWillEatThisEventDoNotPropagate = false
+        globalSuccess = false
         print(commandSelector.description)
         if commandSelector.description == "insertNewline:" {
             iWillEatThisEventDoNotPropagate = true // causes Apple to NOT fire the default enter action
 
+            globalSuccess = true
             // tell a handler, if it's waiting, that we're done!
             if let sem = semaphore {
                 sem.signal()
@@ -141,6 +145,13 @@ extension ViewController: NSTextFieldDelegate {
                     || commandSelector.description == "moveToRightEndOfLine:" {
             iWillEatThisEventDoNotPropagate = true
             password_table_view.selectRow(row: passwords.count)
+        } else if commandSelector.description == "cancel:" {
+            iWillEatThisEventDoNotPropagate = true
+
+            // tell a handler, if it's waiting, that we're done!
+            if let sem = semaphore {
+                sem.signal()
+            }
         }
         return iWillEatThisEventDoNotPropagate
     }

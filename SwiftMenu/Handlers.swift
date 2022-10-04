@@ -106,6 +106,7 @@ class PasswordQueryHandler: HttpRequestHandler {
     init(vc: ViewController) {
         self.vc = vc
         vc.semaphore = semaphore
+        vc.globalSuccess = false
     }
 
     func onHeaderCompleted(header: HttpHeader, request: HttpRequest,  response: HttpResponse) throws {
@@ -117,14 +118,18 @@ class PasswordQueryHandler: HttpRequestHandler {
     func onBodyCompleted(body: Data?, request: HttpRequest, response: HttpResponse) throws {
         semaphore = DispatchSemaphore(value: 0)
         vc.semaphore = semaphore
+        vc.globalSuccess = false
+
         var passwordResult : String?
 
         // set a flag "i'm waiting for a password", then actually wait
         let result = semaphore.wait(timeout: .now().advanced(by: .seconds(30)))
         switch result {
         case .success:
-            passwordResult = DispatchQueue.main.sync {
-                vc.passwords[safe: vc.password_table_view.selectedRow]
+            if vc.globalSuccess {
+                passwordResult = DispatchQueue.main.sync {
+                    vc.passwords[safe: vc.password_table_view.selectedRow]
+                }
             }
         case .timedOut:
             response.status = .notFound
