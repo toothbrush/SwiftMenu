@@ -16,6 +16,8 @@
 		DA9DAF9E28EA9879008EAF53 /* PDTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9D28EA9879008EAF53 /* PDTableRowView.swift */; };
 		DA9DAFA028EBC6A0008EAF53 /* Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9F28EBC6A0008EAF53 /* Comparable.swift */; };
 		DA9DAFA328EBCDDC008EAF53 /* PDTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFA228EBCDDC008EAF53 /* PDTextField.swift */; };
+		DA9DAFA728EBDFD3008EAF53 /* PDTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFA628EBDFD3008EAF53 /* PDTableView.swift */; };
+		DA9DAFA928EBE0D8008EAF53 /* PDWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFA828EBE0D8008EAF53 /* PDWindow.swift */; };
 		DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173DF28EA424500EFE3FC /* AppDelegate.swift */; };
 		DAC173E228EA424500EFE3FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E128EA424500EFE3FC /* ViewController.swift */; };
 		DAC173E528EA424500EFE3FC /* SwiftMenu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E328EA424500EFE3FC /* SwiftMenu.xcdatamodeld */; };
@@ -30,6 +32,8 @@
 		DA9DAF9D28EA9879008EAF53 /* PDTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDTableRowView.swift; sourceTree = "<group>"; };
 		DA9DAF9F28EBC6A0008EAF53 /* Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparable.swift; sourceTree = "<group>"; };
 		DA9DAFA228EBCDDC008EAF53 /* PDTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDTextField.swift; sourceTree = "<group>"; };
+		DA9DAFA628EBDFD3008EAF53 /* PDTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDTableView.swift; sourceTree = "<group>"; };
+		DA9DAFA828EBE0D8008EAF53 /* PDWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDWindow.swift; sourceTree = "<group>"; };
 		DAC173DC28EA424500EFE3FC /* SwiftMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC173DF28EA424500EFE3FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAC173E128EA424500EFE3FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +69,8 @@
 			children = (
 				DA9DAFA228EBCDDC008EAF53 /* PDTextField.swift */,
 				DA9DAF9D28EA9879008EAF53 /* PDTableRowView.swift */,
+				DA9DAFA628EBDFD3008EAF53 /* PDTableView.swift */,
+				DA9DAFA828EBE0D8008EAF53 /* PDWindow.swift */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -181,12 +187,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAC173E528EA424500EFE3FC /* SwiftMenu.xcdatamodeld in Sources */,
+				DA9DAFA728EBDFD3008EAF53 /* PDTableView.swift in Sources */,
 				DAC173E228EA424500EFE3FC /* ViewController.swift in Sources */,
 				DA9DAF9728EA81AC008EAF53 /* PasswordList.swift in Sources */,
 				DA9DAFA028EBC6A0008EAF53 /* Comparable.swift in Sources */,
 				DA9DAF9C28EA91BB008EAF53 /* Collection.swift in Sources */,
 				DA9DAF9528EA769E008EAF53 /* Handlers.swift in Sources */,
 				DA9DAFA328EBCDDC008EAF53 /* PDTextField.swift in Sources */,
+				DA9DAFA928EBE0D8008EAF53 /* PDWindow.swift in Sources */,
 				DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */,
 				DA9DAF9E28EA9879008EAF53 /* PDTableRowView.swift in Sources */,
 			);
