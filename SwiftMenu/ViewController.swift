@@ -52,8 +52,8 @@ class ViewController: NSViewController {
         DispatchQueue.global(qos: .default).async {
             do {
                 try server.run()
-                print("Visit localhost:\(self.PORT) in your web browser")
             } catch let error {
+                // This print doesn't work, it's on a background thread.
                 print(error)
             }
         }
