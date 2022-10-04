@@ -120,7 +120,6 @@ extension ViewController: NSTextFieldDelegate {
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         var iWillEatThisEventDoNotPropagate = false
         globalSuccess = false
-        print(commandSelector.description)
         if commandSelector.description == "insertNewline:" {
             iWillEatThisEventDoNotPropagate = true // causes Apple to NOT fire the default enter action
 
@@ -152,6 +151,8 @@ extension ViewController: NSTextFieldDelegate {
             if let sem = semaphore {
                 sem.signal()
             }
+        } else {
+            print("Unhandled NSTextField event \"" + commandSelector.description + "\"")
         }
         return iWillEatThisEventDoNotPropagate
     }
