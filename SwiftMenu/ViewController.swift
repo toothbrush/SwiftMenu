@@ -20,6 +20,7 @@ class ViewController: NSViewController {
     let PORT = 3000
 
     var actualPasswordList : [String] = []
+    var filteredPasswordList : [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,14 +59,17 @@ class ViewController: NSViewController {
             }
         }
     }
+
+    func updateTableWithFilter() {
+        self.password_table_view.reloadData()
+        self.password_table_view.selectRow(row: 0)
+    }
 }
 
 extension ViewController: NSTableViewDataSource {
-
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return actualPasswordList.count
+        return filteredPasswordList.count
     }
-
 }
 
 extension ViewController: NSTableViewDelegate {
@@ -82,7 +86,7 @@ extension ViewController: NSTableViewDelegate {
         var text: String = ""
         var cellIdentifier: String = ""
 
-        guard let item = actualPasswordList[safe: row] else {
+        guard let item = filteredPasswordList[safe: row] else {
             return nil
         }
 
@@ -133,7 +137,7 @@ extension ViewController: NSTextFieldDelegate {
         } else if commandSelector.description == "moveToEndOfDocument:"
                     || commandSelector.description == "moveToRightEndOfLine:" {
             iWillEatThisEventDoNotPropagate = true
-            password_table_view.selectRow(row: actualPasswordList.count)
+            password_table_view.selectRow(row: password_table_view.numberOfRows)
         } else if commandSelector.description == "cancel:" {
             iWillEatThisEventDoNotPropagate = true
 
@@ -145,6 +149,10 @@ extension ViewController: NSTextFieldDelegate {
             print("Unhandled NSTextField event \"" + commandSelector.description + "\"")
         }
         return iWillEatThisEventDoNotPropagate
+    }
+
+    func controlTextDidChange(_ obj: Notification) {
+        updateTableWithFilter()
     }
 }
 
