@@ -60,6 +60,11 @@ class ViewController: NSViewController {
         }
     }
 
+    func clearFilter() {
+        self.inputField.stringValue = ""
+        updateTableWithFilter()
+    }
+
     func updateTableWithFilter() {
         let filter = self.inputField.stringValue
 

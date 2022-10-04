@@ -84,7 +84,7 @@ class ShowHandler: HttpRequestHandler {
         DispatchQueue.main.async {
             NSApp.mainWindow?.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
-            self.vc.inputField.stringValue = ""
+            self.vc.clearFilter()
             NSApp.mainWindow?.resignFirstResponder()
             self.vc.becomeFirstResponder()
             self.vc.inputField.becomeFirstResponder()

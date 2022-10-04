@@ -55,8 +55,7 @@ extension ViewController {
         self.actualPasswordList = try prettyPasswordsList()
         self.filteredPasswordList = self.actualPasswordList
         DispatchQueue.main.async {
-            self.inputField.stringValue = ""
-            self.updateTableWithFilter()
+            self.clearFilter()
         }
     }
 }
