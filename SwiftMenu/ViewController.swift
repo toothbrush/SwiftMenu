@@ -17,7 +17,7 @@ class ViewController: NSViewController {
 
     var globalSuccess = false
 
-    let PORT = 3000
+    let PORT = 22621
 
     var actualPasswordList : [String] = []
     var filteredPasswordList : [String] = []
