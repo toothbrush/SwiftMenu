@@ -49,8 +49,7 @@ class ViewController: NSViewController {
             print(error)
         }
 
-        let queue = DispatchQueue.global(qos: .default)
-        queue.async {
+        DispatchQueue.global(qos: .default).async {
             do {
                 try server.run()
                 print("Visit localhost:\(self.PORT) in your web browser")
