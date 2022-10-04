@@ -71,7 +71,7 @@ extension ViewController: NSTableViewDataSource {
 extension ViewController: NSTableViewDelegate {
 
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return MyNSTableRowView()
+        return PDTableRowView()
     }
 
     fileprivate enum CellIdentifiers {

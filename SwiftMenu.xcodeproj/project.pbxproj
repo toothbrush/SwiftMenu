@@ -13,7 +13,7 @@
 		DA9DAF9728EA81AC008EAF53 /* PasswordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */; };
 		DA9DAF9A28EA888F008EAF53 /* PathKit in Frameworks */ = {isa = PBXBuildFile; productRef = DA9DAF9928EA888F008EAF53 /* PathKit */; };
 		DA9DAF9C28EA91BB008EAF53 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9B28EA91BB008EAF53 /* Collection.swift */; };
-		DA9DAF9E28EA9879008EAF53 /* TableSubclasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9D28EA9879008EAF53 /* TableSubclasses.swift */; };
+		DA9DAF9E28EA9879008EAF53 /* PDTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9D28EA9879008EAF53 /* PDTableRowView.swift */; };
 		DA9DAFA028EBC6A0008EAF53 /* Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9F28EBC6A0008EAF53 /* Comparable.swift */; };
 		DA9DAFA328EBCDDC008EAF53 /* PDTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFA228EBCDDC008EAF53 /* PDTextField.swift */; };
 		DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173DF28EA424500EFE3FC /* AppDelegate.swift */; };
@@ -27,7 +27,7 @@
 		DA9DAF9428EA769E008EAF53 /* Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handlers.swift; sourceTree = "<group>"; };
 		DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordList.swift; sourceTree = "<group>"; };
 		DA9DAF9B28EA91BB008EAF53 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
-		DA9DAF9D28EA9879008EAF53 /* TableSubclasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSubclasses.swift; sourceTree = "<group>"; };
+		DA9DAF9D28EA9879008EAF53 /* PDTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDTableRowView.swift; sourceTree = "<group>"; };
 		DA9DAF9F28EBC6A0008EAF53 /* Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparable.swift; sourceTree = "<group>"; };
 		DA9DAFA228EBCDDC008EAF53 /* PDTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDTextField.swift; sourceTree = "<group>"; };
 		DAC173DC28EA424500EFE3FC /* SwiftMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +60,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		DA9DAFA528EBD354008EAF53 /* Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				DA9DAFA228EBCDDC008EAF53 /* PDTextField.swift */,
+				DA9DAF9D28EA9879008EAF53 /* PDTableRowView.swift */,
+			);
+			path = Subclasses;
+			sourceTree = "<group>";
+		};
 		DAC173D328EA424500EFE3FC = {
 			isa = PBXGroup;
 			children = (
@@ -79,13 +88,12 @@
 		DAC173DE28EA424500EFE3FC /* SwiftMenu */ = {
 			isa = PBXGroup;
 			children = (
+				DA9DAFA528EBD354008EAF53 /* Subclasses */,
 				DA9DAFA428EBD2F0008EAF53 /* Extensions */,
 				DA9DAF8A28EA5FE9008EAF53 /* Main.storyboard */,
 				DAC173DF28EA424500EFE3FC /* AppDelegate.swift */,
 				DA9DAF9428EA769E008EAF53 /* Handlers.swift */,
 				DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */,
-				DA9DAFA228EBCDDC008EAF53 /* PDTextField.swift */,
-				DA9DAF9D28EA9879008EAF53 /* TableSubclasses.swift */,
 				DAC173E128EA424500EFE3FC /* ViewController.swift */,
 				DAC173E628EA424700EFE3FC /* Assets.xcassets */,
 				DAC173EB28EA424700EFE3FC /* SwiftMenu.entitlements */,
@@ -180,7 +188,7 @@
 				DA9DAF9528EA769E008EAF53 /* Handlers.swift in Sources */,
 				DA9DAFA328EBCDDC008EAF53 /* PDTextField.swift in Sources */,
 				DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */,
-				DA9DAF9E28EA9879008EAF53 /* TableSubclasses.swift in Sources */,
+				DA9DAF9E28EA9879008EAF53 /* PDTableRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

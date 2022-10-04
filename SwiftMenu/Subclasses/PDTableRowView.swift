@@ -1,5 +1,5 @@
 //
-//  TableSubclasses.swift
+//  PDTableRowView.swift
 //  SwiftMenu
 //
 //  Created by paul on 3/10/2022.
@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class MyNSTableRowView: NSTableRowView {
+class PDTableRowView: NSTableRowView {
 
     override func drawSelection(in dirtyRect: NSRect) {
         if self.selectionHighlightStyle != .none {
