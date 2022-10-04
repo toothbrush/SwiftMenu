@@ -710,7 +710,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="471"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hOj-3v-oXT">
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hOj-3v-oXT" customClass="PDTextField" customModule="SwiftMenu" customModuleProvider="target">
                                 <rect key="frame" x="20" y="430" width="440" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="UC9-7e-zh1"/>
