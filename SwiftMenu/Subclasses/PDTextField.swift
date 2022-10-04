@@ -20,6 +20,7 @@ class PDTextField: NSTextField {
                 if let sem = delegate.semaphore {
                     sem.signal()
                 }
+                NSApp.hide(NSApp.mainWindow)
                 return true
             }
         }

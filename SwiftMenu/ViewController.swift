@@ -141,6 +141,15 @@ extension ViewController: NSTextFieldDelegate {
             if let sem = semaphore {
                 sem.signal()
             }
+            NSApp.hide(NSApp.mainWindow)
+        } else if commandSelector.description == "cancel:" {
+            iWillEatThisEventDoNotPropagate = true
+
+            // tell a handler, if it's waiting, that we're done!
+            if let sem = semaphore {
+                sem.signal()
+            }
+            NSApp.hide(NSApp.mainWindow)
         } else if commandSelector.description == "moveDown:"
                     || commandSelector.description == "moveRight:" {
             iWillEatThisEventDoNotPropagate = true
@@ -157,15 +166,8 @@ extension ViewController: NSTextFieldDelegate {
                     || commandSelector.description == "moveToRightEndOfLine:" {
             iWillEatThisEventDoNotPropagate = true
             password_table_view.selectRow(row: password_table_view.numberOfRows)
-        } else if commandSelector.description == "cancel:" {
-            iWillEatThisEventDoNotPropagate = true
-
-            // tell a handler, if it's waiting, that we're done!
-            if let sem = semaphore {
-                sem.signal()
-            }
         } else {
-            print("Unhandled NSTextField event \"" + commandSelector.description + "\"")
+            print("[info] Unhandled NSTextField event \"" + commandSelector.description + "\"")
         }
         return iWillEatThisEventDoNotPropagate
     }
