@@ -13,12 +13,16 @@ class ViewController: NSViewController {
     @IBOutlet weak var password_table_view: NSTableView!
     @IBOutlet weak var inputField: NSTextField!
 
+    weak var semaphore: DispatchSemaphore?
+
     let PORT = 3000
 
     var passwords : [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        inputField.delegate = self
 
         passwords = [
             "thies",
@@ -42,9 +46,11 @@ class ViewController: NSViewController {
             try server.route(pattern: "/", handler: HelloHandler(vc: self))
             try server.route(pattern: "/show", handler: ShowHandler(vc: self))
             try server.route(pattern: "/update_password_list", handler: ReloadHandler(vc: self))
+            try server.route(pattern: "/query_password", handler: PasswordQueryHandler(vc: self))
         } catch let error {
             print(error)
         }
+
         let queue = DispatchQueue.global(qos: .default)
         queue.async {
             do {
@@ -114,5 +120,35 @@ extension ViewController: NSTableViewDelegate {
             }
         }
         return nil
+    }
+
+    func gimmeARandomPassword() {
+
+        // presumably ask the user for input
+
+        // ensure something is at the head of the passwords list
+
+        // say we're done!
+
+        if let sem = semaphore {
+            sem.signal()
+        }
+
+    }
+}
+
+extension ViewController: NSTextFieldDelegate {
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        var returnValue = false
+        print(commandSelector.description)
+        if commandSelector.description == "insertNewline:" {
+            returnValue = true; // causes Apple to NOT fire the default enter action
+
+            // do my special action on RET:
+            // check whether "flag" is raised that handler wants something
+            // tell it the thing, done
+
+        }
+        return returnValue
     }
 }
