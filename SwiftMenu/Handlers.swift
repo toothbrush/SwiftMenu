@@ -41,12 +41,9 @@ class ReloadHandler: HttpRequestHandler {
         }
 
         let start = DispatchTime.now() // <<<<<<<<<< Start time
-        if let passwords = try? prettyPasswordsList() {
-            vc.passwords = passwords
-            DispatchQueue.main.async {
-                self.vc.updatePasswordDisplay()
-            }
-        } else {
+        do {
+            try vc.refreshPasswordListAndTableView()
+        } catch {
             throw HttpServerError.operationFailed(string: "Something went wrong listing passwords.")
         }
         let end = DispatchTime.now()   // <<<<<<<<<<   end time

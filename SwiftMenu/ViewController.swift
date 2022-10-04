@@ -24,15 +24,11 @@ class ViewController: NSViewController {
 
         inputField.delegate = self
 
-        passwords = [
-            "thies",
-            "is",
-            "a big test",
-        ]
-        updatePasswordDisplay()
-
         password_table_view.delegate = self
         password_table_view.dataSource = self
+
+        // if this fails, probably better to just crash:
+        try! self.refreshPasswordListAndTableView()
 
         let server = HttpServer(hostname: nil, port: PORT, backlog: 6, reusePort: true)
         server.monitor(monitorName: "SwiftMenu-http-server") {
@@ -62,11 +58,6 @@ class ViewController: NSViewController {
         }
 
     }
-
-    func updatePasswordDisplay() {
-        password_table_view.reloadData()
-    }
-
 
     override var representedObject: Any? {
         didSet {

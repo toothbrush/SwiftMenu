@@ -49,3 +49,12 @@ func prettyPasswordsList() throws -> [String] {
         return path.replacingOccurrences(of: regex, with: repl, options: [.regularExpression])
     }
 }
+
+extension ViewController {
+    func refreshPasswordListAndTableView() throws {
+        self.passwords = try prettyPasswordsList()
+        DispatchQueue.main.async {
+            self.password_table_view.reloadData()
+        }
+    }
+}
