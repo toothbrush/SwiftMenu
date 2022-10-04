@@ -118,32 +118,27 @@ class PasswordQueryHandler: HttpRequestHandler {
     }
 
     func onBodyCompleted(body: Data?, request: HttpRequest, response: HttpResponse) throws {
-
+        semaphore = DispatchSemaphore(value: 0)
+        vc.semaphore = semaphore
         var passwordResult : String?
 
-        DispatchQueue.global(qos: .default).async {
-            sleep(2)
-            self.vc.gimmeARandomPassword()
-        }
-
-        // set a flag "i'm waiting for a password
-        // actually wait
-        let result = semaphore.wait(timeout: .now().advanced(by: .seconds(3)))
+        // set a flag "i'm waiting for a password", then actually wait
+        let result = semaphore.wait(timeout: .now().advanced(by: .seconds(30)))
         switch result {
         case .success:
-            print("semaphore success")
-            passwordResult = vc.passwords.first
+            passwordResult = DispatchQueue.main.sync {
+                vc.passwords[safe: vc.password_table_view.selectedRow]
+            }
         case .timedOut:
-            print("scheisse time out")
+            response.status = .notFound
+            response.data = "Timed out asking for password.\n".data(using: .utf8)
+            return
         }
 
         // return the thing the dialog sent us
         if let pass = passwordResult {
             response.status = .ok
             response.data = pass.data(using: .utf8)
-        } else {
-            response.status = .notFound
-            response.data = "Timed out asking for password.\n".data(using: .utf8)
         }
     }
 }

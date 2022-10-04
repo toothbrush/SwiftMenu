@@ -121,20 +121,6 @@ extension ViewController: NSTableViewDelegate {
         }
         return nil
     }
-
-    func gimmeARandomPassword() {
-
-        // presumably ask the user for input
-
-        // ensure something is at the head of the passwords list
-
-        // say we're done!
-
-        if let sem = semaphore {
-            sem.signal()
-        }
-
-    }
 }
 
 extension ViewController: NSTextFieldDelegate {
@@ -144,10 +130,10 @@ extension ViewController: NSTextFieldDelegate {
         if commandSelector.description == "insertNewline:" {
             returnValue = true; // causes Apple to NOT fire the default enter action
 
-            // do my special action on RET:
-            // check whether "flag" is raised that handler wants something
-            // tell it the thing, done
-
+            // tell a handler, if it's waiting, that we're done!
+            if let sem = semaphore {
+                sem.signal()
+            }
         }
         return returnValue
     }
