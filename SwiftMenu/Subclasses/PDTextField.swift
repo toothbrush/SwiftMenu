@@ -28,4 +28,13 @@ class PDTextField: NSTextField {
         // i guess we're not handling this one!
         return false
     }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        nextResponder = nil
+    }
+
+    override func validateProposedFirstResponder(_ responder: NSResponder, for event: NSEvent?) -> Bool {
+        return true
+    }
 }

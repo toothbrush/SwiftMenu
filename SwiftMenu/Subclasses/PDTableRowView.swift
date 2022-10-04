@@ -9,6 +9,10 @@ import Cocoa
 
 class PDTableRowView: NSTableRowView {
 
+    override func becomeFirstResponder() -> Bool {
+        return false
+    }
+    
     override func drawSelection(in dirtyRect: NSRect) {
         if self.selectionHighlightStyle != .none {
             let selectionRect = NSInsetRect(self.bounds, 2.5, 2.5)

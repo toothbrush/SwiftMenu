@@ -142,7 +142,7 @@ extension ViewController: NSTextFieldDelegate {
                 sem.signal()
             }
             NSApp.hide(NSApp.mainWindow)
-        } else if commandSelector.description == "cancel:" {
+        } else if commandSelector.description == "cancelOperation:" {
             iWillEatThisEventDoNotPropagate = true
 
             // tell a handler, if it's waiting, that we're done!
@@ -166,6 +166,9 @@ extension ViewController: NSTextFieldDelegate {
                     || commandSelector.description == "moveToRightEndOfLine:" {
             iWillEatThisEventDoNotPropagate = true
             password_table_view.selectRow(row: password_table_view.numberOfRows)
+        } else if commandSelector.description == "insertTab:" {
+            // just eating up tab to reduce likelihood of input box losing focus. sigh.
+            iWillEatThisEventDoNotPropagate = true
         } else {
             print("[info] Unhandled NSTextField event \"" + commandSelector.description + "\"")
         }
