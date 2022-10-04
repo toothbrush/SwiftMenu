@@ -116,16 +116,41 @@ extension ViewController: NSTableViewDelegate {
 
 extension ViewController: NSTextFieldDelegate {
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        var returnValue = false
+        var iWillEatThisEventDoNotPropagate = false
         print(commandSelector.description)
         if commandSelector.description == "insertNewline:" {
-            returnValue = true; // causes Apple to NOT fire the default enter action
+            iWillEatThisEventDoNotPropagate = true // causes Apple to NOT fire the default enter action
 
             // tell a handler, if it's waiting, that we're done!
             if let sem = semaphore {
                 sem.signal()
             }
+        } else if commandSelector.description == "moveDown:"
+                    || commandSelector.description == "moveRight:" {
+            iWillEatThisEventDoNotPropagate = true
+            password_table_view.selectRow(row: password_table_view.selectedRow + 1)
+        } else if commandSelector.description == "moveUp:"
+                    || commandSelector.description == "moveLeft:" {
+            iWillEatThisEventDoNotPropagate = true
+            password_table_view.selectRow(row: password_table_view.selectedRow - 1)
+        } else if commandSelector.description == "moveToBeginningOfDocument:"
+                    || commandSelector.description == "moveToLeftEndOfLine:" {
+            iWillEatThisEventDoNotPropagate = true
+            password_table_view.selectRow(row: 0)
+        } else if commandSelector.description == "moveToEndOfDocument:"
+                    || commandSelector.description == "moveToRightEndOfLine:" {
+            iWillEatThisEventDoNotPropagate = true
+            password_table_view.selectRow(row: passwords.count)
         }
-        return returnValue
+        return iWillEatThisEventDoNotPropagate
+    }
+}
+
+extension NSTableView {
+    func selectRow(row: Int) {
+        let row_ = row.clamped(fromInclusive: 0, toInclusive: self.numberOfRows - 1)
+        self.scrollRowToVisible(row_)
+        self.selectRowIndexes(IndexSet(integer: row_),
+                              byExtendingSelection: false)
     }
 }
