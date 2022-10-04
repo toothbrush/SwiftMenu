@@ -128,7 +128,7 @@ class PasswordQueryHandler: HttpRequestHandler {
         case .success:
             if vc.globalSuccess {
                 passwordResult = DispatchQueue.main.sync {
-                    vc.passwords[safe: vc.password_table_view.selectedRow]
+                    vc.actualPasswordList[safe: vc.password_table_view.selectedRow]
                 }
             }
         case .timedOut:

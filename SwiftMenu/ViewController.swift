@@ -19,7 +19,7 @@ class ViewController: NSViewController {
 
     let PORT = 3000
 
-    var passwords : [String] = []
+    var actualPasswordList : [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +63,7 @@ class ViewController: NSViewController {
 extension ViewController: NSTableViewDataSource {
 
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return passwords.count
+        return actualPasswordList.count
     }
 
 }
@@ -82,7 +82,7 @@ extension ViewController: NSTableViewDelegate {
         var text: String = ""
         var cellIdentifier: String = ""
 
-        guard let item = passwords[safe: row] else {
+        guard let item = actualPasswordList[safe: row] else {
             return nil
         }
 
@@ -133,7 +133,7 @@ extension ViewController: NSTextFieldDelegate {
         } else if commandSelector.description == "moveToEndOfDocument:"
                     || commandSelector.description == "moveToRightEndOfLine:" {
             iWillEatThisEventDoNotPropagate = true
-            password_table_view.selectRow(row: passwords.count)
+            password_table_view.selectRow(row: actualPasswordList.count)
         } else if commandSelector.description == "cancel:" {
             iWillEatThisEventDoNotPropagate = true
 

@@ -52,7 +52,7 @@ func prettyPasswordsList() throws -> [String] {
 
 extension ViewController {
     func refreshPasswordListAndTableView() throws {
-        self.passwords = try prettyPasswordsList()
+        self.actualPasswordList = try prettyPasswordsList()
         DispatchQueue.main.async {
             self.password_table_view.reloadData()
         }
