@@ -85,10 +85,6 @@ class ShowHandler: HttpRequestHandler {
             NSApp.mainWindow?.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
             self.vc.clearFilter()
-            NSApp.mainWindow?.resignFirstResponder()
-            self.vc.becomeFirstResponder()
-            self.vc.inputField.becomeFirstResponder()
-            NSApp.mainWindow?.firstResponder?.resignFirstResponder()
             NSApp.mainWindow?.makeFirstResponder(self.vc.inputField)
             self.vc.password_table_view.selectRow(row: 0)
         }
