@@ -154,6 +154,9 @@ class PasswordQueryHandler: HttpRequestHandler {
         case .timedOut:
             response.status = .notFound
             response.data = "Timed out asking for password.\n".data(using: .utf8)
+            DispatchQueue.main.async {
+                NSApp.hide(NSApp.mainWindow)
+            }
             return
         }
 
