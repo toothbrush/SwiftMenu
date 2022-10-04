@@ -57,16 +57,7 @@ class ViewController: NSViewController {
                 print(error)
             }
         }
-
     }
-
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
-    }
-
-
 }
 
 extension ViewController: NSTableViewDataSource {
