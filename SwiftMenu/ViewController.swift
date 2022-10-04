@@ -43,7 +43,7 @@ class ViewController: NSViewController {
         }
 
         do {
-            try server.route(pattern: "/", handler: HelloHandler(vc: self))
+            try server.route(pattern: "/", handler: LivenessHandler(vc: self))
             try server.route(pattern: "/show", handler: ShowHandler(vc: self))
             try server.route(pattern: "/update_password_list", handler: ReloadHandler(vc: self))
             try server.route(pattern: "/query_password", handler: PasswordQueryHandler(vc: self))

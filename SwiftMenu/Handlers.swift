@@ -8,7 +8,7 @@
 import Cocoa
 import SwiftHttpServer
 
-class HelloHandler: HttpRequestHandler {
+class LivenessHandler: HttpRequestHandler {
     var dumpBody: Bool = true
     var vc: ViewController
 
