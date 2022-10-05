@@ -40,6 +40,7 @@ class ReloadHandler: HttpRequestHandler {
             throw HttpServerError.illegalArgument(string: "\(request.path) only accepts POST requests.")
         }
 
+        // From https://stackoverflow.com/questions/24755558/measure-elapsed-time-in-swift
         let start = DispatchTime.now() // <<<<<<<<<< Start time
         do {
             try vc.refreshPasswordListAndTableView()
@@ -82,6 +83,11 @@ class ShowHandler: HttpRequestHandler {
         response.data = "Raised window\n".data(using: .utf8)
 
         DispatchQueue.main.async {
+            // Even though this stuff appears to work now, bear in mind that https://stackoverflow.com/questions/17528157/nstextfield-and-firstresponder and https://stackoverflow.com/a/17547777 specifically say you need to
+            // [[NSApp mainWindow] resignFirstResponder];
+            // (context: "I need to capture this event the NSTextField loses the focus ring to save the uncommitted changes .")
+            //
+            // See also https://stackoverflow.com/questions/31015568/nssearchfield-occasionally-causing-an-nsinternalinconsistencyexception
             NSApp.mainWindow?.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
             self.vc.clearFilter()
@@ -121,6 +127,7 @@ class PasswordQueryHandler: HttpRequestHandler {
     var dumpBody: Bool = true
     var vc: ViewController
 
+    // Some obscure comments about DispatchSemaphore: https://lists.apple.com/archives/cocoa-dev/2014/Apr/msg00484.html and https://lists.apple.com/archives/cocoa-dev/2014/Apr/msg00483.html
     var semaphore = DispatchSemaphore(value: 0)
 
     init(vc: ViewController) {

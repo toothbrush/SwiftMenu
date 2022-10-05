@@ -42,6 +42,7 @@ func contentsOfPasswordDirectory() throws -> [String] {
 func prettyPasswordsList() throws -> [String] {
     let raw_files : [String] = try contentsOfPasswordDirectory()
 
+    // Regex replace:  https://developer.apple.com/documentation/foundation/nsregularexpression#//apple_ref/occ/instm/NSRegularExpression/stringByReplacingMatchesInString:options:range:withTemplate:
     let regex = ".*/\\.password-store/(.+)\\.gpg"
     let repl = "$1"
 

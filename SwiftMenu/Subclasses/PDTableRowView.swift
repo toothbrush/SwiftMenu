@@ -9,6 +9,8 @@ import Cocoa
 
 class PDTableRowView: NSTableRowView {
 
+    // See also:
+    // https://stackoverflow.com/questions/9463871/change-selection-color-on-view-based-nstableview
     override func becomeFirstResponder() -> Bool {
         return false
     }

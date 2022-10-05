@@ -11,4 +11,5 @@ class PDTableView: NSTableView {
     override func becomeFirstResponder() -> Bool {
         return false
     }
+    // Column sizing comments: https://stackoverflow.com/questions/49439311/where-to-set-column-width-in-nstableview-after-updates
 }

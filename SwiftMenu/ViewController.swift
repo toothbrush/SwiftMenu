@@ -130,6 +130,9 @@ extension ViewController: NSTableViewDelegate {
 }
 
 extension ViewController: NSTextFieldDelegate {
+
+    // inspiration: https://stackoverflow.com/questions/47580061/detecting-arrow-enter-keys-when-editing-nstextfield
+    // https://stackoverflow.com/questions/29579092/recognize-if-user-has-pressed-arrow-key-while-editing-nstextfield-swift
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         var iWillEatThisEventDoNotPropagate = false
         globalSuccess = false
