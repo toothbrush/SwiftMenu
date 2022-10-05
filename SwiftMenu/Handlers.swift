@@ -40,21 +40,12 @@ class ReloadHandler: HttpRequestHandler {
             throw HttpServerError.illegalArgument(string: "\(request.path) only accepts POST requests.")
         }
 
-        // From https://stackoverflow.com/questions/24755558/measure-elapsed-time-in-swift
-        let start = DispatchTime.now() // <<<<<<<<<< Start time
-        do {
-            try vc.refreshPasswordListAndTableView()
-        } catch {
+        let success: Bool = run_timed {
+            vc.refreshPasswordListAndTableView()
+        }
+        if !success  {
             throw HttpServerError.operationFailed(string: "Something went wrong listing passwords.")
         }
-        let end = DispatchTime.now()   // <<<<<<<<<<   end time
-
-        let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // <<<<< Difference in nano seconds (UInt64)
-        let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
-
-        print("Time to generate password list: \(timeInterval) seconds")
-
-
     }
 
     func onBodyCompleted(body: Data?, request: HttpRequest, response: HttpResponse) throws {

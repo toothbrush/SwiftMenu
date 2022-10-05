@@ -52,11 +52,16 @@ func prettyPasswordsList() throws -> [String] {
 }
 
 extension ViewController {
-    func refreshPasswordListAndTableView() throws {
-        self.actualPasswordList = try prettyPasswordsList()
-        self.filteredPasswordList = self.actualPasswordList
-        DispatchQueue.main.async {
-            self.clearFilter()
+    // Returns whether it was successful
+    func refreshPasswordListAndTableView() -> Bool {
+        if let list = try? prettyPasswordsList() {
+            self.actualPasswordList = list
+            self.filteredPasswordList = self.actualPasswordList
+            DispatchQueue.main.async {
+                self.clearFilter()
+            }
+            return true
         }
+        return false
     }
 }

@@ -31,8 +31,13 @@ class ViewController: NSViewController {
         password_table_view.delegate = self
         password_table_view.dataSource = self
 
-        // if this fails, probably better to just crash:
-        try! self.refreshPasswordListAndTableView()
+        run_timed {
+            // if this fails, probably better to just crash:
+            if !self.refreshPasswordListAndTableView() {
+                fatalError("Failed to refresh password list.")
+            }
+
+        }
 
         let server = HttpServer(hostname: nil, port: PORT, backlog: 6, reusePort: true)
         server.monitor(monitorName: "SwiftMenu-http-server") {
