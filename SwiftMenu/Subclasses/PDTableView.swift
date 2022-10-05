@@ -8,6 +8,12 @@
 import Cocoa
 
 class PDTableView: NSTableView {
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.refusesFirstResponder = true
+    }
+
     override func becomeFirstResponder() -> Bool {
         return false
     }

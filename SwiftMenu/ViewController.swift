@@ -26,6 +26,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         inputField.delegate = self
+        NSApp.mainWindow?.makeFirstResponder(inputField)
 
         password_table_view.delegate = self
         password_table_view.dataSource = self
