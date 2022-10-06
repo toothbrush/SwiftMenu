@@ -51,7 +51,6 @@ class ViewController: NSViewController {
             try server.route(pattern: "/", handler: LivenessHandler(vc: self))
             try server.route(pattern: "/show", handler: ShowHandler(vc: self))
             try server.route(pattern: "/hide", handler: HideHandler(vc: self))
-            try server.route(pattern: "/update_password_list", handler: ReloadHandler(vc: self))
             try server.route(pattern: "/query_password", handler: PasswordQueryHandler(vc: self))
         } catch let error {
             print(error)

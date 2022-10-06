@@ -27,34 +27,6 @@ class LivenessHandler: HttpRequestHandler {
     }
 }
 
-class ReloadHandler: HttpRequestHandler {
-    var dumpBody: Bool = true
-    var vc: ViewController
-
-    init(vc: ViewController) {
-        self.vc = vc
-    }
-
-    func onHeaderCompleted(header: HttpHeader, request: HttpRequest,  response: HttpResponse) throws {
-        if request.method != "POST" {
-            throw HttpServerError.illegalArgument(string: "\(request.path) only accepts POST requests.")
-        }
-
-        let success: Bool = run_timed {
-            vc.refreshPasswordListAndTableView()
-        }
-        if !success  {
-            throw HttpServerError.operationFailed(string: "Something went wrong listing passwords.")
-        }
-    }
-
-    func onBodyCompleted(body: Data?, request: HttpRequest, response: HttpResponse) throws {
-        response.status = .ok
-        response.data = "Reloaded database\n".data(using: .utf8)
-    }
-}
-
-
 class ShowHandler: HttpRequestHandler {
     var dumpBody: Bool = true
     var vc: ViewController
@@ -66,6 +38,12 @@ class ShowHandler: HttpRequestHandler {
     func onHeaderCompleted(header: HttpHeader, request: HttpRequest,  response: HttpResponse) throws {
         if request.method != "POST" {
             throw HttpServerError.illegalArgument(string: "\(request.path) only accepts POST requests.")
+        }
+        let success: Bool = run_timed {
+            vc.refreshPasswordListAndTableView()
+        }
+        if !success  {
+            throw HttpServerError.operationFailed(string: "Something went wrong listing passwords.")
         }
     }
 
