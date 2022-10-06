@@ -79,7 +79,6 @@ make-zip: sign
 	ditto -c -k --keepParent $(APP_PATH) $(ZIP_PATH)
 	mkdir -p updates/
 	cp -v $(ZIP_PATH) updates/SwiftMenu-v$(VERSION).zip
-	~/Downloads/Sparkle-1.27.1/bin/generate_appcast updates/
 
 .PHONY: prepare-dSYM
 prepare-dSYM:
