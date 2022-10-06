@@ -31,8 +31,7 @@ class PDTextView: NSTextView {
         var rect = rect
         rect.size.width = customCaretWidth
 
-        color.set()
-        NSColor.red.set()
+        NSColor.white.set()
         let path = NSBezierPath(roundedRect: rect, xRadius: customCaretWidth / 2, yRadius: customCaretWidth / 2)
         path.fill()
     }
