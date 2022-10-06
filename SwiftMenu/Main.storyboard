@@ -708,14 +708,14 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SwiftMenu" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl" customClass="PDSquareView" customModule="SwiftMenu" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="444" height="433"/>
+                        <rect key="frame" x="0.0" y="0.0" width="444" height="434"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="xyu-qM-33j" customClass="PDPurpleView" customModule="SwiftMenu" customModuleProvider="target">
-                                <rect key="frame" x="2" y="406" width="440" height="25"/>
+                                <rect key="frame" x="3" y="406" width="438" height="25"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hOj-3v-oXT" customClass="PDTextField" customModule="SwiftMenu" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="440" height="22"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="438" height="22"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="this is what a search looks like" drawsBackground="YES" id="0vq-JV-hht">
                                             <font key="font" size="16" name="Menlo-Regular"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -731,9 +731,9 @@
                                     <constraint firstItem="hOj-3v-oXT" firstAttribute="leading" secondItem="xyu-qM-33j" secondAttribute="leading" id="s5T-u4-o8t"/>
                                 </constraints>
                             </customView>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="RSo-hM-8Ss">
+                            <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="RSo-hM-8Ss">
                                 <rect key="frame" x="2" y="2" width="440" height="402"/>
-                                <clipView key="contentView" id="1qU-Zm-fh5">
+                                <clipView key="contentView" drawsBackground="NO" id="1qU-Zm-fh5">
                                     <rect key="frame" x="1" y="1" width="438" height="400"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -779,6 +779,7 @@
                                             </tableColumns>
                                         </tableView>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </clipView>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="402" id="PlF-YR-eid"/>
@@ -795,13 +796,13 @@
                             </scrollView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="xyu-qM-33j" secondAttribute="trailing" constant="2" id="47g-nX-NwC"/>
-                            <constraint firstItem="xyu-qM-33j" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="2" id="RKG-U8-GYg"/>
+                            <constraint firstAttribute="trailing" secondItem="xyu-qM-33j" secondAttribute="trailing" constant="3" id="47g-nX-NwC"/>
+                            <constraint firstItem="xyu-qM-33j" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="3" id="RKG-U8-GYg"/>
                             <constraint firstAttribute="trailing" secondItem="RSo-hM-8Ss" secondAttribute="trailing" constant="2" id="TUn-LD-fV2"/>
                             <constraint firstItem="RSo-hM-8Ss" firstAttribute="top" secondItem="xyu-qM-33j" secondAttribute="bottom" constant="2" id="YEV-sr-VaC"/>
                             <constraint firstItem="RSo-hM-8Ss" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="2" id="etb-ve-TQP"/>
                             <constraint firstAttribute="bottom" secondItem="RSo-hM-8Ss" secondAttribute="bottom" constant="2" id="guP-Rr-tfZ"/>
-                            <constraint firstItem="xyu-qM-33j" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="2" id="oRk-Vx-cCB"/>
+                            <constraint firstItem="xyu-qM-33j" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="3" id="oRk-Vx-cCB"/>
                         </constraints>
                     </view>
                     <connections>
