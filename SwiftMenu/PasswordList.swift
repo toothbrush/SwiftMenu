@@ -8,35 +8,34 @@
 import Foundation
 import PathKit
 
-let PATH = NSString("~/.password-store/").expandingTildeInPath
+let PATH = NSString("~/.password-store").expandingTildeInPath
 
 func contentsOfPasswordDirectory() throws -> [String] {
-    //guard let paths = try? FileManager.default.contentsOfDirectory(atPath: PATH, ) else { return nil }
-
     var items : [String] = []
 
-    var path = Path(PATH)
-    print("Password store: \(path)")
-    if path.isSymlink {
-        if let pathDest = try? path.symlinkDestination() {
-            path = pathDest
+    print("Password store: \(PATH)")
+
+    let task = Process()
+    task.launchPath = "/usr/bin/find" // assuming BSD find - we're on macOS, after all.
+    task.arguments = ["-L", "-s", "-x", PATH, "-type", "f", "-iname", "*.gpg"]
+
+    let pipe = Pipe()
+    task.standardOutput = pipe
+    task.launch()
+
+    let data = pipe.fileHandleForReading.readDataToEndOfFile()
+    if let output = String(data: data, encoding: .utf8) {
+        output.enumerateLines { line, stop in
+            items.append(line)
         }
     }
 
-    let generator = path.iterateChildren(options: .skipsHiddenFiles).makeIterator()
-    while let child = generator.next() {
-        if child.isSymlink {
-            if let dest = try? child.symlinkDestination() {
-                items.append(dest.string)
-            }
-        }
-
-        if child.isFile {
-            items.append(child.string)
-        }
-    }
+    task.waitUntilExit()
+    let status = task.terminationStatus
+    assert(status == 0)
     print("Found \(items.count) password entries")
-    return items.sorted()
+
+    return items
 }
 
 func prettyPasswordsList() throws -> [String] {
