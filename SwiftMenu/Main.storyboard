@@ -715,7 +715,7 @@
                                 <rect key="frame" x="3" y="406" width="438" height="25"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hOj-3v-oXT" customClass="PDTextField" customModule="SwiftMenu" customModuleProvider="target">
-                                        <rect key="frame" x="-2" y="0.0" width="442" height="22"/>
+                                        <rect key="frame" x="1" y="0.0" width="439" height="22"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="this is what a search looks like" id="0vq-JV-hht">
                                             <font key="font" size="16" name="Menlo-Regular"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -728,7 +728,7 @@
                                     <constraint firstItem="hOj-3v-oXT" firstAttribute="top" secondItem="xyu-qM-33j" secondAttribute="top" constant="3" id="GBV-vR-9Be"/>
                                     <constraint firstAttribute="bottom" secondItem="hOj-3v-oXT" secondAttribute="bottom" id="dit-gK-xi9"/>
                                     <constraint firstAttribute="trailing" secondItem="hOj-3v-oXT" secondAttribute="trailing" id="jh7-tB-hDP"/>
-                                    <constraint firstItem="hOj-3v-oXT" firstAttribute="leading" secondItem="xyu-qM-33j" secondAttribute="leading" id="s5T-u4-o8t"/>
+                                    <constraint firstItem="hOj-3v-oXT" firstAttribute="leading" secondItem="xyu-qM-33j" secondAttribute="leading" constant="3" id="s5T-u4-o8t"/>
                                 </constraints>
                             </customView>
                             <scrollView borderType="line" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="RSo-hM-8Ss">
