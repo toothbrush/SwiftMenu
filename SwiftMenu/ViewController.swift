@@ -24,7 +24,7 @@ class ViewController: NSViewController {
         set {
             _isHandlingRequest = newValue
             let col = _isHandlingRequest ? NSColor.systemPurple : NSColor.systemRed
-            inputPaddingView.colour = col
+            inputPaddingView.backgroundColor = col
             inputPaddingView.needsDisplay = true
             inputField.backgroundColor = col
             if let cell = inputField.cell as? NSTextFieldCell {
