@@ -13,7 +13,7 @@ AC_USERNAME := $(shell pass spotiqueue-itc-signing | grep email | awk '{print $$
 export AC_PASSWORD := $(shell pass spotiqueue-itc-signing | grep app-specific-pass | awk '{print $$2}')
 
 .PHONY: build
-build: archive notarize sign make-zip
+build: archive notarize sign make-zip make-homebrew
 
 # --- MAIN WORKFLOW FUNCTIONS --- #
 
@@ -78,6 +78,31 @@ make-zip: sign
 	ditto -c -k --keepParent $(APP_PATH) $(ZIP_PATH)
 	mkdir -p updates/
 	cp -v $(ZIP_PATH) updates/SwiftMenu-v$(VERSION).zip
+
+define HOMEBREW
+cask "swiftmenu" do
+  version "${VERSION}"
+  sha256 "$(shell sha256sum ${ZIP_PATH} | cut -s -d ' ' -f 1)"
+
+  url "https://github.com/toothbrush/SwiftMenu/releases/download/v#{version}/SwiftMenu-v#{version}.zip"
+  name "SwiftMenu"
+  desc "Crappy REST-aware GUI options picker"
+  homepage "https://github.com/toothbrush/SwiftMenu"
+
+  depends_on macos: ">= :catalina"
+
+  app "SwiftMenu.app"
+end
+endef
+
+export HOMEBREW
+
+.PHONY: make-homebrew
+make-homebrew:
+make-homebrew: VERSION = $(shell /usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$(APP_PATH)/Contents/Info.plist")
+make-homebrew:
+	mkdir -p updates
+	echo "$$HOMEBREW" > updates/swiftmenu.rb
 
 .PHONY: prepare-dSYM
 prepare-dSYM:
