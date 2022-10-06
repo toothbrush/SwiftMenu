@@ -20,6 +20,7 @@
 		DA9DAFA928EBE0D8008EAF53 /* PDWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFA828EBE0D8008EAF53 /* PDWindow.swift */; };
 		DA9DAFAB28EBEBF7008EAF53 /* PDApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFAA28EBEBF7008EAF53 /* PDApplication.swift */; };
 		DA9DAFAD28ED357D008EAF53 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFAC28ED357D008EAF53 /* Util.swift */; };
+		DA9DAFAF28EE4610008EAF53 /* PDTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFAE28EE4610008EAF53 /* PDTextView.swift */; };
 		DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173DF28EA424500EFE3FC /* AppDelegate.swift */; };
 		DAC173E228EA424500EFE3FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E128EA424500EFE3FC /* ViewController.swift */; };
 		DAC173E528EA424500EFE3FC /* SwiftMenu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E328EA424500EFE3FC /* SwiftMenu.xcdatamodeld */; };
@@ -38,6 +39,7 @@
 		DA9DAFA828EBE0D8008EAF53 /* PDWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDWindow.swift; sourceTree = "<group>"; };
 		DA9DAFAA28EBEBF7008EAF53 /* PDApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDApplication.swift; sourceTree = "<group>"; };
 		DA9DAFAC28ED357D008EAF53 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		DA9DAFAE28EE4610008EAF53 /* PDTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDTextView.swift; sourceTree = "<group>"; };
 		DAC173DC28EA424500EFE3FC /* SwiftMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC173DF28EA424500EFE3FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAC173E128EA424500EFE3FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,11 +73,12 @@
 		DA9DAFA528EBD354008EAF53 /* Subclasses */ = {
 			isa = PBXGroup;
 			children = (
-				DA9DAFA228EBCDDC008EAF53 /* PDTextField.swift */,
+				DA9DAFAA28EBEBF7008EAF53 /* PDApplication.swift */,
 				DA9DAF9D28EA9879008EAF53 /* PDTableRowView.swift */,
 				DA9DAFA628EBDFD3008EAF53 /* PDTableView.swift */,
+				DA9DAFA228EBCDDC008EAF53 /* PDTextField.swift */,
+				DA9DAFAE28EE4610008EAF53 /* PDTextView.swift */,
 				DA9DAFA828EBE0D8008EAF53 /* PDWindow.swift */,
-				DA9DAFAA28EBEBF7008EAF53 /* PDApplication.swift */,
 			);
 			path = Subclasses;
 			sourceTree = "<group>";
@@ -101,13 +104,13 @@
 			children = (
 				DA9DAFA528EBD354008EAF53 /* Subclasses */,
 				DA9DAFA428EBD2F0008EAF53 /* Extensions */,
-				DA9DAF8A28EA5FE9008EAF53 /* Main.storyboard */,
 				DAC173DF28EA424500EFE3FC /* AppDelegate.swift */,
 				DA9DAF9428EA769E008EAF53 /* Handlers.swift */,
 				DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */,
 				DA9DAFAC28ED357D008EAF53 /* Util.swift */,
 				DAC173E128EA424500EFE3FC /* ViewController.swift */,
 				DAC173E628EA424700EFE3FC /* Assets.xcassets */,
+				DA9DAF8A28EA5FE9008EAF53 /* Main.storyboard */,
 				DAC173EB28EA424700EFE3FC /* SwiftMenu.entitlements */,
 				DAC173E328EA424500EFE3FC /* SwiftMenu.xcdatamodeld */,
 			);
@@ -201,6 +204,7 @@
 				DA9DAF9528EA769E008EAF53 /* Handlers.swift in Sources */,
 				DA9DAFAD28ED357D008EAF53 /* Util.swift in Sources */,
 				DA9DAFA328EBCDDC008EAF53 /* PDTextField.swift in Sources */,
+				DA9DAFAF28EE4610008EAF53 /* PDTextView.swift in Sources */,
 				DA9DAFA928EBE0D8008EAF53 /* PDWindow.swift in Sources */,
 				DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */,
 				DA9DAFAB28EBEBF7008EAF53 /* PDApplication.swift in Sources */,
