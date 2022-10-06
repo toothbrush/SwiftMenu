@@ -13,8 +13,17 @@ import SwiftHttpServer
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        // we can monkey with user defaults without system-wide `defaults write ..`!
+        // https://stackoverflow.com/questions/2076816/how-to-register-user-defaults-using-nsuserdefaults-without-overwriting-existing
+        // Unit is millis, it seems.
+        // https://apple.stackexchange.com/questions/191087/how-to-stop-cursor-blinking-in-pages
+        let blinkDefaults = [
+            "NSTextInsertionPointBlinkPeriod": 10000000000000,
+            "NSTextInsertionPointBlinkPeriodOn": 10000000000000,
+            "NSTextInsertionPointBlinkPeriodOff": 10000000000000,
+        ]
 
+        UserDefaults.standard.register(defaults: blinkDefaults)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
