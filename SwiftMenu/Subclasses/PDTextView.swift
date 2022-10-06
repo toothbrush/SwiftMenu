@@ -15,7 +15,8 @@ class PDTextView: NSTextView {
     // https://developers.apple.com/library/archive/documentation/TextFonts/Conceptual/CocoaTextArchitecture/TextEditing/TextEditing.html#//apple_ref/doc/uid/TP40009459-CH3-SW29
     // https://developers.apple.com/library/archive/documentation/Cocoa/Conceptual/TextEditing/Tasks/Subclassing.html#//apple_ref/doc/uid/20000937-CJBJHGAG
 
-    override func selectionRange(forProposedRange proposedCharRange: NSRange, granularity: NSSelectionGranularity) -> NSRange {
+    override func selectionRange(forProposedRange proposedCharRange: NSRange,
+                                 granularity: NSSelectionGranularity) -> NSRange {
 
         print("my subclass is called!!!")
         return super.selectionRange(forProposedRange: proposedCharRange, granularity: granularity)
@@ -41,11 +42,4 @@ class PDTextView: NSTextView {
         rect.size.width += customCaretWidth - 1
         super.setNeedsDisplay(rect, avoidAdditionalLayout: flag)
     }
-
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-
-        // Drawing code here.
-    }
-    
 }
