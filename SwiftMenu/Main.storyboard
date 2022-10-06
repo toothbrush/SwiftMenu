@@ -708,16 +708,16 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SwiftMenu" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl" customClass="PDSquareView" customModule="SwiftMenu" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="444" height="429"/>
+                        <rect key="frame" x="0.0" y="0.0" width="444" height="433"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hOj-3v-oXT" customClass="PDTextField" customModule="SwiftMenu" customModuleProvider="target">
-                                <rect key="frame" x="2" y="406" width="440" height="21"/>
+                                <rect key="frame" x="2" y="406" width="440" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="UC9-7e-zh1"/>
+                                    <constraint firstAttribute="height" constant="25" id="UC9-7e-zh1"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="0vq-JV-hht">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" size="16" name="Menlo-Regular"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -755,7 +755,7 @@
                                                                     <rect key="frame" x="0.0" y="4" width="421" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="BGs-sh-cjS">
-                                                                        <font key="font" usesAppearanceFont="YES"/>
+                                                                        <font key="font" size="14" name="Menlo-Regular"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
