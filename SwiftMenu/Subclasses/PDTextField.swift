@@ -43,6 +43,8 @@ class PDTextField: NSTextField {
     override func becomeFirstResponder() -> Bool {
         let res = super.becomeFirstResponder()
 
+        // https://github.com/onmyway133/blog/issues/588
+        // https://stackoverflow.com/questions/25705232/track-selection-range-change-for-nstextfield-cocoa
         if let ed = self.currentEditor() {
             ed.delegate = self
         }

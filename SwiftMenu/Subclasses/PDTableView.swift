@@ -9,6 +9,9 @@ import Cocoa
 
 class PDTableView: NSTableView {
 
+    // https://stackoverflow.com/questions/24496760/change-the-font-font-color-and-background-color-of-an-nstableview-at-runtime-us
+    // https://stackoverflow.com/questions/17095927/dynamically-changing-row-height-after-font-size-of-entire-nstableview-nsoutlin
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.refusesFirstResponder = true
