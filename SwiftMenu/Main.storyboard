@@ -711,15 +711,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="444" height="434"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="xyu-qM-33j" customClass="PDPurpleView" customModule="SwiftMenu" customModuleProvider="target">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="xyu-qM-33j" customClass="PDColourView" customModule="SwiftMenu" customModuleProvider="target">
                                 <rect key="frame" x="3" y="406" width="438" height="25"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hOj-3v-oXT" customClass="PDTextField" customModule="SwiftMenu" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="438" height="22"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="this is what a search looks like" drawsBackground="YES" id="0vq-JV-hht">
+                                        <rect key="frame" x="-2" y="0.0" width="442" height="22"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="this is what a search looks like" id="0vq-JV-hht">
                                             <font key="font" size="16" name="Menlo-Regular"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <color key="backgroundColor" name="systemPurpleColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </textFieldCell>
                                     </textField>
                                 </subviews>
@@ -741,8 +741,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="438" height="400"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="17" height="0.0"/>
-                                            <color key="backgroundColor" name="systemPurpleColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="gridColor" name="systemPurpleColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="gridColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <tableColumns>
                                                 <tableColumn identifier="NameCellID" editable="NO" width="426" minWidth="40" maxWidth="1000" id="d98-to-8pT">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
@@ -807,6 +807,7 @@
                     </view>
                     <connections>
                         <outlet property="inputField" destination="hOj-3v-oXT" id="sEA-6s-irO"/>
+                        <outlet property="inputPaddingView" destination="xyu-qM-33j" id="RDS-5L-vEq"/>
                         <outlet property="paddingView" destination="xyu-qM-33j" id="KAY-8n-eu1"/>
                         <outlet property="password_table_view" destination="XCk-Lq-LvS" id="phR-ne-sbk"/>
                     </connections>

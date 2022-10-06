@@ -52,16 +52,7 @@ class ShowHandler: HttpRequestHandler {
         response.data = "Raised window\n".data(using: .utf8)
 
         DispatchQueue.main.async {
-            // Even though this stuff appears to work now, bear in mind that https://stackoverflow.com/questions/17528157/nstextfield-and-firstresponder and https://stackoverflow.com/a/17547777 specifically say you need to
-            // [[NSApp mainWindow] resignFirstResponder];
-            // (context: "I need to capture this event the NSTextField loses the focus ring to save the uncommitted changes .")
-            //
-            // See also https://stackoverflow.com/questions/31015568/nssearchfield-occasionally-causing-an-nsinternalinconsistencyexception
-            NSApp.mainWindow?.makeKeyAndOrderFront(nil)
-            NSApp.activate(ignoringOtherApps: true)
-            self.vc.clearFilter()
-            NSApp.mainWindow?.makeFirstResponder(self.vc.inputField)
-            self.vc.password_table_view.selectRow(row: 0)
+            self.vc.showMe()
         }
     }
 }
@@ -115,6 +106,10 @@ class PasswordQueryHandler: HttpRequestHandler {
         semaphore = DispatchSemaphore(value: 0)
         vc.semaphore = semaphore
         vc.globalSuccess = false
+        DispatchQueue.main.async {
+            self.vc.isHandlingRequest = true
+            self.vc.showMe()
+        }
 
         var passwordResult : String?
 
@@ -130,10 +125,11 @@ class PasswordQueryHandler: HttpRequestHandler {
         case .timedOut:
             response.status = .notFound
             response.data = "Timed out asking for password.\n".data(using: .utf8)
-            DispatchQueue.main.async {
-                NSApp.hide(NSApp.mainWindow)
-            }
-            return
+        }
+
+        DispatchQueue.main.async {
+            NSApp.hide(NSApp.mainWindow)
+            self.vc.isHandlingRequest = false
         }
 
         // return the thing the dialog sent us

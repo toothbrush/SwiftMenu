@@ -12,8 +12,30 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var password_table_view: NSTableView!
     @IBOutlet weak var inputField: NSTextField!
+    @IBOutlet weak var inputPaddingView: PDColourView!
 
     weak var semaphore: DispatchSemaphore?
+
+    private var _isHandlingRequest: Bool = false
+    var isHandlingRequest: Bool {
+        get {
+            return _isHandlingRequest
+        }
+        set {
+            _isHandlingRequest = newValue
+            let col = _isHandlingRequest ? NSColor.systemPurple : NSColor.systemRed
+            inputPaddingView.colour = col
+            inputPaddingView.needsDisplay = true
+            inputField.backgroundColor = col
+            if let cell = inputField.cell as? NSTextFieldCell {
+                cell.backgroundColor = col
+                cell.controlView?.displayIfNeeded()
+            }
+            inputField.drawsBackground = true
+            inputField.needsDisplay = true
+            password_table_view.backgroundColor = col
+        }
+    }
 
     var globalSuccess = false
 
@@ -87,6 +109,21 @@ class ViewController: NSViewController {
         guard filter != "" else { return true }
 
         return pass_entry.range(of: filter, options: .caseInsensitive) != nil
+    }
+}
+
+extension ViewController {
+    func showMe() {
+        // Even though this stuff appears to work now, bear in mind that https://stackoverflow.com/questions/17528157/nstextfield-and-firstresponder and https://stackoverflow.com/a/17547777 specifically say you need to
+        // [[NSApp mainWindow] resignFirstResponder];
+        // (context: "I need to capture this event the NSTextField loses the focus ring to save the uncommitted changes .")
+        //
+        // See also https://stackoverflow.com/questions/31015568/nssearchfield-occasionally-causing-an-nsinternalinconsistencyexception
+        NSApp.mainWindow?.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
+        self.clearFilter()
+        NSApp.mainWindow?.makeFirstResponder(self.inputField)
+        self.password_table_view.selectRow(row: 0)
     }
 }
 

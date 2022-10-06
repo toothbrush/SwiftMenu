@@ -16,7 +16,7 @@ class PDTableRowView: NSTableRowView {
     }
 
     override func drawBackground(in dirtyRect: NSRect) {
-        NSColor.systemPurple.set()
+        backgroundColor.set()
         let background = NSBezierPath.init(rect: self.bounds)
         background.fill()
     }
