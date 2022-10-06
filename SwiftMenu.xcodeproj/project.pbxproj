@@ -21,6 +21,7 @@
 		DA9DAFAB28EBEBF7008EAF53 /* PDApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFAA28EBEBF7008EAF53 /* PDApplication.swift */; };
 		DA9DAFAD28ED357D008EAF53 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFAC28ED357D008EAF53 /* Util.swift */; };
 		DA9DAFAF28EE4610008EAF53 /* PDTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFAE28EE4610008EAF53 /* PDTextView.swift */; };
+		DA9DAFB128EE586A008EAF53 /* PDSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFB028EE586A008EAF53 /* PDSquareView.swift */; };
 		DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173DF28EA424500EFE3FC /* AppDelegate.swift */; };
 		DAC173E228EA424500EFE3FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E128EA424500EFE3FC /* ViewController.swift */; };
 		DAC173E528EA424500EFE3FC /* SwiftMenu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E328EA424500EFE3FC /* SwiftMenu.xcdatamodeld */; };
@@ -40,6 +41,7 @@
 		DA9DAFAA28EBEBF7008EAF53 /* PDApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDApplication.swift; sourceTree = "<group>"; };
 		DA9DAFAC28ED357D008EAF53 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		DA9DAFAE28EE4610008EAF53 /* PDTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDTextView.swift; sourceTree = "<group>"; };
+		DA9DAFB028EE586A008EAF53 /* PDSquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDSquareView.swift; sourceTree = "<group>"; };
 		DAC173DC28EA424500EFE3FC /* SwiftMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC173DF28EA424500EFE3FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAC173E128EA424500EFE3FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				DA9DAFAA28EBEBF7008EAF53 /* PDApplication.swift */,
+				DA9DAFB028EE586A008EAF53 /* PDSquareView.swift */,
 				DA9DAF9D28EA9879008EAF53 /* PDTableRowView.swift */,
 				DA9DAFA628EBDFD3008EAF53 /* PDTableView.swift */,
 				DA9DAFA228EBCDDC008EAF53 /* PDTextField.swift */,
@@ -208,6 +211,7 @@
 				DA9DAFA928EBE0D8008EAF53 /* PDWindow.swift in Sources */,
 				DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */,
 				DA9DAFAB28EBEBF7008EAF53 /* PDApplication.swift in Sources */,
+				DA9DAFB128EE586A008EAF53 /* PDSquareView.swift in Sources */,
 				DA9DAF9E28EA9879008EAF53 /* PDTableRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
