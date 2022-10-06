@@ -32,6 +32,8 @@ class PDTextField: NSTextField {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         nextResponder = nil
+        isBezeled = false
+        isBordered = false
     }
 
     override func validateProposedFirstResponder(_ responder: NSResponder, for event: NSEvent?) -> Bool {

@@ -716,7 +716,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="UC9-7e-zh1"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="0vq-JV-hht">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="this is what a search looks like" drawsBackground="YES" id="0vq-JV-hht">
                                     <font key="font" size="16" name="Menlo-Regular"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="backgroundColor" name="systemPurpleColor" catalog="System" colorSpace="catalog"/>
