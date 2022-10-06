@@ -40,6 +40,7 @@ class PDTextField: NSTextField {
 
     // This was far from obvious to me, but these helped:
     // - https://stackoverflow.com/questions/25705232/track-selection-range-change-for-nstextfield-cocoa
+    // Here we're intercepting the becomeFirstResponder call, because it's at that point that currentEditor() is set to the NSWindow's text editor instance (a shared NSTextView).  Weirdly, this delegate-setting doesn't seem to be necessary for the textView:willChangeSelectionFromCharacterRanges:toCharacterRanges below to get called!  Is it possible that by default, the current-editor's delegate is set to the active NSTextField?  Who knows.  Weird.
     override func becomeFirstResponder() -> Bool {
         let res = super.becomeFirstResponder()
 
