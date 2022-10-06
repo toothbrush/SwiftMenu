@@ -41,30 +41,29 @@ archive: clean
 .PHONY: notarize
 notarize:
 	@echo "Submitting app for notarization..."
-
-	xcrun altool --notarize-app \
-	  --primary-bundle-id $(BUNDLE_ID) \
-	  --team-id $(TEAM_ID) \
-	  -u $(AC_USERNAME) \
-	  -p @env:AC_PASSWORD \
-	  --file $(ZIP_PATH)
-
+	@xcrun notarytool store-credentials AC_PASSWORD_SWIFTMENU \
+	  --apple-id ${AC_USERNAME} \
+	  --team-id ${TEAM_ID} \
+	  --password ${AC_PASSWORD}
+	xcrun notarytool submit ${ZIP_PATH} \
+	  --team-id ${TEAM_ID} \
+	  --apple-id ${AC_USERNAME} \
+	  --keychain-profile AC_PASSWORD_SWIFTMENU \
+	  --wait
 	@echo "Application sent to the notarization center"
-
-	sleep 30s
 
 .PHONY: sign
 sign:
 	@echo "Checking if package is approved by Apple..."
-
-	@while true; do \
-		if [[ "$$(xcrun altool --notarization-history 0 --team-id ${TEAM_ID} -u $(AC_USERNAME) -p @env:AC_PASSWORD | sed -n '6p')" == *"success"* ]]; then \
-			echo "OK" ;\
-			break ;\
-		fi ;\
-		echo "Package was not approved by Apple, recheck in 10s..."; \
-		sleep 10s ;\
-	done
+	@xcrun notarytool store-credentials AC_PASSWORD_SWIFTMENU \
+	  --apple-id ${AC_USERNAME} \
+	  --team-id ${TEAM_ID} \
+	  --password ${AC_PASSWORD}
+	xcrun notarytool history \
+	  --team-id ${TEAM_ID} \
+	  --apple-id ${AC_USERNAME} \
+	  --keychain-profile AC_PASSWORD_SWIFTMENU \
+	  --output-format json
 
 	@echo "Going to staple an application..."
 
@@ -101,10 +100,3 @@ next-version:
 	versionNumber=$$((versionNumber + 1)) ;\
 	@echo "Next version is: $$versionNumber" ;\
 	/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $$versionNumber" "$(PWD)/SwiftMenu/Info.plist" ;\
-
-.PHONY: history
-history:
-	xcrun altool --notarization-history 0 \
-		--team-id ${TEAM_ID} \
-		-u $(AC_USERNAME) \
-		-p @env:AC_PASSWORD
