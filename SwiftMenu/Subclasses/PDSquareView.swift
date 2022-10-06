@@ -13,6 +13,8 @@ class PDSquareView: NSView {
         super.init(coder: coder)
     }
 
+    // inspiration for this bit:
+    // https://developer.apple.com/library/archive/samplecode/RoundTransparentWindow/Listings/Classes_CustomWindow_m.html#//apple_ref/doc/uid/DTS10000401-Classes_CustomWindow_m-DontLinkElementID_8
     override func draw(_ dirtyRect: NSRect) {
         NSColor.black.set()
         NSRectFromCGRect(self.frame).fill()
