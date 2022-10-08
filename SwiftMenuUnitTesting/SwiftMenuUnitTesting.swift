@@ -11,23 +11,27 @@ class SwiftMenuUnitTesting: XCTestCase {
 
     var passwordList: [String]!
 
-    override func setUpWithError() throws {
+    override func setUp() {
         passwordList = [
+            "appleid/boo@zonk.com",
+            "appleid/frank@example.com",
+            "aws-console/rumbleflutes",
+            "aws-console/zilch-com",
             "foozoo.com",
             "zoo.com.au",
         ]
     }
 
-    override func tearDownWithError() throws {
+    override func tearDown() {
         passwordList = nil
     }
 
-    func testEmptyFilterWorks() throws {
-        XCTAssert(passwordList.count > 0)
-        XCTAssert(PasswordList.filteredEntriesList(filter: "  ", entries: passwordList) == passwordList)
+    func testEmptyFilterWorks() {
+        XCTAssertGreaterThan(passwordList.count, 0)
+        XCTAssertEqual(PasswordList.filteredEntriesList(filter: "  ", entries: passwordList), passwordList)
     }
 
-    func testTrivialFilterWorks() throws {
+    func testTrivialFilterWorks() {
         XCTAssert(PasswordList.filteredEntriesList(filter: "foo", entries: passwordList).contains("foozoo.com"))
     }
 
