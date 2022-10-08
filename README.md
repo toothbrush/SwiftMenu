@@ -37,7 +37,3 @@ Special thanks to the fine folks behind [The Ultimate Oldschool PC Font Pack](ht
     * After the first "strict" round, we redo the search, but without caring whether the first filter word is the prefix of the
       entry or not.
     * Of course, we present a unique'd list of results.
-
-## Some rough edges
-
-* Maybe a down-arrow indicator that there's more?
