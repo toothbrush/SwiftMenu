@@ -36,14 +36,14 @@ class SwiftMenuUnitTesting: XCTestCase {
     }
 
     func testPrefixPreferred() {
-        // we're hoping that given two options, "zoo" and "foozoo", searching for "zoo" will initially match as if you searched for "^zoo", because it's.. closer?  Maybe this will be
+        // we're hoping that given two options, "zoo" and "foozoo", searching for "zoo" will initially match as if you searched for "^zoo", because it's.. closer?  Maybe this will be annoying, we'll see
         XCTAssertEqual(
             PasswordList.filteredEntriesList(filter: "zoo", entries: passwordList).first!,
             "zoo.com.au")
     }
 
     func testPrefixNonExclusive() {
-        // we're hoping that given two options, "zoo" and "foozoo", searching for "zoo" will initially match as if you searched for "^zoo", because it's.. closer?  Maybe this will be
+        // make sure we don't elide valid matches though
         XCTAssert(
             PasswordList.filteredEntriesList(filter: "zoo", entries: passwordList).contains("foozoo.com"))
     }
