@@ -10,6 +10,17 @@ import PathKit
 
 let PATH = NSString("~/.password-store").expandingTildeInPath
 
+extension Sequence where Element: Hashable {
+    // i'm a little surprised this works, but i guess that never stopped anyone from ripping things off StackOverflow :/
+    // https://stackoverflow.com/questions/25738817/removing-duplicate-elements-from-an-array-in-swift
+    // i guess that `set` is being mutated by every call that `filter` makes.. hm. and then reinitialised next time you call uniqued().  I guess that's reasonable.
+    // See also https://developer.apple.com/documentation/swift/set/insert(_:)-nads
+    func uniqued() -> [Element] {
+        var set = Set<Element>()
+        return filter { set.insert($0).inserted }
+    }
+}
+
 class PasswordList {
     static func filteredEntriesList(filter: String, entries: [String]) -> [String] {
         guard !filter.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -28,7 +39,12 @@ class PasswordList {
             multiwordMatch(filterWords: filterWords, entry: item, mustBePrefix: true)
         })
 
-        return strictPrefixResults
+        // we don't want to miss out on slightly more lax search results though; put them at the end of the list
+        let laxResults = entries.filter({ item in
+            multiwordMatch(filterWords: filterWords, entry: item, mustBePrefix: false)
+        })
+
+        return (strictPrefixResults + laxResults).uniqued()
     }
 
     static private func multiwordMatch(filterWords: [String], entry: String, mustBePrefix strict: Bool) -> Bool {
