@@ -794,18 +794,33 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zyY-9E-zr5">
+                                <rect key="frame" x="376" y="2" width="64" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="7BB-II-63a"/>
+                                    <constraint firstAttribute="width" constant="60" id="YEQ-fg-SBm"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Label" id="yDz-Dd-FV5">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="xyu-qM-33j" secondAttribute="trailing" constant="3" id="47g-nX-NwC"/>
+                            <constraint firstAttribute="bottom" secondItem="zyY-9E-zr5" secondAttribute="bottom" constant="2" id="4Wj-Na-872"/>
                             <constraint firstItem="xyu-qM-33j" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="3" id="RKG-U8-GYg"/>
                             <constraint firstAttribute="trailing" secondItem="RSo-hM-8Ss" secondAttribute="trailing" constant="2" id="TUn-LD-fV2"/>
                             <constraint firstItem="RSo-hM-8Ss" firstAttribute="top" secondItem="xyu-qM-33j" secondAttribute="bottom" constant="2" id="YEV-sr-VaC"/>
+                            <constraint firstAttribute="trailing" secondItem="zyY-9E-zr5" secondAttribute="trailing" constant="6" id="e5W-p9-nuI"/>
                             <constraint firstItem="RSo-hM-8Ss" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="2" id="etb-ve-TQP"/>
                             <constraint firstAttribute="bottom" secondItem="RSo-hM-8Ss" secondAttribute="bottom" constant="2" id="guP-Rr-tfZ"/>
                             <constraint firstItem="xyu-qM-33j" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="3" id="oRk-Vx-cCB"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="filterCountLabel" destination="zyY-9E-zr5" id="ggO-iA-X0w"/>
                         <outlet property="inputField" destination="hOj-3v-oXT" id="sEA-6s-irO"/>
                         <outlet property="inputPaddingView" destination="xyu-qM-33j" id="RDS-5L-vEq"/>
                         <outlet property="paddingView" destination="xyu-qM-33j" id="KAY-8n-eu1"/>

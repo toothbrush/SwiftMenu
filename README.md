@@ -38,5 +38,4 @@ Here's a screenshot:
 
 ## Some rough edges
 
-* Maybe a filtered/total counter?
 * Maybe a down-arrow indicator that there's more?

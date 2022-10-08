@@ -13,7 +13,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var password_table_view: NSTableView!
     @IBOutlet weak var inputField: NSTextField!
     @IBOutlet weak var inputPaddingView: PDColourView!
-
+    @IBOutlet weak var filterCountLabel: NSTextField!
+    
     weak var semaphore: DispatchSemaphore?
 
     private var _isHandlingRequest: Bool = false
@@ -52,6 +53,10 @@ class ViewController: NSViewController {
 
         password_table_view.delegate = self
         password_table_view.dataSource = self
+
+        filterCountLabel.font = NSFont(name: "MxPlus_IBM_VGA_8x16", size: 16)
+        filterCountLabel.textColor = NSColor.lightGray
+        filterCountLabel.stringValue = ""
 
         run_timed {
             // if this fails, probably better to just crash:
@@ -115,6 +120,7 @@ class ViewController: NSViewController {
 
         self.password_table_view.reloadData()
         self.password_table_view.selectRow(row: 0)
+        self.filterCountLabel.stringValue = "\(self.filteredPasswordList.count)/\(self.actualPasswordList.count)"
     }
 }
 
