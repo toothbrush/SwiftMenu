@@ -27,6 +27,10 @@ class SwiftMenuUnitTesting: XCTestCase {
         XCTAssert(PasswordList.filteredEntriesList(filter: "  ", entries: passwordList) == passwordList)
     }
 
+    func testTrivialFilterWorks() throws {
+        XCTAssert(PasswordList.filteredEntriesList(filter: "foo", entries: passwordList).contains("foozoo.com"))
+    }
+
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         measure {
