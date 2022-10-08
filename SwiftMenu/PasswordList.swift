@@ -10,6 +10,21 @@ import PathKit
 
 let PATH = NSString("~/.password-store").expandingTildeInPath
 
+class PasswordList {
+    static func filteredEntriesList(filter: String, entries: [String]) -> [String] {
+        entries.filter({ item in
+            singleEntryMatches(filter: filter, entry: item)
+        })
+    }
+
+    static func singleEntryMatches(filter: String, entry: String) -> Bool {
+        // the empty string is found in no other string!
+        guard filter.trimmingCharacters(in: .whitespacesAndNewlines) != "" else { return true }
+
+        return entry.range(of: filter, options: .caseInsensitive) != nil
+    }
+}
+
 func contentsOfPasswordDirectory() throws -> [String] {
     var items : [String] = []
 
@@ -55,7 +70,6 @@ extension ViewController {
     func refreshPasswordListAndTableView() -> Bool {
         if let list = try? prettyPasswordsList() {
             self.actualPasswordList = list
-            self.filteredPasswordList = self.actualPasswordList
             DispatchQueue.main.async {
                 self.clearFilter()
             }

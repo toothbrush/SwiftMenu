@@ -110,19 +110,11 @@ class ViewController: NSViewController {
     func updateTableWithFilter() {
         let filter = self.inputField.stringValue
 
-        self.filteredPasswordList = self.actualPasswordList.filter({ pass in
-            entryMatches(filter: filter, pass_entry: pass)
-        })
+        self.filteredPasswordList = PasswordList.filteredEntriesList(filter: filter,
+                                                                     entries: self.actualPasswordList)
 
         self.password_table_view.reloadData()
         self.password_table_view.selectRow(row: 0)
-    }
-
-    func entryMatches(filter: String, pass_entry: String) -> Bool {
-        // the empty string is found in no other string!
-        guard filter != "" else { return true }
-
-        return pass_entry.range(of: filter, options: .caseInsensitive) != nil
     }
 }
 
