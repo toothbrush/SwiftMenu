@@ -23,52 +23,52 @@ class PasswordList {
 
         return entry.range(of: filter, options: .caseInsensitive) != nil
     }
-}
 
-func contentsOfPasswordDirectory() throws -> [String] {
-    var items : [String] = []
+    static func contentsOfPasswordDirectory() throws -> [String] {
+        var items : [String] = []
 
-    print("Password store: \(PATH)")
+        print("Password store: \(PATH)")
 
-    let task = Process()
-    task.launchPath = "/usr/bin/find" // assuming BSD find - we're on macOS, after all.
-    task.arguments = ["-L", "-s", "-x", PATH, "-type", "f", "-iname", "*.gpg"]
+        let task = Process()
+        task.launchPath = "/usr/bin/find" // assuming BSD find - we're on macOS, after all.
+        task.arguments = ["-L", "-s", "-x", PATH, "-type", "f", "-iname", "*.gpg"]
 
-    let pipe = Pipe()
-    task.standardOutput = pipe
-    task.launch()
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.launch()
 
-    let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    if let output = String(data: data, encoding: .utf8) {
-        output.enumerateLines { line, stop in
-            items.append(line)
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        if let output = String(data: data, encoding: .utf8) {
+            output.enumerateLines { line, stop in
+                items.append(line)
+            }
         }
+
+        task.waitUntilExit()
+        let status = task.terminationStatus
+        assert(status == 0)
+        print("Found \(items.count) password entries")
+
+        return items
     }
 
-    task.waitUntilExit()
-    let status = task.terminationStatus
-    assert(status == 0)
-    print("Found \(items.count) password entries")
+    static func prettyPasswordsList() throws -> [String] {
+        let raw_files : [String] = try contentsOfPasswordDirectory()
 
-    return items
-}
+        // Regex replace:  https://developer.apple.com/documentation/foundation/nsregularexpression#//apple_ref/occ/instm/NSRegularExpression/stringByReplacingMatchesInString:options:range:withTemplate:
+        let regex = ".*/\\.password-store/(.+)\\.gpg"
+        let repl = "$1"
 
-func prettyPasswordsList() throws -> [String] {
-    let raw_files : [String] = try contentsOfPasswordDirectory()
-
-    // Regex replace:  https://developer.apple.com/documentation/foundation/nsregularexpression#//apple_ref/occ/instm/NSRegularExpression/stringByReplacingMatchesInString:options:range:withTemplate:
-    let regex = ".*/\\.password-store/(.+)\\.gpg"
-    let repl = "$1"
-
-    return raw_files.map { path in
-        return path.replacingOccurrences(of: regex, with: repl, options: [.regularExpression])
+        return raw_files.map { path in
+            return path.replacingOccurrences(of: regex, with: repl, options: [.regularExpression])
+        }
     }
 }
 
 extension ViewController {
     // Returns whether it was successful
     func refreshPasswordListAndTableView() -> Bool {
-        if let list = try? prettyPasswordsList() {
+        if let list = try? PasswordList.prettyPasswordsList() {
             self.actualPasswordList = list
             DispatchQueue.main.async {
                 self.clearFilter()
