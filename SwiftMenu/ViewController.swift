@@ -88,6 +88,20 @@ class ViewController: NSViewController {
         }
     }
 
+    // For help with custom fonts, see https://troz.net/post/2020/custom-fonts/
+    func listInstalledFonts() {
+        let fontFamilies = NSFontManager.shared.availableFontFamilies.sorted()
+        for family in fontFamilies {
+            print(family)
+            let familyFonts = NSFontManager.shared.availableMembers(ofFontFamily: family)
+            if let fonts = familyFonts {
+                for font in fonts {
+                    print("\t\(font)")
+                }
+            }
+        }
+    }
+
     func clearFilter() {
         self.inputField.stringValue = ""
         updateTableWithFilter()
