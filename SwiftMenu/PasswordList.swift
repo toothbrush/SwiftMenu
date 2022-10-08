@@ -12,16 +12,55 @@ let PATH = NSString("~/.password-store").expandingTildeInPath
 
 class PasswordList {
     static func filteredEntriesList(filter: String, entries: [String]) -> [String] {
-        entries.filter({ item in
-            singleEntryMatches(filter: filter, entry: item)
+        guard !filter.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            // If the filter is just whitespace (the initial state), return all
+            // (Fun fact, according to String.range in Swift, the empty string is found in no other string!)
+            // ((I guess actually that makes sense))
+            return entries
+        }
+
+        let filterWords = filter // let's say we have a filter like "asdf jkl"
+            .split(whereSeparator: { c in c.isWhitespace }) // separate into groups ["asdf", "jkl"] (whitespace is trimmed)
+            .map(String.init) // aHA and in Swift we have to actually make Strings explicitly!
+
+        print(filterWords)
+
+        // first see if we can find anything, being strict about the first group matching the start of the string
+        let firstTry = entries.filter({ item in
+            strictPrefixMatch(filterWords: filterWords, entry: item)
         })
+
+        return firstTry
     }
 
-    static func singleEntryMatches(filter: String, entry: String) -> Bool {
-        // the empty string is found in no other string!
-        guard filter.trimmingCharacters(in: .whitespacesAndNewlines) != "" else { return true }
+    static private func strictPrefixMatch(filterWords: [String], entry: String) -> Bool {
+        guard filterWords.count > 0 else {
+            print("Oh shit, this should never happen!  You passed no filter to this internal function!")
+            return false
+        }
 
-        return entry.range(of: filter, options: .caseInsensitive) != nil
+        let firstWord = filterWords[0]
+        var stillMatching = entry.hasPrefix(firstWord)
+
+        if stillMatching {
+            // okay, maybe we're in business
+            var matchedThusFar : Int = firstWord.count
+            for fw in filterWords[1...] {
+                let lowerBound = entry.index(entry.startIndex, offsetBy: matchedThusFar)
+                let upperBound = entry.endIndex
+                let tail = entry[lowerBound..<upperBound]
+                if let match = tail.range(of: fw) {
+                    matchedThusFar = matchedThusFar + tail.distance(from: tail.startIndex, to: match.upperBound)
+                    puts("matchedThusFar = \(matchedThusFar)")
+                    // we continue to be in business:
+                    // but stillMatching starts true, so we do nothing
+                } else {
+                    // uh oh, something didn't match.
+                    stillMatching = false
+                }
+            }
+        }
+        return stillMatching
     }
 
     static func contentsOfPasswordDirectory() throws -> [String] {
