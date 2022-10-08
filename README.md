@@ -33,5 +33,3 @@ Here's a screenshot:
 * Maybe add a prompt label at the beginning?
 * Maybe a filtered/total counter?
 * Maybe a down-arrow indicator that there's more?
-
-* Consider a bitmapped font from [that IBM whatever 8h website](https://int10h.org/oldschool-pc-fonts/fontlist/)?

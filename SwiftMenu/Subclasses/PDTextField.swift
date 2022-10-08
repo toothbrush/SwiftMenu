@@ -34,6 +34,7 @@ class PDTextField: NSTextField {
         nextResponder = nil
         isBezeled = false
         isBordered = false
+        font = NSFont(name: "MxPlus_IBM_VGA_8x16", size: 16)
     }
 
     override func validateProposedFirstResponder(_ responder: NSResponder, for event: NSEvent?) -> Bool {

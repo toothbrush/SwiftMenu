@@ -174,6 +174,7 @@ extension ViewController: NSTableViewDelegate {
             if let cell = tableView.makeView(withIdentifier: ident, owner: self) as? NSTableCellView {
                 if ident.rawValue == cellIdentifier {
                     cell.textField?.stringValue = text
+                    cell.textField?.font = NSFont(name: "MxPlus_IBM_VGA_8x16", size: 16)
                 }
                 return cell
             }
