@@ -15,13 +15,7 @@ class PDTextView: NSTextView {
     // https://developers.apple.com/library/archive/documentation/TextFonts/Conceptual/CocoaTextArchitecture/TextEditing/TextEditing.html#//apple_ref/doc/uid/TP40009459-CH3-SW29
     // https://developers.apple.com/library/archive/documentation/Cocoa/Conceptual/TextEditing/Tasks/Subclassing.html#//apple_ref/doc/uid/20000937-CJBJHGAG
 
-    override func selectionRange(forProposedRange proposedCharRange: NSRange,
-                                 granularity: NSSelectionGranularity) -> NSRange {
-
-        print("my subclass is called!!!")
-        return super.selectionRange(forProposedRange: proposedCharRange, granularity: granularity)
-    }
-
+    // we tried to override selectionRange(forProposedRange:granularity) here, and it sort-of worked – shift-arrows were blocked, but cmd-shift-arrow still could select the whole text...  so yeah.  give up on that.
     let customCaretWidth = 3.0
 
     // https://stackoverflow.com/questions/15647874/custom-insertion-point-for-nstextview
