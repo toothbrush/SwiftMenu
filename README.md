@@ -21,6 +21,8 @@ Here's a screenshot:
 
 <img src="/img/screenshot.png" alt="A screenshot of the SwiftMenu window" width="484" />
 
+Special thanks to the fine folks behind [The Ultimate Oldschool PC Font Pack](https://int10h.org/oldschool-pc-fonts/readme).
+
 ## How matching works
 
 * This probably doesn't suit anyone else's preference.  That's fine.
