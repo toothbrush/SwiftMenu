@@ -17,6 +17,10 @@ class PDTableView: NSTableView {
         self.refusesFirstResponder = true
     }
 
+    override func hitTest(_ point: NSPoint) -> NSView? {
+        return nil
+    }
+
     override func becomeFirstResponder() -> Bool {
         return false
     }

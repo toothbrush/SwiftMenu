@@ -37,6 +37,14 @@ class PDTextField: NSTextField {
         font = NSFont(name: "MxPlus_IBM_VGA_8x16", size: 16)
     }
 
+    override func hitTest(_ point: NSPoint) -> NSView? {
+        return nil
+    }
+
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
+        return false
+    }
+
     override func validateProposedFirstResponder(_ responder: NSResponder, for event: NSEvent?) -> Bool {
         return true
     }
@@ -86,4 +94,3 @@ extension PDTextField: NSTextViewDelegate {
         }
     }
 }
-

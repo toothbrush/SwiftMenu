@@ -27,6 +27,10 @@ class PDWindow: NSWindow {
         assert(self.canBecomeMain)
     }
 
+    override func mouseDown(with event: NSEvent) {
+        self.performDrag(with: event)
+    }
+
     // https://stackoverflow.com/questions/33168570/nswindow-resize-indicator-not-visible,
     // updated for Swift:
     // https://github.com/bitsdojo/bitsdojo_window/blob/9b83939c321caa438da4be598f527f028e0efa5f/bitsdojo_window_macos/macos/Classes/BitsdojoWindow.swift
