@@ -19,7 +19,7 @@ I think i need to go away and take a few consecutive showers.
 
 Here's a screenshot:
 
-<img src="/img/screenshot.png" alt="A screenshot of the SwiftMenu window" />
+<img src="/img/screenshot.png" alt="A screenshot of the SwiftMenu window" width="484" />
 
 ## Some rough edges
 
