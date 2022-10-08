@@ -23,43 +23,49 @@ class PasswordList {
             .split(whereSeparator: { c in c.isWhitespace }) // separate into groups ["asdf", "jkl"] (whitespace is trimmed)
             .map(String.init) // aHA and in Swift we have to actually make Strings explicitly!
 
-        print(filterWords)
-
         // first see if we can find anything, being strict about the first group matching the start of the string
-        let firstTry = entries.filter({ item in
-            strictPrefixMatch(filterWords: filterWords, entry: item)
+        let strictPrefixResults = entries.filter({ item in
+            multiwordMatch(filterWords: filterWords, entry: item, mustBePrefix: true)
         })
 
-        return firstTry
+        return strictPrefixResults
     }
 
-    static private func strictPrefixMatch(filterWords: [String], entry: String) -> Bool {
+    static private func multiwordMatch(filterWords: [String], entry: String, mustBePrefix strict: Bool) -> Bool {
         guard filterWords.count > 0 else {
             print("Oh shit, this should never happen!  You passed no filter to this internal function!")
             return false
         }
 
-        let firstWord = filterWords[0]
-        var stillMatching = entry.hasPrefix(firstWord)
+        var stillMatching: Bool
+
+        if strict {
+            // we must stop early if strict = true and the firstWord isn't the prefix of the candidate string.
+            stillMatching = entry.hasPrefix(filterWords[0])
+        } else {
+            // i mean, who knows, but the for loop will find out for us.
+            stillMatching = true
+        }
 
         if stillMatching {
-            // okay, maybe we're in business
-            var matchedThusFar : Int = firstWord.count
-            for fw in filterWords[1...] {
+            // okay, maybe we're in business. let's start at the beginning though, in case strict=false.
+            var matchedThusFar: Int = 0 // the start of `entry`
+            for word in filterWords {
+                // these bounds are the range within which we'll search for our keyword
                 let lowerBound = entry.index(entry.startIndex, offsetBy: matchedThusFar)
                 let upperBound = entry.endIndex
+                // we want to ignore bits of the string that have matched previous keywords, hence `tail`
                 let tail = entry[lowerBound..<upperBound]
-                if let match = tail.range(of: fw) {
+                if let match = tail.range(of: word) {
                     matchedThusFar = matchedThusFar + tail.distance(from: tail.startIndex, to: match.upperBound)
-                    puts("matchedThusFar = \(matchedThusFar)")
-                    // we continue to be in business:
-                    // but stillMatching starts true, so we do nothing
+                    // we continue to be in business!
                 } else {
                     // uh oh, something didn't match.
-                    stillMatching = false
+                    return false
                 }
             }
         }
+        // the only way we can get here is if stillMatching = true, but hey.
         return stillMatching
     }
 
