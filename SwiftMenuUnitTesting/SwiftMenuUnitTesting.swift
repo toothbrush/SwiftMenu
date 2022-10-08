@@ -71,6 +71,7 @@ class SwiftMenuUnitTesting: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
+        throw XCTSkip("This test is boring and slow.")
         measure {
             let _ = try! PasswordList.prettyPasswordsList()
         }
