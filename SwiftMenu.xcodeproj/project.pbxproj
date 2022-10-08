@@ -28,7 +28,20 @@
 		DAC173E528EA424500EFE3FC /* SwiftMenu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E328EA424500EFE3FC /* SwiftMenu.xcdatamodeld */; };
 		DAC173E728EA424700EFE3FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAC173E628EA424700EFE3FC /* Assets.xcassets */; };
 		DAC6FE4328F0FC7A0043E5A1 /* MxPlus_IBM_VGA_8x16.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAC6FE4228F0FC7A0043E5A1 /* MxPlus_IBM_VGA_8x16.ttf */; };
+		DAC6FE4E28F1092E0043E5A1 /* SwiftMenuUnitTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC6FE4D28F1092E0043E5A1 /* SwiftMenuUnitTesting.swift */; };
+		DAC6FE5228F10DFF0043E5A1 /* PasswordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */; };
+		DAC6FE6028F10EEF0043E5A1 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFAC28ED357D008EAF53 /* Util.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DAC6FE5328F10E410043E5A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAC173D428EA424500EFE3FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAC173DB28EA424500EFE3FC;
+			remoteInfo = SwiftMenu;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DA9DAF8A28EA5FE9008EAF53 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -53,6 +66,8 @@
 		DAC173EB28EA424700EFE3FC /* SwiftMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftMenu.entitlements; sourceTree = "<group>"; };
 		DAC6FE4228F0FC7A0043E5A1 /* MxPlus_IBM_VGA_8x16.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MxPlus_IBM_VGA_8x16.ttf; sourceTree = "<group>"; };
 		DAC6FE4428F0FCB00043E5A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DAC6FE4B28F1092E0043E5A1 /* SwiftMenuUnitTesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMenuUnitTesting.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAC6FE4D28F1092E0043E5A1 /* SwiftMenuUnitTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMenuUnitTesting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +77,13 @@
 			files = (
 				DA9DAF9A28EA888F008EAF53 /* PathKit in Frameworks */,
 				DA9DAF9328EA66CF008EAF53 /* SwiftHttpServer in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAC6FE4828F1092E0043E5A1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				DAC173DE28EA424500EFE3FC /* SwiftMenu */,
+				DAC6FE4C28F1092E0043E5A1 /* SwiftMenuUnitTesting */,
 				DAC173DD28EA424500EFE3FC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -104,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				DAC173DC28EA424500EFE3FC /* SwiftMenu.app */,
+				DAC6FE4B28F1092E0043E5A1 /* SwiftMenuUnitTesting.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,6 +160,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		DAC6FE4C28F1092E0043E5A1 /* SwiftMenuUnitTesting */ = {
+			isa = PBXGroup;
+			children = (
+				DAC6FE4D28F1092E0043E5A1 /* SwiftMenuUnitTesting.swift */,
+			);
+			path = SwiftMenuUnitTesting;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -160,6 +192,24 @@
 			productReference = DAC173DC28EA424500EFE3FC /* SwiftMenu.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DAC6FE4A28F1092E0043E5A1 /* SwiftMenuUnitTesting */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAC6FE4F28F1092E0043E5A1 /* Build configuration list for PBXNativeTarget "SwiftMenuUnitTesting" */;
+			buildPhases = (
+				DAC6FE4728F1092E0043E5A1 /* Sources */,
+				DAC6FE4828F1092E0043E5A1 /* Frameworks */,
+				DAC6FE4928F1092E0043E5A1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAC6FE5428F10E410043E5A1 /* PBXTargetDependency */,
+			);
+			name = SwiftMenuUnitTesting;
+			productName = SwiftMenuUnitTesting;
+			productReference = DAC6FE4B28F1092E0043E5A1 /* SwiftMenuUnitTesting.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -171,6 +221,9 @@
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					DAC173DB28EA424500EFE3FC = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					DAC6FE4A28F1092E0043E5A1 = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
 				};
@@ -193,6 +246,7 @@
 			projectRoot = "";
 			targets = (
 				DAC173DB28EA424500EFE3FC /* SwiftMenu */,
+				DAC6FE4A28F1092E0043E5A1 /* SwiftMenuUnitTesting */,
 			);
 		};
 /* End PBXProject section */
@@ -205,6 +259,13 @@
 				DAC173E728EA424700EFE3FC /* Assets.xcassets in Resources */,
 				DAC6FE4328F0FC7A0043E5A1 /* MxPlus_IBM_VGA_8x16.ttf in Resources */,
 				DA9DAF8B28EA5FE9008EAF53 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAC6FE4928F1092E0043E5A1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,7 +295,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DAC6FE4728F1092E0043E5A1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAC6FE5228F10DFF0043E5A1 /* PasswordList.swift in Sources */,
+				DAC6FE6028F10EEF0043E5A1 /* Util.swift in Sources */,
+				DAC6FE4E28F1092E0043E5A1 /* SwiftMenuUnitTesting.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DAC6FE5428F10E410043E5A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAC173DB28EA424500EFE3FC /* SwiftMenu */;
+			targetProxy = DAC6FE5328F10E410043E5A1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DAC173EC28EA424700EFE3FC /* Debug */ = {
@@ -416,6 +495,43 @@
 			};
 			name = Release;
 		};
+		DAC6FE5028F1092E0043E5A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M2276M8LUL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rustlingbroccoli.SwiftMenuUnitTesting;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DAC6FE5128F1092E0043E5A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M2276M8LUL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rustlingbroccoli.SwiftMenuUnitTesting;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -433,6 +549,15 @@
 			buildConfigurations = (
 				DAC173EF28EA424700EFE3FC /* Debug */,
 				DAC173F028EA424700EFE3FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAC6FE4F28F1092E0043E5A1 /* Build configuration list for PBXNativeTarget "SwiftMenuUnitTesting" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAC6FE5028F1092E0043E5A1 /* Debug */,
+				DAC6FE5128F1092E0043E5A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
