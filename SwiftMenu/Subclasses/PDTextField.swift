@@ -57,6 +57,7 @@ class PDTextField: NSTextField {
 
         // https://github.com/onmyway133/blog/issues/588
         // https://stackoverflow.com/questions/25705232/track-selection-range-change-for-nstextfield-cocoa
+        // note we needed to do magic to sort out the (ever-changing!) currentEditor's delegate!
         if let ed = self.currentEditor() {
             ed.delegate = self
         }
@@ -67,7 +68,6 @@ class PDTextField: NSTextField {
 
 extension PDTextField: NSTextViewDelegate {
     // can we be smart about disallowing range-select?
-    // note we needed to do magic to sort out the (ever-changing!) currentEditor's delegate!
     func textView(_ textView: NSTextView,
                   willChangeSelectionFromCharacterRanges oldSelectedCharRanges: [NSValue],
                   toCharacterRanges newSelectedCharRanges: [NSValue]) -> [NSValue] {
