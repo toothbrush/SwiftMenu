@@ -42,6 +42,12 @@ class SwiftMenuUnitTesting: XCTestCase {
             "zoo.com.au")
     }
 
+    func testPrefixNonExclusive() {
+        // we're hoping that given two options, "zoo" and "foozoo", searching for "zoo" will initially match as if you searched for "^zoo", because it's.. closer?  Maybe this will be
+        XCTAssert(
+            PasswordList.filteredEntriesList(filter: "zoo", entries: passwordList).contains("foozoo.com"))
+    }
+
     func testSubstringMatches() {
         XCTAssertGreaterThan(
             PasswordList.filteredEntriesList(filter: "app fr", entries: passwordList).count,
