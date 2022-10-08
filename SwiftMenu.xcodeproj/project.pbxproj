@@ -27,6 +27,7 @@
 		DAC173E228EA424500EFE3FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E128EA424500EFE3FC /* ViewController.swift */; };
 		DAC173E528EA424500EFE3FC /* SwiftMenu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAC173E328EA424500EFE3FC /* SwiftMenu.xcdatamodeld */; };
 		DAC173E728EA424700EFE3FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAC173E628EA424700EFE3FC /* Assets.xcassets */; };
+		DAC6FE4328F0FC7A0043E5A1 /* MxPlus_IBM_VGA_8x16.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAC6FE4228F0FC7A0043E5A1 /* MxPlus_IBM_VGA_8x16.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		DAC173E428EA424500EFE3FC /* SwiftMenu.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwiftMenu.xcdatamodel; sourceTree = "<group>"; };
 		DAC173E628EA424700EFE3FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAC173EB28EA424700EFE3FC /* SwiftMenu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftMenu.entitlements; sourceTree = "<group>"; };
+		DAC6FE4228F0FC7A0043E5A1 /* MxPlus_IBM_VGA_8x16.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MxPlus_IBM_VGA_8x16.ttf; sourceTree = "<group>"; };
+		DAC6FE4428F0FCB00043E5A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,8 @@
 		DAC173DE28EA424500EFE3FC /* SwiftMenu */ = {
 			isa = PBXGroup;
 			children = (
+				DAC6FE4428F0FCB00043E5A1 /* Info.plist */,
+				DAC6FE4128F0FC580043E5A1 /* Fonts */,
 				DA9DAFA528EBD354008EAF53 /* Subclasses */,
 				DA9DAFA428EBD2F0008EAF53 /* Extensions */,
 				DAC173DF28EA424500EFE3FC /* AppDelegate.swift */,
@@ -121,6 +126,14 @@
 				DAC173E328EA424500EFE3FC /* SwiftMenu.xcdatamodeld */,
 			);
 			path = SwiftMenu;
+			sourceTree = "<group>";
+		};
+		DAC6FE4128F0FC580043E5A1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DAC6FE4228F0FC7A0043E5A1 /* MxPlus_IBM_VGA_8x16.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAC173E728EA424700EFE3FC /* Assets.xcassets in Resources */,
+				DAC6FE4328F0FC7A0043E5A1 /* MxPlus_IBM_VGA_8x16.ttf in Resources */,
 				DA9DAF8B28EA5FE9008EAF53 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,6 +366,7 @@
 				DEVELOPMENT_TEAM = QG72S9L5L3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SwiftMenu/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = PDApplication;
@@ -383,6 +398,7 @@
 				DEVELOPMENT_TEAM = QG72S9L5L3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SwiftMenu/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = PDApplication;
