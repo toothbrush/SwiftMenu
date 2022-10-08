@@ -30,6 +30,5 @@ Here's a screenshot:
     Perhaps with fallback if "^asdf" turns up zero results?
   * We should be splitting search terms on whitespace anyway, not expecting literal spaces in documents
 
-* Maybe add a prompt label at the beginning?
 * Maybe a filtered/total counter?
 * Maybe a down-arrow indicator that there's more?
