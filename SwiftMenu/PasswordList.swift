@@ -64,17 +64,3 @@ class PasswordList {
         }
     }
 }
-
-extension ViewController {
-    // Returns whether it was successful
-    func refreshPasswordListAndTableView() -> Bool {
-        if let list = try? PasswordList.prettyPasswordsList() {
-            self.actualPasswordList = list
-            DispatchQueue.main.async {
-                self.clearFilter()
-            }
-            return true
-        }
-        return false
-    }
-}

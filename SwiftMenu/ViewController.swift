@@ -131,6 +131,18 @@ extension ViewController {
         NSApp.mainWindow?.makeFirstResponder(self.inputField)
         self.password_table_view.selectRow(row: 0)
     }
+
+    // Returns whether it was successful
+    func refreshPasswordListAndTableView() -> Bool {
+        if let list = try? PasswordList.prettyPasswordsList() {
+            self.actualPasswordList = list
+            DispatchQueue.main.async {
+                self.clearFilter()
+            }
+            return true
+        }
+        return false
+    }
 }
 
 extension ViewController: NSTableViewDataSource {
