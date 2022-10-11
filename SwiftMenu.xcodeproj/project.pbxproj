@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		DA8571F128F3C96C00CEF3F0 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = DA8571F028F3C96B00CEF3F0 /* KeyboardShortcuts */; };
 		DA8571F328F3C9C100CEF3F0 /* Keybindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8571F228F3C9C100CEF3F0 /* Keybindings.swift */; };
+		DA8571F728F4B34000CEF3F0 /* CandidateList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8571F628F4B34000CEF3F0 /* CandidateList.swift */; };
+		DA8571F928F4B9C600CEF3F0 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8571F828F4B9C600CEF3F0 /* Sequence.swift */; };
+		DA8571FD28F4BC5200CEF3F0 /* TOTPList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8571FB28F4BC5200CEF3F0 /* TOTPList.swift */; };
+		DA8571FE28F4BFFA00CEF3F0 /* CandidateList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8571F628F4B34000CEF3F0 /* CandidateList.swift */; };
 		DA9DAF8B28EA5FE9008EAF53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA9DAF8A28EA5FE9008EAF53 /* Main.storyboard */; };
 		DA9DAF9728EA81AC008EAF53 /* PasswordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */; };
 		DA9DAF9C28EA91BB008EAF53 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9B28EA91BB008EAF53 /* Collection.swift */; };
@@ -31,6 +35,7 @@
 		DAC6FE5228F10DFF0043E5A1 /* PasswordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */; };
 		DAC6FE6028F10EEF0043E5A1 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFAC28ED357D008EAF53 /* Util.swift */; };
 		DAC6FE6A28F27D690043E5A1 /* AXSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DAC6FE6928F27D690043E5A1 /* AXSwift */; };
+		DAD3074828F4D2C400450541 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8571F828F4B9C600CEF3F0 /* Sequence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +50,9 @@
 
 /* Begin PBXFileReference section */
 		DA8571F228F3C9C100CEF3F0 /* Keybindings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keybindings.swift; sourceTree = "<group>"; };
+		DA8571F628F4B34000CEF3F0 /* CandidateList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateList.swift; sourceTree = "<group>"; };
+		DA8571F828F4B9C600CEF3F0 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
+		DA8571FB28F4BC5200CEF3F0 /* TOTPList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPList.swift; sourceTree = "<group>"; };
 		DA9DAF8A28EA5FE9008EAF53 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordList.swift; sourceTree = "<group>"; };
 		DA9DAF9B28EA91BB008EAF53 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
@@ -90,11 +98,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA8571FA28F4BC4000CEF3F0 /* CandidateProviders */ = {
+			isa = PBXGroup;
+			children = (
+				DA8571F628F4B34000CEF3F0 /* CandidateList.swift */,
+				DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */,
+				DA8571FB28F4BC5200CEF3F0 /* TOTPList.swift */,
+			);
+			path = CandidateProviders;
+			sourceTree = "<group>";
+		};
 		DA9DAFA428EBD2F0008EAF53 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				DA9DAF9B28EA91BB008EAF53 /* Collection.swift */,
 				DA9DAF9F28EBC6A0008EAF53 /* Comparable.swift */,
+				DA8571F828F4B9C600CEF3F0 /* Sequence.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -135,16 +154,16 @@
 		DAC173DE28EA424500EFE3FC /* SwiftMenu */ = {
 			isa = PBXGroup;
 			children = (
-				DAC6FE4428F0FCB00043E5A1 /* Info.plist */,
+				DA8571FA28F4BC4000CEF3F0 /* CandidateProviders */,
 				DAC6FE4128F0FC580043E5A1 /* Fonts */,
 				DA9DAFA528EBD354008EAF53 /* Subclasses */,
 				DA9DAFA428EBD2F0008EAF53 /* Extensions */,
 				DAC173DF28EA424500EFE3FC /* AppDelegate.swift */,
 				DA8571F228F3C9C100CEF3F0 /* Keybindings.swift */,
-				DA9DAF9628EA81AC008EAF53 /* PasswordList.swift */,
 				DA9DAFAC28ED357D008EAF53 /* Util.swift */,
 				DAC173E128EA424500EFE3FC /* ViewController.swift */,
 				DAC173E628EA424700EFE3FC /* Assets.xcassets */,
+				DAC6FE4428F0FCB00043E5A1 /* Info.plist */,
 				DA9DAF8A28EA5FE9008EAF53 /* Main.storyboard */,
 				DAC173EB28EA424700EFE3FC /* SwiftMenu.entitlements */,
 				DAC173E328EA424500EFE3FC /* SwiftMenu.xcdatamodeld */,
@@ -276,12 +295,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8571FD28F4BC5200CEF3F0 /* TOTPList.swift in Sources */,
 				DAC173E528EA424500EFE3FC /* SwiftMenu.xcdatamodeld in Sources */,
 				DA9DAFA728EBDFD3008EAF53 /* PDTableView.swift in Sources */,
+				DA8571F928F4B9C600CEF3F0 /* Sequence.swift in Sources */,
 				DAC173E228EA424500EFE3FC /* ViewController.swift in Sources */,
 				DA8571F328F3C9C100CEF3F0 /* Keybindings.swift in Sources */,
 				DA9DAF9728EA81AC008EAF53 /* PasswordList.swift in Sources */,
 				DA9DAFB328EE6682008EAF53 /* PDColourView.swift in Sources */,
+				DA8571F728F4B34000CEF3F0 /* CandidateList.swift in Sources */,
 				DA9DAFA028EBC6A0008EAF53 /* Comparable.swift in Sources */,
 				DA9DAF9C28EA91BB008EAF53 /* Collection.swift in Sources */,
 				DA9DAFAD28ED357D008EAF53 /* Util.swift in Sources */,
@@ -302,6 +324,8 @@
 				DAC6FE5228F10DFF0043E5A1 /* PasswordList.swift in Sources */,
 				DAC6FE6028F10EEF0043E5A1 /* Util.swift in Sources */,
 				DAC6FE4E28F1092E0043E5A1 /* SwiftMenuUnitTesting.swift in Sources */,
+				DAD3074828F4D2C400450541 /* Sequence.swift in Sources */,
+				DA8571FE28F4BFFA00CEF3F0 /* CandidateList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

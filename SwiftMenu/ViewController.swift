@@ -10,10 +10,18 @@ import Cocoa
 
 class ViewController: NSViewController {
 
-    @IBOutlet weak var password_table_view: NSTableView!
+    @IBOutlet weak var candidatesTableView: NSTableView!
     @IBOutlet weak var inputField: NSTextField!
     @IBOutlet weak var inputPaddingView: PDColourView!
     @IBOutlet weak var filterCountLabel: NSTextField!
+
+    var currentMode: Mode
+    var candidatesProvider: AbstractCandidateList!
+
+    required init?(coder: NSCoder) {
+        currentMode = .Password
+        super.init(coder: coder)
+    }
 
     private var _isReady: Bool = false
     var isReady: Bool {
@@ -32,12 +40,11 @@ class ViewController: NSViewController {
             }
             inputField.drawsBackground = true
             inputField.needsDisplay = true
-            password_table_view.backgroundColor = col
+            candidatesTableView.backgroundColor = col
         }
     }
 
-    var actualPasswordList : [String] = []
-    var filteredPasswordList : [String] = []
+    var filteredEntries : [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +52,8 @@ class ViewController: NSViewController {
         inputField.delegate = self
         NSApp.mainWindow?.makeFirstResponder(inputField)
 
-        password_table_view.delegate = self
-        password_table_view.dataSource = self
+        candidatesTableView.delegate = self
+        candidatesTableView.dataSource = self
 
         filterCountLabel.font = NSFont(name: "MxPlus_IBM_VGA_8x16", size: 16)
         filterCountLabel.textColor = NSColor.lightGray
@@ -54,8 +61,8 @@ class ViewController: NSViewController {
 
         run_timed {
             // if this fails, probably better to just crash:
-            if !self.refreshPasswordListAndTableView() {
-                fatalError("Failed to refresh password list.")
+            if !self.refreshListAndTableView() {
+                fatalError("Failed to refresh candidates list.")
             }
         }
 
@@ -84,12 +91,12 @@ class ViewController: NSViewController {
     func updateTableWithFilter() {
         let filter = self.inputField.stringValue
 
-        self.filteredPasswordList = PasswordList.filteredEntriesList(filter: filter,
-                                                                     entries: self.actualPasswordList)
+        self.filteredEntries = candidatesProvider.filteredEntriesList(filter: filter)
+        let total = candidatesProvider.entries.count
 
-        self.password_table_view.reloadData()
-        self.password_table_view.selectRow(row: 0)
-        self.filterCountLabel.stringValue = "\(self.filteredPasswordList.count)/\(self.actualPasswordList.count)"
+        self.candidatesTableView.reloadData()
+        self.candidatesTableView.selectRow(row: 0)
+        self.filterCountLabel.stringValue = "\(self.filteredEntries.count)/\(total)"
     }
 
     static func shared() -> ViewController {
@@ -102,12 +109,18 @@ class ViewController: NSViewController {
     }
 }
 
+enum Mode {
+    case Password
+    case TOTP
+}
+
 extension ViewController {
-    func showOrHide() {
+    func showOrHide(mode: Mode) {
         if self.view.window!.isVisible,
            self.view.window!.isKeyWindow {
             hideMe()
         } else {
+            self.currentMode = mode
             showMe()
         }
     }
@@ -137,8 +150,11 @@ extension ViewController {
         // https://github.com/Hammerspoon/hammerspoon/pull/2062#issuecomment-479764102
 
         DispatchQueue.global(qos: .default).async {
-            let _ = run_timed {
-                self.refreshPasswordListAndTableView()
+            run_timed {
+                // if this fails, probably better to just crash:
+                if !self.refreshListAndTableView() {
+                    fatalError("Failed to refresh candidates list.")
+                }
             }
         }
 
@@ -162,21 +178,28 @@ extension ViewController {
     }
 
     // Returns whether it was successful
-    func refreshPasswordListAndTableView() -> Bool {
-        if let list = try? PasswordList.prettyPasswordsList() {
-            self.actualPasswordList = list
-            DispatchQueue.main.async {
-                self.clearFilter()
+    func refreshListAndTableView() -> Bool {
+        do {
+            switch currentMode {
+            case .Password:
+                self.candidatesProvider = try PasswordList()
+            case .TOTP:
+                self.candidatesProvider = try TOTPList()
             }
-            return true
+        } catch let err {
+            print("Issue reloading candidates: \(err)")
+            return false
         }
-        return false
+        DispatchQueue.main.async {
+            self.clearFilter()
+        }
+        return true
     }
 }
 
 extension ViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return filteredPasswordList.count
+        return filteredEntries.count
     }
 }
 
@@ -194,7 +217,7 @@ extension ViewController: NSTableViewDelegate {
         var text: String = ""
         var cellIdentifier: String = ""
 
-        guard let item = filteredPasswordList[safe: row] else {
+        guard let item = filteredEntries[safe: row] else {
             return nil
         }
 
@@ -225,10 +248,10 @@ extension ViewController: NSTextFieldDelegate {
     // https://stackoverflow.com/questions/29579092/recognize-if-user-has-pressed-arrow-key-while-editing-nstextfield-swift
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         if commandSelector.description == "insertNewline:" {
-            if let choice = self.filteredPasswordList[safe: password_table_view.selectedRow] {
+            if let choice = self.filteredEntries[safe: candidatesTableView.selectedRow] {
                 ViewController.shared().hideMe()
-                if let pass = PasswordList.retrievePassword(password: choice) {
-                    keyStrokes(theString: pass)
+                if let snippet = candidatesProvider.retrieveSnippet(for: choice) {
+                    keyStrokes(theString: snippet)
                 }
             } else {
                 print("Selection was empty when you pressed RET")
@@ -237,16 +260,16 @@ extension ViewController: NSTextFieldDelegate {
             ViewController.shared().hideMe()
         } else if commandSelector.description == "moveDown:"
                     || commandSelector.description == "moveRight:" {
-            password_table_view.selectRow(row: password_table_view.selectedRow + 1)
+            candidatesTableView.selectRow(row: candidatesTableView.selectedRow + 1)
         } else if commandSelector.description == "moveUp:"
                     || commandSelector.description == "moveLeft:" {
-            password_table_view.selectRow(row: password_table_view.selectedRow - 1)
+            candidatesTableView.selectRow(row: candidatesTableView.selectedRow - 1)
         } else if commandSelector.description == "moveToBeginningOfDocument:"
                     || commandSelector.description == "moveToLeftEndOfLine:" {
-            password_table_view.selectRow(row: 0)
+            candidatesTableView.selectRow(row: 0)
         } else if commandSelector.description == "moveToEndOfDocument:"
                     || commandSelector.description == "moveToRightEndOfLine:" {
-            password_table_view.selectRow(row: password_table_view.numberOfRows)
+            candidatesTableView.selectRow(row: candidatesTableView.numberOfRows)
         } else if commandSelector.description == "insertTab:" {
             // just eating up tab to reduce likelihood of input box losing focus. sigh.
         } else {

@@ -33,7 +33,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         KeyboardShortcuts.onKeyDown(for: .togglePasswordDisplay) {
             DispatchQueue.main.async {
-                ViewController.shared().showOrHide()
+                ViewController.shared().showOrHide(mode: .Password)
+            }
+        }
+        KeyboardShortcuts.onKeyDown(for: .toggleTOTPDisplay) {
+            DispatchQueue.main.async {
+                ViewController.shared().showOrHide(mode: .TOTP)
             }
         }
     }
