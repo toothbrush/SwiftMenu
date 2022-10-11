@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import PathKit
 
 let PATH = NSString("~/.password-store").expandingTildeInPath
 
@@ -95,7 +94,9 @@ class PasswordList {
         task.arguments = ["-L", "-s", "-x", PATH, "-type", "f", "-iname", "*.gpg"]
 
         let pipe = Pipe()
+        let errPipe = Pipe()
         task.standardOutput = pipe
+        task.standardError = errPipe
         task.launch()
 
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
@@ -107,7 +108,16 @@ class PasswordList {
 
         task.waitUntilExit()
         let status = task.terminationStatus
-        assert(status == 0)
+        if status != 0 {
+            if let output = String(data: data, encoding: .utf8) {
+                print("stdout:")
+                print(output)
+                print("stderr:")
+                print(String(data: errPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "")
+                print("status = \(status)")
+            }
+            fatalError("Issue listing password directory")
+        }
         print("Found \(items.count) password entries")
 
         return items
@@ -123,5 +133,41 @@ class PasswordList {
         return raw_files.map { path in
             return path.replacingOccurrences(of: regex, with: repl, options: [.regularExpression])
         }
+    }
+
+    static func retrievePassword(password: String) -> String? {
+        let task = Process()
+        task.launchPath = "/opt/homebrew/bin/gpg" // let's see if this bites me in the future
+        task.arguments = ["--decrypt", "--batch", "\(PATH)/\(password).gpg"]
+
+        var outString: String?
+
+        let outPipe = Pipe()
+        let errPipe = Pipe()
+        task.standardOutput = outPipe
+        task.standardError = errPipe
+        task.launch()
+
+        let data = outPipe.fileHandleForReading.readDataToEndOfFile()
+        if let output = String(data: data, encoding: .utf8) {
+            let lines = output.split(whereSeparator: \.isNewline)
+            if let first = lines.first {
+                outString = String(first)
+            }
+        }
+
+        task.waitUntilExit()
+        let status = task.terminationStatus
+        if status != 0 {
+            if let output = String(data: data, encoding: .utf8) {
+                print("stdout:")
+                print(output)
+                print("stderr:")
+                print(String(data: errPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "")
+                print("status = \(status)")
+            }
+            fatalError("Issue retrieving password entry \(password)")
+        }
+        return outString
     }
 }

@@ -14,15 +14,8 @@ class PDTextField: NSTextField {
             if let char = event.charactersIgnoringModifiers {
                 print("C-\(char): let's cancel.")
             }
-            if let delegate = self.delegate as? ViewController {
-                delegate.globalSuccess = false
-                // tell a handler, if it's waiting, that we're done!
-                if let sem = delegate.semaphore {
-                    sem.signal()
-                }
-                NSApp.hide(NSApp.mainWindow)
-                return true
-            }
+            ViewController.shared().hideMe()
+            return true
         }
 
         // i guess we're not handling this one!

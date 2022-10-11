@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class PDWindow: NSWindow {
+class PDWindow: NSPanel {
 
     let myFieldEditor = PDTextView()
 
@@ -46,14 +46,6 @@ class PDWindow: NSWindow {
         get {
             return true
         }
-    }
-
-    override func validateProposedFirstResponder(_ responder: NSResponder, for event: NSEvent?) -> Bool {
-        return false
-    }
-
-    override func becomeFirstResponder() -> Bool {
-        return false
     }
 
     override func fieldEditor(_ createFlag: Bool, for object: Any?) -> NSText? {

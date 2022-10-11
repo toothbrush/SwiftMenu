@@ -5,14 +5,20 @@
 //  Created by paul on 2/10/2022.
 //
 
+import AXSwift
 import Cocoa
-import SwiftHttpServer
-
+import KeyboardShortcuts
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        guard AXSwift.checkIsProcessTrusted(prompt: true) else {
+            print("Not trusted as an AX process; please authorize and re-launch")
+            NSApp.terminate(self)
+            return
+        }
+
         // we can monkey with user defaults without system-wide `defaults write ..`!
         // https://stackoverflow.com/questions/2076816/how-to-register-user-defaults-using-nsuserdefaults-without-overwriting-existing
         // Unit is millis, it seems.
@@ -24,6 +30,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ]
 
         UserDefaults.standard.register(defaults: blinkDefaults)
+
+        KeyboardShortcuts.onKeyDown(for: .togglePasswordDisplay) {
+            DispatchQueue.main.async {
+                ViewController.shared().showOrHide()
+            }
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

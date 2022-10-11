@@ -37,3 +37,14 @@ Special thanks to the fine folks behind [The Ultimate Oldschool PC Font Pack](ht
     * After the first "strict" round, we redo the search, but without caring whether the first filter word is the prefix of the
       entry or not.
     * Of course, we present a unique'd list of results.
+
+### Things i've learned about Hammerspoon vs SwiftMenu
+
+Hammerspoon is able to show a chooser on keypress (e.g. for emojis), even when a secure text entry
+field is visible.  The short version is that's because it's an NSPanel and not an NSWindow.  That
+was a whole rabbit hole.
+
+As for the Accessibility bit - sometimes the app boots and just doesn't seem to have accessibility
+enabled.  As our friend with his now-404 blog mentions in
+https://github.com/tmandry/AXSwift/issues/21, you sometimes need to remove and re-add the app in the
+Security & Privacy panel.  Bit of a gotcha, too.

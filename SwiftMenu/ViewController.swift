@@ -5,8 +5,8 @@
 //  Created by paul on 2/10/2022.
 //
 
+import AXSwift
 import Cocoa
-import SwiftHttpServer
 
 class ViewController: NSViewController {
 
@@ -14,17 +14,15 @@ class ViewController: NSViewController {
     @IBOutlet weak var inputField: NSTextField!
     @IBOutlet weak var inputPaddingView: PDColourView!
     @IBOutlet weak var filterCountLabel: NSTextField!
-    
-    weak var semaphore: DispatchSemaphore?
 
-    private var _isHandlingRequest: Bool = false
-    var isHandlingRequest: Bool {
+    private var _isReady: Bool = false
+    var isReady: Bool {
         get {
-            return _isHandlingRequest
+            return _isReady
         }
         set {
-            _isHandlingRequest = newValue
-            let col = _isHandlingRequest ? NSColor.systemPurple : NSColor.systemRed
+            _isReady = newValue
+            let col = _isReady ? NSColor.systemPurple : NSColor.systemRed
             inputPaddingView.backgroundColor = col
             inputPaddingView.needsDisplay = true
             inputField.backgroundColor = col
@@ -37,10 +35,6 @@ class ViewController: NSViewController {
             password_table_view.backgroundColor = col
         }
     }
-
-    var globalSuccess = false
-
-    let PORT = 22621
 
     var actualPasswordList : [String] = []
     var filteredPasswordList : [String] = []
@@ -63,34 +57,9 @@ class ViewController: NSViewController {
             if !self.refreshPasswordListAndTableView() {
                 fatalError("Failed to refresh password list.")
             }
-
         }
 
-        let server = HttpServer(hostname: nil, port: PORT, backlog: 6, reusePort: true)
-        server.monitor(monitorName: "SwiftMenu-http-server") {
-            (name, status, error) in
-            if let port = server.listeningPort {
-                print(" [\(name ?? "nil") :\(port)] HTTP SERVER Status changed to '\(status)'")
-            }
-        }
-
-        do {
-            try server.route(pattern: "/", handler: LivenessHandler(vc: self))
-            try server.route(pattern: "/show", handler: ShowHandler(vc: self))
-            try server.route(pattern: "/hide", handler: HideHandler(vc: self))
-            try server.route(pattern: "/query_password", handler: PasswordQueryHandler(vc: self))
-        } catch let error {
-            print(error)
-        }
-
-        DispatchQueue.global(qos: .default).async {
-            do {
-                try server.run()
-            } catch let error {
-                // This print doesn't work, it's on a background thread.
-                print(error)
-            }
-        }
+        isReady = true
     }
 
     // For help with custom fonts, see https://troz.net/post/2020/custom-fonts/
@@ -122,20 +91,74 @@ class ViewController: NSViewController {
         self.password_table_view.selectRow(row: 0)
         self.filterCountLabel.stringValue = "\(self.filteredPasswordList.count)/\(self.actualPasswordList.count)"
     }
+
+    static func shared() -> ViewController {
+        if let win = NSApp.windows.first {
+            if let vc = win.contentViewController as? ViewController {
+                return vc
+            }
+        }
+        fatalError("couldn't figure out which instance of ViewController to return!")
+    }
 }
 
 extension ViewController {
+    func showOrHide() {
+        if self.view.window!.isVisible,
+           self.view.window!.isKeyWindow {
+            hideMe()
+        } else {
+            showMe()
+        }
+    }
+    
+    func hideMe() {
+        self.view.window!.resignKey() // this appears to be enough to give back focus to the previous app
+        self.view.window!.setIsVisible(false)
+    }
+
     func showMe() {
         // Even though this stuff appears to work now, bear in mind that https://stackoverflow.com/questions/17528157/nstextfield-and-firstresponder and https://stackoverflow.com/a/17547777 specifically say you need to
         // [[NSApp mainWindow] resignFirstResponder];
         // (context: "I need to capture this event the NSTextField loses the focus ring to save the uncommitted changes .")
         //
         // See also https://stackoverflow.com/questions/31015568/nssearchfield-occasionally-causing-an-nsinternalinconsistencyexception
-        NSApp.mainWindow?.makeKeyAndOrderFront(nil)
-        NSApp.activate(ignoringOtherApps: true)
+
+        // Pointers
+        //
+        // I found this stuff via this comment:
+        // https://github.com/Hammerspoon/hammerspoon/commit/bfb5a72a6688c4e79e418b7dd7cbe7e7cae80c5c
+        // Which comes from
+        // https://github.com/Hammerspoon/hammerspoon/pull/2138,
+        // but confusingly there's a comment (https://github.com/Hammerspoon/hammerspoon/pull/2138/#issuecomment-523418568) claiming the changes break something.
+        // Actually, that's not true (pointed out in https://github.com/Hammerspoon/hammerspoon/pull/1974#issuecomment-523461930 - and when you look closer indeed PR #2138 was never reverted).  Anyway, lots of blind alleys and so on here.
+        //
+        // https://github.com/Hammerspoon/hammerspoon/issues/2067
+        // https://github.com/Hammerspoon/hammerspoon/pull/2062#issuecomment-479764102
+
+        DispatchQueue.global(qos: .default).async {
+            let _ = run_timed {
+                self.refreshPasswordListAndTableView()
+            }
+        }
+
+        // i don't know why, but the first time isn't reliable 🤯
+        // I suspect if i were smarter about the order of these calls perhaps it'd be more reliable?  But either way this seems to solve the issue i see where on first boot of the app, getting focus is unreliable.  Weird.  But moving on, i have wasted enough of my time on this already.
+        for _ in 0...1 {
+            self.view.window!.windowController!.showWindow(self.view.window!.windowController!)
+
+            self.view.window?.setIsVisible(true)
+
+            self.view.window!.makeKeyAndOrderFront(self.view.window)
+            self.view.window!.makeFirstResponder(self.inputField)
+
+            self.view.window!.styleMask = [.fullSizeContentView, .nonactivatingPanel]
+
+            // This was inspired by (CGWindowLevelForKey(kCGMainMenuWindowLevelKey) + 3) in Hammerspoon, which if you look at the enum definition, is just popupmenu level...
+            self.view.window!.level = .popUpMenu
+        }
+
         self.clearFilter()
-        NSApp.mainWindow?.makeFirstResponder(self.inputField)
-        self.password_table_view.selectRow(row: 0)
     }
 
     // Returns whether it was successful
@@ -201,48 +224,37 @@ extension ViewController: NSTextFieldDelegate {
     // inspiration: https://stackoverflow.com/questions/47580061/detecting-arrow-enter-keys-when-editing-nstextfield
     // https://stackoverflow.com/questions/29579092/recognize-if-user-has-pressed-arrow-key-while-editing-nstextfield-swift
     func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
-        var iWillEatThisEventDoNotPropagate = false
-        globalSuccess = false
         if commandSelector.description == "insertNewline:" {
-            iWillEatThisEventDoNotPropagate = true // causes Apple to NOT fire the default enter action
-
-            globalSuccess = true
-            // tell a handler, if it's waiting, that we're done!
-            if let sem = semaphore {
-                sem.signal()
+            if let choice = self.filteredPasswordList[safe: password_table_view.selectedRow] {
+                ViewController.shared().hideMe()
+                if let pass = PasswordList.retrievePassword(password: choice) {
+                    keyStrokes(theString: pass)
+                }
+            } else {
+                print("Selection was empty when you pressed RET")
             }
-            NSApp.hide(NSApp.mainWindow)
         } else if commandSelector.description == "cancelOperation:" {
-            iWillEatThisEventDoNotPropagate = true
-
-            // tell a handler, if it's waiting, that we're done!
-            if let sem = semaphore {
-                sem.signal()
-            }
-            NSApp.hide(NSApp.mainWindow)
+            ViewController.shared().hideMe()
         } else if commandSelector.description == "moveDown:"
                     || commandSelector.description == "moveRight:" {
-            iWillEatThisEventDoNotPropagate = true
             password_table_view.selectRow(row: password_table_view.selectedRow + 1)
         } else if commandSelector.description == "moveUp:"
                     || commandSelector.description == "moveLeft:" {
-            iWillEatThisEventDoNotPropagate = true
             password_table_view.selectRow(row: password_table_view.selectedRow - 1)
         } else if commandSelector.description == "moveToBeginningOfDocument:"
                     || commandSelector.description == "moveToLeftEndOfLine:" {
-            iWillEatThisEventDoNotPropagate = true
             password_table_view.selectRow(row: 0)
         } else if commandSelector.description == "moveToEndOfDocument:"
                     || commandSelector.description == "moveToRightEndOfLine:" {
-            iWillEatThisEventDoNotPropagate = true
             password_table_view.selectRow(row: password_table_view.numberOfRows)
         } else if commandSelector.description == "insertTab:" {
             // just eating up tab to reduce likelihood of input box losing focus. sigh.
-            iWillEatThisEventDoNotPropagate = true
         } else {
             print("[info] Unhandled NSTextField event \"" + commandSelector.description + "\"")
+            return false
         }
-        return iWillEatThisEventDoNotPropagate
+        // causes Apple to NOT fire the default enter action
+        return true
     }
 
     func controlTextDidChange(_ obj: Notification) {
