@@ -10,10 +10,10 @@ these days macOS prevents another app from foregrounding itself while a NSSecure
 which is fair enough.  However, this breaks the old-fashioned flow of using Hammerspoon to bind a
 keyboard shortcut to run a script which does something like `pass show $(xmenu $options)`.
 
-This crappy little utility gets around that by having an "out of band" way of talking to it, namely
-via a very simple REST API.  You can first call `/show` on it, then use Hammerspoon to foreground
-it, then call the (synchronous) `/query_password` endpoint which will return the option the user
-picked or 404 if cancelled.
+This crappy little utility steals just enough inspiration from Hammerspoon to be able to show a
+chooser whenever it wishes, from a global hotkey.  The only reason i moved away from the perfectly
+feasible solution of v0.2.0 which still needed Hammerspoon was that the whole thing took a few
+hundred millis to display, which is lame.  This is instantaneous.
 
 I think i need to go away and take a few consecutive showers.
 
