@@ -823,8 +823,7 @@
                         <outlet property="candidatesTableView" destination="XCk-Lq-LvS" id="phR-ne-sbk"/>
                         <outlet property="filterCountLabel" destination="zyY-9E-zr5" id="ggO-iA-X0w"/>
                         <outlet property="inputField" destination="hOj-3v-oXT" id="sEA-6s-irO"/>
-                        <outlet property="inputPaddingView" destination="xyu-qM-33j" id="RDS-5L-vEq"/>
-                        <outlet property="paddingView" destination="xyu-qM-33j" id="KAY-8n-eu1"/>
+                        <outlet property="inputPaddingView" destination="xyu-qM-33j" id="Ky7-Cs-VQD"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
