@@ -7,65 +7,68 @@
 
 import XCTest
 
-class SwiftMenuUnitTesting: XCTestCase {
+let passwordList = [
+    "appleid/boo@zonk.com",
+    "appleid/frank@example.com",
+    "aws-console/rumbleflutes",
+    "aws-console/zilch-com",
+    "foozoo.com",
+    "zoo.com.au",
+]
 
-    var passwordList: [String]!
+class DummyCandidateList: AbstractCandidateList {
+    override class func reloadEntries() throws -> [String] {
+        return passwordList
+    }
+}
+
+class SwiftMenuUnitTesting: XCTestCase {
+    var cl: DummyCandidateList!
 
     override func setUp() {
-        passwordList = [
-            "appleid/boo@zonk.com",
-            "appleid/frank@example.com",
-            "aws-console/rumbleflutes",
-            "aws-console/zilch-com",
-            "foozoo.com",
-            "zoo.com.au",
-        ]
-    }
-
-    override func tearDown() {
-        passwordList = nil
+        cl = try! DummyCandidateList()
     }
 
     func testEmptyFilterWorks() {
-        XCTAssertGreaterThan(passwordList.count, 0)
-        XCTAssertEqual(PasswordList.filteredEntriesList(filter: "  ", entries: passwordList), passwordList)
+        XCTAssertGreaterThan(cl.entries.count, 0)
+        XCTAssertEqual(cl.filteredEntriesList(filter: "  "), passwordList)
     }
 
     func testTrivialFilterWorks() {
-        XCTAssert(PasswordList.filteredEntriesList(filter: "foo", entries: passwordList).contains("foozoo.com"))
+        XCTAssert(cl.filteredEntriesList(filter: "foo").contains("foozoo.com"))
     }
 
     func testPrefixPreferred() {
         // we're hoping that given two options, "zoo" and "foozoo", searching for "zoo" will initially match as if you searched for "^zoo", because it's.. closer?  Maybe this will be annoying, we'll see
         XCTAssertEqual(
-            PasswordList.filteredEntriesList(filter: "zoo", entries: passwordList).first!,
+            cl.filteredEntriesList(filter: "zoo").first!,
             "zoo.com.au")
     }
 
     func testPrefixNonExclusive() {
         // make sure we don't elide valid matches though
         XCTAssert(
-            PasswordList.filteredEntriesList(filter: "zoo", entries: passwordList).contains("foozoo.com"))
+            cl.filteredEntriesList(filter: "zoo").contains("foozoo.com"))
     }
 
     func testSubstringMatches() {
         XCTAssertGreaterThan(
-            PasswordList.filteredEntriesList(filter: "app fr", entries: passwordList).count,
+            cl.filteredEntriesList(filter: "app fr").count,
             0)
         XCTAssertEqual(
-            PasswordList.filteredEntriesList(filter: "app   fr", entries: passwordList).first,
+            cl.filteredEntriesList(filter: "app   fr").first,
             "appleid/frank@example.com")
         XCTAssertGreaterThan(
-            PasswordList.filteredEntriesList(filter: "app   fr exa", entries: passwordList).count,
+            cl.filteredEntriesList(filter: "app   fr exa").count,
             0)
         XCTAssertEqual(
-            PasswordList.filteredEntriesList(filter: "app   fr exa", entries: passwordList).first,
+            cl.filteredEntriesList(filter: "app   fr exa").first,
             "appleid/frank@example.com")
     }
 
     func testSubstringOnlyMatchesInOrder() {
         XCTAssertEqual(
-            PasswordList.filteredEntriesList(filter: "app   exa    frank", entries: passwordList).count,
+            cl.filteredEntriesList(filter: "app   exa    frank").count,
             0) // this shouldn't match apple/frank@example, since "example" comes after "frank"
     }
 
@@ -73,7 +76,7 @@ class SwiftMenuUnitTesting: XCTestCase {
         // This is an example of a performance test case.
         throw XCTSkip("This test is boring and slow.")
         measure {
-            let _ = try! PasswordList.prettyPasswordsList()
+            let _ = try! PasswordList()
         }
     }
 
