@@ -71,7 +71,7 @@ class TOTPList: AbstractCandidateList {
         if let output = String(data: data, encoding: .utf8) {
             let lines = output.split(whereSeparator: \.isNewline)
             if let first = lines.first {
-                outString = String(first)
+                outString = String(first) + "\n"
             }
         }
 
