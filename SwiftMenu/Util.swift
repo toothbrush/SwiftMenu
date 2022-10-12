@@ -5,8 +5,10 @@
 //  Created by paul on 4/10/2022.
 //
 
-import Foundation
+// Stunning list of keycodes: https://stackoverflow.com/questions/3202629/where-can-i-find-a-list-of-mac-virtual-key-codes
+import Carbon.HIToolbox
 import CoreGraphics
+import Foundation
 
 func run_timed<T>(to_time: () -> T) -> T {
     // From https://stackoverflow.com/questions/24755558/measure-elapsed-time-in-swift
@@ -45,4 +47,16 @@ func keyStrokes(theString: String) {
         keyUpEvent.keyboardSetUnicodeString(stringLength: 1, unicodeString: &char)
         keyUpEvent.post(tap: CGEventTapLocation.cghidEventTap);
     }
+}
+
+func sendReturn() {
+    // Send the keydown
+    let keyDownEvent: CGEvent = CGEvent(keyboardEventSource: nil, virtualKey: UInt16(kVK_Return), keyDown: true)!
+    keyDownEvent.flags = []
+    keyDownEvent.post(tap: CGEventTapLocation.cghidEventTap);
+    
+    // Send the keyup
+    let keyUpEvent: CGEvent = CGEvent(keyboardEventSource: nil, virtualKey: UInt16(kVK_Return), keyDown: false)!
+    keyUpEvent.flags = []
+    keyUpEvent.post(tap: CGEventTapLocation.cghidEventTap);
 }

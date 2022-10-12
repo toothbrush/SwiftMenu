@@ -252,6 +252,9 @@ extension ViewController: NSTextFieldDelegate {
                 ViewController.shared().hideMe()
                 if let snippet = candidatesProvider.retrieveSnippet(for: choice) {
                     keyStrokes(theString: snippet)
+                    if candidatesProvider.wantsAutoReturnKey() {
+                        sendReturn()
+                    }
                 }
             } else {
                 print("Selection was empty when you pressed RET")

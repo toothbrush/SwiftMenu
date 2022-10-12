@@ -96,4 +96,9 @@ class AbstractCandidateList: CandidateList {
         // the only way we can get here is if stillMatching = true, but hey.
         return stillMatching
     }
+    
+    func wantsAutoReturnKey() -> Bool {
+        // TOTPs can safely be entered, whereas for passwords i'd rather avoid that.
+        return false
+    }
 }

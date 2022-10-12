@@ -89,4 +89,8 @@ class TOTPList: AbstractCandidateList {
         }
         return outString
     }
+    
+    override func wantsAutoReturnKey() -> Bool {
+        return true
+    }
 }
