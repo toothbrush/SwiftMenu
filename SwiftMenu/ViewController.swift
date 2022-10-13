@@ -15,11 +15,19 @@ class ViewController: NSViewController {
     @IBOutlet weak var inputPaddingView: PDColourView!
     @IBOutlet weak var filterCountLabel: NSTextField!
 
-    var currentMode: Mode
+    var _currentMode: Mode = .Password
+    var currentMode: Mode {
+        get {
+            _currentMode
+        }
+        set {
+            _currentMode = newValue
+        }
+    }
+
     var candidatesProvider: AbstractCandidateList!
 
     required init?(coder: NSCoder) {
-        currentMode = .Password
         super.init(coder: coder)
     }
 
@@ -124,7 +132,7 @@ extension ViewController {
             showMe()
         }
     }
-    
+
     func hideMe() {
         self.view.window!.resignKey() // this appears to be enough to give back focus to the previous app
         self.view.window!.setIsVisible(false)
