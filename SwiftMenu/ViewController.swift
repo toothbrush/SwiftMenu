@@ -61,7 +61,7 @@ class ViewController: NSViewController {
 
         run_timed {
             // if this fails, probably better to just crash:
-            if !self.refreshListAndTableView() {
+            if !self.reloadListAndRefreshTableView() {
                 fatalError("Failed to refresh candidates list.")
             }
         }
@@ -152,7 +152,7 @@ extension ViewController {
         DispatchQueue.global(qos: .default).async {
             run_timed {
                 // if this fails, probably better to just crash:
-                if !self.refreshListAndTableView() {
+                if !self.reloadListAndRefreshTableView() {
                     fatalError("Failed to refresh candidates list.")
                 }
             }
@@ -178,7 +178,7 @@ extension ViewController {
     }
 
     // Returns whether it was successful
-    func refreshListAndTableView() -> Bool {
+    func reloadListAndRefreshTableView() -> Bool {
         do {
             switch currentMode {
             case .Password:
