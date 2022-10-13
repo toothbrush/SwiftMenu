@@ -21,6 +21,11 @@ class ViewController: NSViewController {
             _currentMode
         }
         set {
+            if newValue != _currentMode {
+                // temporarily blank the list instead of flashing from one set of entries to the next.
+                candidatesProvider = try! NullList()
+                clearFilter()
+            }
             _currentMode = newValue
         }
     }
