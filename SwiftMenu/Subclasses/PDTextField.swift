@@ -28,6 +28,7 @@ class PDTextField: NSTextField {
         isBezeled = false
         isBordered = false
         font = NSFont(name: "MxPlus_IBM_VGA_8x16", size: 16)
+        stringValue = ""
     }
 
     override func hitTest(_ point: NSPoint) -> NSView? {

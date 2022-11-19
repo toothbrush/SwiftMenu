@@ -24,7 +24,7 @@ class ViewController: NSViewController {
             if newValue != _currentMode {
                 // temporarily blank the list instead of flashing from one set of entries to the next.
                 candidatesProvider = try! NullList()
-                clearFilter()
+                clearFilter(emptyExistingInput: true)
             }
             _currentMode = newValue
         }
@@ -85,8 +85,10 @@ class ViewController: NSViewController {
         }
     }
 
-    func clearFilter() {
-        self.inputField.stringValue = ""
+    func clearFilter(emptyExistingInput: Bool) {
+        if emptyExistingInput {
+            self.inputField.stringValue = ""
+        }
         updateTableWithFilter()
     }
 
@@ -176,7 +178,7 @@ extension ViewController {
             self.view.window!.level = .popUpMenu
         }
 
-        self.clearFilter()
+        self.clearFilter(emptyExistingInput: true)
     }
 
     // Returns whether it was successful
@@ -193,7 +195,7 @@ extension ViewController {
             return false
         }
         DispatchQueue.main.async {
-            self.clearFilter()
+            self.clearFilter(emptyExistingInput: false)
         }
         return true
     }
