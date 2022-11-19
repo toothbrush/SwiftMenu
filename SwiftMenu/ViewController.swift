@@ -31,30 +31,10 @@ class ViewController: NSViewController {
     }
 
     var candidatesProvider: AbstractCandidateList!
+    let windowBackgroundColor = NSColor.systemPurple
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    }
-
-    private var _isReady: Bool = false
-    var isReady: Bool {
-        get {
-            return _isReady
-        }
-        set {
-            _isReady = newValue
-            let col = _isReady ? NSColor.systemPurple : NSColor.systemRed
-            inputPaddingView.backgroundColor = col
-            inputPaddingView.needsDisplay = true
-            inputField.backgroundColor = col
-            if let cell = inputField.cell as? NSTextFieldCell {
-                cell.backgroundColor = col
-                cell.controlView?.displayIfNeeded()
-            }
-            inputField.drawsBackground = true
-            inputField.needsDisplay = true
-            candidatesTableView.backgroundColor = col
-        }
     }
 
     var filteredEntries : [String] = []
@@ -79,7 +59,16 @@ class ViewController: NSViewController {
             }
         }
 
-        isReady = true
+        inputPaddingView.backgroundColor = windowBackgroundColor
+        inputPaddingView.needsDisplay = true
+        inputField.backgroundColor = windowBackgroundColor
+        if let cell = inputField.cell as? NSTextFieldCell {
+            cell.backgroundColor = windowBackgroundColor
+            cell.controlView?.displayIfNeeded()
+        }
+        inputField.drawsBackground = true
+        inputField.needsDisplay = true
+        candidatesTableView.backgroundColor = windowBackgroundColor
     }
 
     // For help with custom fonts, see https://troz.net/post/2020/custom-fonts/
