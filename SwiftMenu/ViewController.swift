@@ -69,6 +69,7 @@ class ViewController: NSViewController {
         inputField.drawsBackground = true
         inputField.needsDisplay = true
         candidatesTableView.backgroundColor = windowBackgroundColor
+        startSpinnerLoading()
     }
 
     // For help with custom fonts, see https://troz.net/post/2020/custom-fonts/
@@ -91,16 +92,44 @@ class ViewController: NSViewController {
         }
         updateTableWithFilter()
     }
+    
+    var spinnerTimer: Timer?
+    func startSpinnerLoading() {
+        spinnerTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { t in
+            self.updateItemCounter()
+        })
+    }
+    
+    func stopSpinnerLoading() {
+        spinnerTimer?.invalidate()
+        spinnerTimer = nil
+        updateItemCounter()
+    }
+    
+    func progressSpinnerCharacterNow() -> String {
+        guard spinnerTimer != nil else {
+            return "/"
+        }
+        let chars = ["/", "-", "\\", "|"]
+        let currentTimeMillis: Int = Int(NSDate().timeIntervalSince1970 * 1000)
+        let thisSecondMillis = currentTimeMillis % 400
+        let gimmeZeroToThree = thisSecondMillis / 100
+        return chars[gimmeZeroToThree]
+    }
 
     func updateTableWithFilter() {
         let filter = self.inputField.stringValue
-
+        
         self.filteredEntries = candidatesProvider.filteredEntriesList(filter: filter)
-        let total = candidatesProvider.entries.count
-
+        
         self.candidatesTableView.reloadData()
         self.candidatesTableView.selectRow(row: 0)
-        self.filterCountLabel.stringValue = "\(self.filteredEntries.count)/\(total)"
+        updateItemCounter()
+    }
+    
+    func updateItemCounter() {
+        let total = candidatesProvider.entries.count
+        self.filterCountLabel.stringValue = String(self.filteredEntries.count) + progressSpinnerCharacterNow() + String(total)
     }
 
     static func shared() -> ViewController {
@@ -124,12 +153,14 @@ extension ViewController {
            self.view.window!.isKeyWindow {
             hideMe()
         } else {
+            self.startSpinnerLoading()
             self.currentMode = mode
             showMe()
         }
     }
 
     func hideMe() {
+        self.stopSpinnerLoading()
         self.view.window!.resignKey() // this appears to be enough to give back focus to the previous app
         self.view.window!.setIsVisible(false)
     }
@@ -196,6 +227,7 @@ extension ViewController {
         }
         DispatchQueue.main.async {
             self.clearFilter(emptyExistingInput: false)
+            self.stopSpinnerLoading()
         }
         return true
     }
