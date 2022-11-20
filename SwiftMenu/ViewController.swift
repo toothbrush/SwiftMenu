@@ -311,6 +311,10 @@ extension ViewController: NSTextFieldDelegate {
             candidatesTableView.selectRow(row: candidatesTableView.numberOfRows)
         } else if commandSelector.description == "insertTab:" {
             // just eating up tab to reduce likelihood of input box losing focus. sigh.
+        } else if commandSelector.description == "scrollPageDown:" {
+            candidatesTableView.selectRow(row: candidatesTableView.selectedRow + candidatesTableView.nbVisibleRows() - 1)
+        } else if commandSelector.description == "scrollPageUp:" {
+            candidatesTableView.selectRow(row: candidatesTableView.selectedRow - candidatesTableView.nbVisibleRows() + 1)
         } else {
             print("[info] Unhandled NSTextField event \"" + commandSelector.description + "\"")
             return false

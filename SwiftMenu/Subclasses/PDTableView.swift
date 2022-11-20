@@ -26,6 +26,11 @@ class PDTableView: NSTableView {
     }
     // Column sizing comments: https://stackoverflow.com/questions/49439311/where-to-set-column-width-in-nstableview-after-updates
     
+    // return the number of visible rows
+    func nbVisibleRows() -> Int {
+        Int(superview!.frame.size.height/rowHeight)
+    }
+    
     func selectRow(row: Int) {
         let row_ = row.clamped(fromInclusive: 0, toInclusive: self.numberOfRows - 1)
         self.scrollRowToVisible(row_)
