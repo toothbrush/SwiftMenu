@@ -13,6 +13,7 @@ let passwordList = [
     "appleid/frank@example.com",
     "aws-console/rumbleflutes",
     "aws-console/zilch-com",
+    "zzz", // intentionally out-of-order
     "foozoo.com",
     "zoo.com.au",
 ]
@@ -32,7 +33,7 @@ class SwiftMenuUnitTesting: XCTestCase {
 
     func testEmptyFilterWorks() {
         XCTAssertGreaterThan(cl.entries.count, 0)
-        XCTAssertEqual(cl.filteredEntriesList(filter: "  "), passwordList)
+        XCTAssertEqual(cl.filteredEntriesList(filter: "  "), passwordList.sorted())
     }
 
     func testTrivialFilterWorks() {

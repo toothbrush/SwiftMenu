@@ -23,7 +23,7 @@ class AbstractCandidateList: CandidateList {
 
     init() throws {
         // load candidate list into memory
-        _entries = try Self.reloadEntries()
+        _entries = try Self.reloadEntries().sorted()
     }
 
     class func reloadEntries() throws -> [String] {
