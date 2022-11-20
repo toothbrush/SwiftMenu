@@ -37,6 +37,7 @@
 		DAC6FE6028F10EEF0043E5A1 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9DAFAC28ED357D008EAF53 /* Util.swift */; };
 		DAC6FE6A28F27D690043E5A1 /* AXSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DAC6FE6928F27D690043E5A1 /* AXSwift */; };
 		DAD3074828F4D2C400450541 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8571F828F4B9C600CEF3F0 /* Sequence.swift */; };
+		EC62254A2929AD970046ABD1 /* PDClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6225492929AD970046ABD1 /* PDClipView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		DAC6FE4428F0FCB00043E5A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DAC6FE4B28F1092E0043E5A1 /* SwiftMenuUnitTesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMenuUnitTesting.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC6FE4D28F1092E0043E5A1 /* SwiftMenuUnitTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMenuUnitTesting.swift; sourceTree = "<group>"; };
+		EC6225492929AD970046ABD1 /* PDClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDClipView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				DA9DAFAA28EBEBF7008EAF53 /* PDApplication.swift */,
+				EC6225492929AD970046ABD1 /* PDClipView.swift */,
 				DA9DAFB228EE6682008EAF53 /* PDColourView.swift */,
 				DA9DAFB028EE586A008EAF53 /* PDSquareView.swift */,
 				DA9DAF9D28EA9879008EAF53 /* PDTableRowView.swift */,
@@ -315,6 +318,7 @@
 				DA9DAFAF28EE4610008EAF53 /* PDTextView.swift in Sources */,
 				DA9DAFA928EBE0D8008EAF53 /* PDWindow.swift in Sources */,
 				DAC173E028EA424500EFE3FC /* AppDelegate.swift in Sources */,
+				EC62254A2929AD970046ABD1 /* PDClipView.swift in Sources */,
 				DA9DAFAB28EBEBF7008EAF53 /* PDApplication.swift in Sources */,
 				DA9DAFB128EE586A008EAF53 /* PDSquareView.swift in Sources */,
 				DA9DAF9E28EA9879008EAF53 /* PDTableRowView.swift in Sources */,
