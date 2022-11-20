@@ -8,6 +8,7 @@
 import XCTest
 
 let passwordList = [
+    "ACME-cars",
     "appleid/boo@zonk.com",
     "appleid/frank@example.com",
     "aws-console/rumbleflutes",
@@ -36,6 +37,10 @@ class SwiftMenuUnitTesting: XCTestCase {
 
     func testTrivialFilterWorks() {
         XCTAssert(cl.filteredEntriesList(filter: "foo").contains("foozoo.com"))
+    }
+    
+    func testCaseInsensitivity() {
+        XCTAssert(cl.filteredEntriesList(filter: "acme").contains("ACME-cars"))
     }
 
     func testPrefixPreferred() {

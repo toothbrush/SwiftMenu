@@ -45,15 +45,16 @@ class AbstractCandidateList: CandidateList {
         let filterWords = filter // let's say we have a filter like "asdf jkl"
             .split(whereSeparator: { c in c.isWhitespace }) // separate into groups ["asdf", "jkl"] (whitespace is trimmed)
             .map(String.init) // aHA and in Swift we have to actually make Strings explicitly!
+            .map { $0.lowercased() }
 
         // first see if we can find anything, being strict about the first group matching the start of the string
         let strictPrefixResults = entries.filter({ item in
-            Self.multiwordMatch(filterWords: filterWords, entry: item, mustBePrefix: true)
+            Self.multiwordMatch(filterWords: filterWords, entry: item.lowercased(), mustBePrefix: true)
         })
 
         // we don't want to miss out on slightly more lax search results though; put them at the end of the list
         let laxResults = entries.filter({ item in
-            Self.multiwordMatch(filterWords: filterWords, entry: item, mustBePrefix: false)
+            Self.multiwordMatch(filterWords: filterWords, entry: item.lowercased(), mustBePrefix: false)
         })
 
         return (strictPrefixResults + laxResults).uniqued()
