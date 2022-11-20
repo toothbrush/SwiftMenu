@@ -10,7 +10,7 @@ import Cocoa
 
 class ViewController: NSViewController {
 
-    @IBOutlet weak var candidatesTableView: NSTableView!
+    @IBOutlet weak var candidatesTableView: PDTableView!
     @IBOutlet weak var inputField: NSTextField!
     @IBOutlet weak var inputPaddingView: PDColourView!
     @IBOutlet weak var filterCountLabel: NSTextField!
@@ -321,14 +321,5 @@ extension ViewController: NSTextFieldDelegate {
 
     func controlTextDidChange(_ obj: Notification) {
         updateTableWithFilter()
-    }
-}
-
-extension NSTableView {
-    func selectRow(row: Int) {
-        let row_ = row.clamped(fromInclusive: 0, toInclusive: self.numberOfRows - 1)
-        self.scrollRowToVisible(row_)
-        self.selectRowIndexes(IndexSet(integer: row_),
-                              byExtendingSelection: false)
     }
 }

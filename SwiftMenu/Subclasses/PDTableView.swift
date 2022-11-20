@@ -25,4 +25,11 @@ class PDTableView: NSTableView {
         return false
     }
     // Column sizing comments: https://stackoverflow.com/questions/49439311/where-to-set-column-width-in-nstableview-after-updates
+    
+    func selectRow(row: Int) {
+        let row_ = row.clamped(fromInclusive: 0, toInclusive: self.numberOfRows - 1)
+        self.scrollRowToVisible(row_)
+        self.selectRowIndexes(IndexSet(integer: row_),
+                              byExtendingSelection: false)
+    }
 }
