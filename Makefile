@@ -86,7 +86,7 @@ cask "swiftmenu" do
 
   url "https://github.com/toothbrush/SwiftMenu/releases/download/v#{version}/SwiftMenu-v#{version}.zip"
   name "SwiftMenu"
-  desc "Crappy REST-aware GUI options picker"
+  desc "Crappy GUI options picker"
   homepage "https://github.com/toothbrush/SwiftMenu"
 
   depends_on macos: ">= :catalina"
