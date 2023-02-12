@@ -35,4 +35,10 @@ class PDTextView: NSTextView {
         rect.size.width += customCaretWidth - 1
         super.setNeedsDisplay(rect, avoidAdditionalLayout: flag)
     }
+
+    // Disable autocorrect, e.g., searching for "id.atlassian.com" while you're typing becomes "i'd.atlass..." which sucks, of course.
+    // Thanks to https://stackoverflow.com/questions/14866512/nstextview-momentarily-disable-automatic-spelling-correction
+    override func handleTextCheckingResults(_ results: [NSTextCheckingResult], forRange range: NSRange, types checkingTypes: NSTextCheckingTypes, options: [NSSpellChecker.OptionKey : Any] = [:], orthography: NSOrthography, wordCount: Int) {
+        return
+    }
 }
