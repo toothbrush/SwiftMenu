@@ -37,7 +37,7 @@ class HotkeySolution {
         return UInt32(newFlags)
     }
 
-    static func registerCmdR() {
+    static func registerHotkeys() {
         var eventType = EventTypeSpec()
         eventType.eventClass = OSType(kEventClassKeyboard)
         eventType.eventKind = OSType(kEventHotKeyReleased)
@@ -56,24 +56,31 @@ class HotkeySolution {
                               nil,
                               &hkCom)
 
-            NSLog("Hotkey Released!")
-            NSLog("triggered hotkey ID: " + hkCom.id.description)
+            /// Check that hkCom is indeed our hotkey ID and handle it.
+            if hkCom.id == UInt32(kVK_ANSI_P) {
+                NSLog("Cmd-Shift-P: toggling password window")
+                ViewController.shared().showOrHide(mode: .Password)
+            } else if hkCom.id == UInt32(kVK_ANSI_T) {
+                NSLog("Opt-Shift-T: toggling TOTP window")
+                ViewController.shared().showOrHide(mode: .TOTP)
+            } else {
+                NSLog("ERROR: Triggered with unbound key: " + hkCom.id.description)
+            }
 
             return noErr
-            /// Check that hkCom in indeed your hotkey ID and handle it.
         }, 1, &eventType, nil, nil)
 
         // Register hotkey.
-        registerHotkey(keyCode: kVK_ANSI_R)
+        registerHotkey(keyCode: kVK_ANSI_P, flags: [NSEvent.ModifierFlags.command, NSEvent.ModifierFlags.shift])
+        registerHotkey(keyCode: kVK_ANSI_T, flags: [NSEvent.ModifierFlags.option, NSEvent.ModifierFlags.shift])
     }
 
-    static func registerHotkey(keyCode: Int) {
+    static func registerHotkey(keyCode: Int, flags: NSEvent.ModifierFlags) {
         var gMyHotKeyID = EventHotKeyID()
         gMyHotKeyID.id = UInt32(keyCode)
         NSLog("installed hotkey ID: " + gMyHotKeyID.id.description)
 
-        let modifierFlags: UInt32 =
-            getCarbonFlagsFromCocoaFlags(cocoaFlags: [NSEvent.ModifierFlags.option, NSEvent.ModifierFlags.shift])
+        let modifierFlags: UInt32 = getCarbonFlagsFromCocoaFlags(cocoaFlags: flags)
 
         // Not sure what "swat" vs "htk1" do.
         gMyHotKeyID.signature = OSType("swat".fourCharCodeValue)

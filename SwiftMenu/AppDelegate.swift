@@ -40,16 +40,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // app.unhide(nil)
         // app.activate(ignoringOtherApps: true)
 
-        KeyboardShortcuts.onKeyDown(for: .togglePasswordDisplay) {
-            DispatchQueue.main.async {
-                ViewController.shared().showOrHide(mode: .Password)
-            }
-        }
-        KeyboardShortcuts.onKeyDown(for: .toggleTOTPDisplay) {
-            DispatchQueue.main.async {
-                ViewController.shared().showOrHide(mode: .TOTP)
-            }
-        }
+        /// See https://stackoverflow.com/questions/28281653/how-to-listen-to-global-hotkeys-with-swift-in-a-macos-app, a Swift translation of venerable global hotkey stuff that works.
+        HotkeySolution.registerHotkeys()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
