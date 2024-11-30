@@ -58,10 +58,10 @@ class HotkeySolution {
 
             /// Check that hkCom is indeed our hotkey ID and handle it.
             if hkCom.id == UInt32(kVK_ANSI_P) {
-                NSLog("Cmd-Shift-P: toggling password window")
+                NSLog("..-P: toggling password window")
                 ViewController.shared().showOrHide(mode: .Password)
             } else if hkCom.id == UInt32(kVK_ANSI_T) {
-                NSLog("Opt-Shift-T: toggling TOTP window")
+                NSLog("..-T: toggling TOTP window")
                 ViewController.shared().showOrHide(mode: .TOTP)
             } else {
                 NSLog("ERROR: Triggered with unbound key: " + hkCom.id.description)
@@ -71,8 +71,8 @@ class HotkeySolution {
         }, 1, &eventType, nil, nil)
 
         // Register hotkey.
-        registerHotkey(keyCode: kVK_ANSI_P, flags: [NSEvent.ModifierFlags.command, NSEvent.ModifierFlags.shift])
-        registerHotkey(keyCode: kVK_ANSI_T, flags: [NSEvent.ModifierFlags.option, NSEvent.ModifierFlags.shift])
+        registerHotkey(keyCode: kVK_ANSI_P, flags: [.control, .option])
+        registerHotkey(keyCode: kVK_ANSI_T, flags: [.control, .option])
     }
 
     static func registerHotkey(keyCode: Int, flags: NSEvent.ModifierFlags) {
