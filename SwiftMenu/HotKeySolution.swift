@@ -38,19 +38,6 @@ class HotkeySolution {
     }
 
     static func registerCmdR() {
-        var hotKeyRef: EventHotKeyRef?
-        let modifierFlags: UInt32 =
-            getCarbonFlagsFromCocoaFlags(cocoaFlags: NSEvent.ModifierFlags.command)
-
-        let keyCode = kVK_ANSI_R
-        var gMyHotKeyID = EventHotKeyID()
-
-        gMyHotKeyID.id = UInt32(keyCode)
-
-        // Not sure what "swat" vs "htk1" do.
-        gMyHotKeyID.signature = OSType("swat".fourCharCodeValue)
-        // gMyHotKeyID.signature = OSType("htk1".fourCharCodeValue)
-
         var eventType = EventTypeSpec()
         eventType.eventClass = OSType(kEventClassKeyboard)
         eventType.eventKind = OSType(kEventHotKeyReleased)
@@ -69,14 +56,30 @@ class HotkeySolution {
                               nil,
                               &hkCom)
 
-            NSLog("Command + R Released!")
-//            NSLog(hkCom)
+            NSLog("Hotkey Released!")
+            NSLog("triggered hotkey ID: " + hkCom.id.description)
 
             return noErr
             /// Check that hkCom in indeed your hotkey ID and handle it.
         }, 1, &eventType, nil, nil)
 
         // Register hotkey.
+        registerHotkey(keyCode: kVK_ANSI_R)
+    }
+
+    static func registerHotkey(keyCode: Int) {
+        var gMyHotKeyID = EventHotKeyID()
+        gMyHotKeyID.id = UInt32(keyCode)
+        NSLog("installed hotkey ID: " + gMyHotKeyID.id.description)
+
+        let modifierFlags: UInt32 =
+            getCarbonFlagsFromCocoaFlags(cocoaFlags: [NSEvent.ModifierFlags.option, NSEvent.ModifierFlags.shift])
+
+        // Not sure what "swat" vs "htk1" do.
+        gMyHotKeyID.signature = OSType("swat".fourCharCodeValue)
+        // gMyHotKeyID.signature = OSType("htk1".fourCharCodeValue)
+
+        var hotKeyRef: EventHotKeyRef? // unused
         let status = RegisterEventHotKey(UInt32(keyCode),
                                          modifierFlags,
                                          gMyHotKeyID,
