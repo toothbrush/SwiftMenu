@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA8571F128F3C96C00CEF3F0 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = DA8571F028F3C96B00CEF3F0 /* KeyboardShortcuts */; };
-		DA8571F328F3C9C100CEF3F0 /* Keybindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8571F228F3C9C100CEF3F0 /* Keybindings.swift */; };
+		DA07A9E22CFB19C200D7AA24 /* String+FourCharCodeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA07A9E12CFB19BA00D7AA24 /* String+FourCharCodeValue.swift */; };
+		DA07A9E42CFB1A5000D7AA24 /* HotKeySolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA07A9E32CFB1A4C00D7AA24 /* HotKeySolution.swift */; };
 		DA8571F728F4B34000CEF3F0 /* CandidateList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8571F628F4B34000CEF3F0 /* CandidateList.swift */; };
 		DA8571F928F4B9C600CEF3F0 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8571F828F4B9C600CEF3F0 /* Sequence.swift */; };
 		DA8571FD28F4BC5200CEF3F0 /* TOTPList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8571FB28F4BC5200CEF3F0 /* TOTPList.swift */; };
@@ -51,7 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DA8571F228F3C9C100CEF3F0 /* Keybindings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keybindings.swift; sourceTree = "<group>"; };
+		DA07A9E12CFB19BA00D7AA24 /* String+FourCharCodeValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+FourCharCodeValue.swift"; sourceTree = "<group>"; };
+		DA07A9E32CFB1A4C00D7AA24 /* HotKeySolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeySolution.swift; sourceTree = "<group>"; };
 		DA8571F628F4B34000CEF3F0 /* CandidateList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateList.swift; sourceTree = "<group>"; };
 		DA8571F828F4B9C600CEF3F0 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 		DA8571FB28F4BC5200CEF3F0 /* TOTPList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTPList.swift; sourceTree = "<group>"; };
@@ -88,7 +89,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAC6FE6A28F27D690043E5A1 /* AXSwift in Frameworks */,
-				DA8571F128F3C96C00CEF3F0 /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +116,7 @@
 		DA9DAFA428EBD2F0008EAF53 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DA07A9E12CFB19BA00D7AA24 /* String+FourCharCodeValue.swift */,
 				DA9DAF9B28EA91BB008EAF53 /* Collection.swift */,
 				DA9DAF9F28EBC6A0008EAF53 /* Comparable.swift */,
 				DA8571F828F4B9C600CEF3F0 /* Sequence.swift */,
@@ -165,7 +166,7 @@
 				DA9DAFA528EBD354008EAF53 /* Subclasses */,
 				DA9DAFA428EBD2F0008EAF53 /* Extensions */,
 				DAC173DF28EA424500EFE3FC /* AppDelegate.swift */,
-				DA8571F228F3C9C100CEF3F0 /* Keybindings.swift */,
+				DA07A9E32CFB1A4C00D7AA24 /* HotKeySolution.swift */,
 				DA9DAFAC28ED357D008EAF53 /* Util.swift */,
 				DAC173E128EA424500EFE3FC /* ViewController.swift */,
 				DAC173E628EA424700EFE3FC /* Assets.xcassets */,
@@ -211,7 +212,6 @@
 			name = SwiftMenu;
 			packageProductDependencies = (
 				DAC6FE6928F27D690043E5A1 /* AXSwift */,
-				DA8571F028F3C96B00CEF3F0 /* KeyboardShortcuts */,
 			);
 			productName = SwiftMenu;
 			productReference = DAC173DC28EA424500EFE3FC /* SwiftMenu.app */;
@@ -264,7 +264,6 @@
 			mainGroup = DAC173D328EA424500EFE3FC;
 			packageReferences = (
 				DAC6FE6828F27D690043E5A1 /* XCRemoteSwiftPackageReference "AXSwift" */,
-				DA8571EF28F3C96B00CEF3F0 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 			);
 			productRefGroup = DAC173DD28EA424500EFE3FC /* Products */;
 			projectDirPath = "";
@@ -307,10 +306,10 @@
 				DA8571F928F4B9C600CEF3F0 /* Sequence.swift in Sources */,
 				DAB9251728F7C41900F07F83 /* NullList.swift in Sources */,
 				DAC173E228EA424500EFE3FC /* ViewController.swift in Sources */,
-				DA8571F328F3C9C100CEF3F0 /* Keybindings.swift in Sources */,
 				DA9DAF9728EA81AC008EAF53 /* PasswordList.swift in Sources */,
 				DA9DAFB328EE6682008EAF53 /* PDColourView.swift in Sources */,
 				DA8571F728F4B34000CEF3F0 /* CandidateList.swift in Sources */,
+				DA07A9E22CFB19C200D7AA24 /* String+FourCharCodeValue.swift in Sources */,
 				DA9DAFA028EBC6A0008EAF53 /* Comparable.swift in Sources */,
 				DA9DAF9C28EA91BB008EAF53 /* Collection.swift in Sources */,
 				DA9DAFAD28ED357D008EAF53 /* Util.swift in Sources */,
@@ -321,6 +320,7 @@
 				EC62254A2929AD970046ABD1 /* PDClipView.swift in Sources */,
 				DA9DAFAB28EBEBF7008EAF53 /* PDApplication.swift in Sources */,
 				DA9DAFB128EE586A008EAF53 /* PDSquareView.swift in Sources */,
+				DA07A9E42CFB1A5000D7AA24 /* HotKeySolution.swift in Sources */,
 				DA9DAF9E28EA9879008EAF53 /* PDTableRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -598,14 +598,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DA8571EF28F3C96B00CEF3F0 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		DAC6FE6828F27D690043E5A1 /* XCRemoteSwiftPackageReference "AXSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tmandry/AXSwift";
@@ -617,11 +609,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DA8571F028F3C96B00CEF3F0 /* KeyboardShortcuts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DA8571EF28F3C96B00CEF3F0 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
-			productName = KeyboardShortcuts;
-		};
 		DAC6FE6928F27D690043E5A1 /* AXSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DAC6FE6828F27D690043E5A1 /* XCRemoteSwiftPackageReference "AXSwift" */;
