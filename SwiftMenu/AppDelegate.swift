@@ -11,7 +11,6 @@ import KeyboardShortcuts
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         guard AXSwift.checkIsProcessTrusted(prompt: true) else {
             print("Not trusted as an AX process; please authorize and re-launch")
@@ -52,11 +51,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
 
-
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         // If we got here, it is time to quit.
         return .terminateNow
     }
-
 }
-
