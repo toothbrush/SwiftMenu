@@ -30,6 +30,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         UserDefaults.standard.register(defaults: blinkDefaults)
 
+        // this is roughly how Hammerspoon's chooser initialises itself.  Doesn't seem to help with the thing where focusing a SecureText field breaks my global hotkeys.
+        // how does Hammerspoon manage, though?  eventtap?
+        //
+        // See https://github.com/sindresorhus/KeyboardShortcuts/issues/176, they say Option key is the problem, but i can't raise my window with other bindings, either.
+        //
+        // let app = NSApplication.shared
+        // app.setActivationPolicy(.accessory)
+        // app.unhide(nil)
+        // app.activate(ignoringOtherApps: true)
+
         KeyboardShortcuts.onKeyDown(for: .togglePasswordDisplay) {
             DispatchQueue.main.async {
                 ViewController.shared().showOrHide(mode: .Password)
