@@ -7,11 +7,9 @@
 
 import AXSwift
 import Cocoa
-import KeyboardShortcuts
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         guard AXSwift.checkIsProcessTrusted(prompt: true) else {
             print("Not trusted as an AX process; please authorize and re-launch")
@@ -31,16 +29,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         UserDefaults.standard.register(defaults: blinkDefaults)
 
-        KeyboardShortcuts.onKeyDown(for: .togglePasswordDisplay) {
-            DispatchQueue.main.async {
-                ViewController.shared().showOrHide(mode: .Password)
-            }
-        }
-        KeyboardShortcuts.onKeyDown(for: .toggleTOTPDisplay) {
-            DispatchQueue.main.async {
-                ViewController.shared().showOrHide(mode: .TOTP)
-            }
-        }
+        // this is roughly how Hammerspoon's chooser initialises itself.  Doesn't seem to help with the thing where focusing a SecureText field breaks my global hotkeys.
+        // how does Hammerspoon manage, though?  eventtap?
+        //
+        // See https://github.com/sindresorhus/KeyboardShortcuts/issues/176, they say Option key is the problem, but i can't raise my window with other bindings, either.
+        //
+        // let app = NSApplication.shared
+        // app.setActivationPolicy(.accessory)
+        // app.unhide(nil)
+        // app.activate(ignoringOtherApps: true)
+
+        /// See https://stackoverflow.com/questions/28281653/how-to-listen-to-global-hotkeys-with-swift-in-a-macos-app, a Swift translation of venerable global hotkey stuff that works.
+        HotkeySolution.registerHotkeys()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -52,11 +52,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
 
-
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         // If we got here, it is time to quit.
         return .terminateNow
     }
-
 }
-

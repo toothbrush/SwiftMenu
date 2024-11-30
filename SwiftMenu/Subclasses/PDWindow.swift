@@ -8,7 +8,6 @@
 import Cocoa
 
 class PDWindow: NSPanel {
-
     let myFieldEditor = PDTextView()
 
     override init(contentRect: NSRect, styleMask style: NSWindow.StyleMask, backing backingStoreType: NSWindow.BackingStoreType, defer flag: Bool) {
@@ -38,18 +37,14 @@ class PDWindow: NSPanel {
     // The resize bar disappears when we say that the window's style is borderless.
     // https://developer.apple.com/documentation/appkit/nswindow/1419543-canbecomekey
     override public var canBecomeKey: Bool {
-        get {
-            return true
-        }
+        return true
     }
+
     override public var canBecomeMain: Bool {
-        get {
-            return true
-        }
+        return true
     }
 
     override func fieldEditor(_ createFlag: Bool, for object: Any?) -> NSText? {
-        return myFieldEditor
+        return self.myFieldEditor
     }
-
 }
