@@ -7,7 +7,18 @@ TEAM_ID := $(shell security find-certificate -c "Developer ID Application:" | gr
 
 BUILD_PATH = $(PWD)/build
 APP_PATH = "$(BUILD_PATH)/$(APP).app"
-ZIP_PATH = "$(BUILD_PATH)/$(APP).zip"
+
+# The marketing version's single source of truth is MARKETING_VERSION in the Xcode project.  At
+# build time (the app target has GENERATE_INFOPLIST_FILE=YES) Xcode stamps it into the built
+# bundle's Info.plist as CFBundleShortVersionString; the source SwiftMenu/Info.plist deliberately
+# carries no version key.
+#
+# We need the version *before* the build -- it names the .zip that then gets notarized.  So grep it
+# out of the project file at parse time.  The app target's MARKETING_VERSION is the first one in the
+# file (the unit-test target's comes later).
+VERSION := $(shell grep -m1 'MARKETING_VERSION = ' SwiftMenu.xcodeproj/project.pbxproj | sed -E 's/.*= ([^;]+);.*/\1/')
+
+ZIP_PATH = "$(BUILD_PATH)/$(APP)-v$(VERSION).zip"
 
 XCODEBUILD = xcodebuild -quiet
 
@@ -75,11 +86,10 @@ sign:
 	@echo "SwiftMenu successfully stapled"
 
 .PHONY: make-zip
-make-zip: VERSION = $(shell /usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$(APP_PATH)/Contents/Info.plist")
 make-zip: sign
 	ditto -c -k --keepParent $(APP_PATH) $(ZIP_PATH)
 	mkdir -p updates/
-	cp -v $(ZIP_PATH) updates/SwiftMenu-v$(VERSION).zip
+	cp -v $(ZIP_PATH) updates/
 
 define HOMEBREW
 cask "swiftmenu" do
@@ -100,8 +110,6 @@ endef
 export HOMEBREW
 
 .PHONY: make-homebrew
-make-homebrew:
-make-homebrew: VERSION = $(shell /usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$(APP_PATH)/Contents/Info.plist")
 make-homebrew:
 	mkdir -p updates
 	echo "$$HOMEBREW" > updates/swiftmenu.rb
