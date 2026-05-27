@@ -77,8 +77,8 @@ class HotkeySolution {
         }, 1, &eventType, nil, nil)
 
         // Register hotkey.
-        registerHotkey(keyCode: kVK_ANSI_P, flags: [.control, .option])
-        registerHotkey(keyCode: kVK_ANSI_T, flags: [.control, .option])
+        registerHotkey(keyCode: kVK_ANSI_P, flags: [.command, .shift])
+        registerHotkey(keyCode: kVK_ANSI_T, flags: [.command, .shift])
     }
 
     static func registerHotkey(keyCode: Int, flags: NSEvent.ModifierFlags) {
