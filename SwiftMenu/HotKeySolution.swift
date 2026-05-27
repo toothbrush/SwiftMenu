@@ -56,12 +56,6 @@ class HotkeySolution {
                               nil,
                               &hkCom)
 
-            // DIAGNOSTIC (temporary): does the handler even fire while another app holds
-            // secure input, and is secure input the thing locking us out?
-            let secure = IsSecureEventInputEnabled()
-            let front = NSWorkspace.shared.frontmostApplication?.localizedName ?? "<unknown>"
-            NSLog("DIAG hotkey fired id=\(hkCom.id) secureInputEnabled=\(secure) frontmostApp=\(front)")
-
             /// Check that hkCom is indeed our hotkey ID and handle it.
             if hkCom.id == UInt32(kVK_ANSI_P) {
                 NSLog("..-P: toggling password window")

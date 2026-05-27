@@ -6,7 +6,6 @@
 //
 
 import AXSwift
-import Carbon
 import Cocoa
 
 class ViewController: NSViewController {
@@ -211,15 +210,6 @@ extension ViewController {
         }
 
         self.clearFilter(emptyExistingInput: true)
-
-        // DIAGNOSTIC (temporary): did we actually win the keyboard?  Log immediately and
-        // again after the runloop settles, since key/active status can land asynchronously.
-        let logFocusState: (String) -> Void = { when in
-            let w = self.view.window
-            NSLog("DIAG showMe[\(when)] appActive=\(NSApp.isActive) winVisible=\(w?.isVisible ?? false) winKey=\(w?.isKeyWindow ?? false) firstResponderIsInput=\(w?.firstResponder === self.inputField) secureInputEnabled=\(IsSecureEventInputEnabled())")
-        }
-        logFocusState("sync")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { logFocusState("settled") }
     }
 
     // Returns whether it was successful
