@@ -9,6 +9,8 @@ BUILD_PATH = $(PWD)/build
 APP_PATH = "$(BUILD_PATH)/$(APP).app"
 ZIP_PATH = "$(BUILD_PATH)/$(APP).zip"
 
+XCODEBUILD = xcodebuild -quiet
+
 AC_USERNAME := $(shell pass spotiqueue-itc-signing | grep email | awk '{print $$2}')
 export AC_PASSWORD := $(shell pass spotiqueue-itc-signing | grep app-specific-pass | awk '{print $$2}')
 
@@ -21,7 +23,7 @@ build: archive notarize sign make-zip make-homebrew
 archive: clean
 	@echo "Exporting application archive..."
 
-	xcodebuild \
+	$(XCODEBUILD) \
 		-scheme $(APP) \
 		-destination 'generic/platform=OS X' \
 		-configuration Release archive \
@@ -29,7 +31,7 @@ archive: clean
 
 	@echo "Application built, starting the export archive..."
 
-	xcodebuild -exportArchive \
+	$(XCODEBUILD) -exportArchive \
 		-exportOptionsPlist "$(PWD)/ExportOptions.plist" \
 		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
 		-exportPath $(BUILD_PATH)
