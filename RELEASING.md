@@ -7,7 +7,7 @@ Set `V` to the new version, then:
 V=0.7.0
 
 # 1. Bump version (both app + test targets)
-sed -i '' "s/MARKETING_VERSION = .*/MARKETING_VERSION = $V;/" SwiftMenu.xcodeproj/project.pbxproj
+perl -pi -e "s/MARKETING_VERSION = .*/MARKETING_VERSION = $V;/" SwiftMenu.xcodeproj/project.pbxproj
 
 # 2. Commit
 git commit -am "Bump to $V"
