@@ -23,6 +23,28 @@ Here's a screenshot:
 
 Special thanks to the fine folks behind [The Ultimate Oldschool PC Font Pack](https://int10h.org/oldschool-pc-fonts/readme).
 
+## Configuration
+
+By default the global hotkeys are `cmd-shift-p` (passwords) and `cmd-shift-t` (TOTP).  You can
+rebind them without recompiling by dropping a `~/.config/swiftmenu/config.ini`:
+
+```ini
+[keybindings]
+passmenu = "option-shift-p"
+totpmenu = "option-shift-t"
+```
+
+* Separator is `-` or `+`, case-insensitive.  The last token is the key, the rest are modifiers.
+* Modifiers: `cmd`/`command`, `opt`/`option`/`alt`, `ctrl`/`control`, `shift`.
+* Keys: `a`–`z`, `0`–`9`, plus `space`, `return`/`enter`, `tab`, `escape`/`esc`, `minus`, `equal`,
+  `comma`, `period`, `slash`.
+* Quotes are optional; blank lines and `#`/`;` comments are ignored.  Omit a binding to keep its
+  default.
+* These are *global* hotkeys, so keep at least one modifier — otherwise you'll hijack that key
+  system-wide.
+* The file is parsed at launch and SwiftMenu deliberately crashes loudly if anything doesn't parse,
+  rather than silently falling back.  Check `Console.app` for the reason.
+
 ## How matching works
 
 * This probably doesn't suit anyone else's preference.  That's fine.
