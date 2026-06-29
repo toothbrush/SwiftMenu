@@ -94,7 +94,7 @@ make-zip: sign
 define HOMEBREW
 cask "swiftmenu" do
   version "${VERSION}"
-  sha256 "$(shell sha256sum ${ZIP_PATH} | cut -s -d ' ' -f 1)"
+  sha256 "__SHA256__"
 
   url "https://github.com/toothbrush/SwiftMenu/releases/download/v#{version}/SwiftMenu-v#{version}.zip"
   name "SwiftMenu"
@@ -112,7 +112,8 @@ export HOMEBREW
 .PHONY: make-homebrew
 make-homebrew:
 	mkdir -p updates
-	echo "$$HOMEBREW" > updates/swiftmenu.rb
+	SHA=$$(sha256sum $(ZIP_PATH) | cut -s -d ' ' -f 1); \
+	echo "$$HOMEBREW" | sed "s/__SHA256__/$$SHA/" > updates/swiftmenu.rb
 
 .PHONY: prepare-dSYM
 prepare-dSYM:
