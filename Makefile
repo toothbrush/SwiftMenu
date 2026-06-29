@@ -101,7 +101,7 @@ cask "swiftmenu" do
   desc "Crappy GUI options picker"
   homepage "https://github.com/toothbrush/SwiftMenu"
 
-  depends_on macos: ">= :catalina"
+  depends_on macos: :catalina
 
   app "SwiftMenu.app"
 end

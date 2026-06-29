@@ -23,8 +23,14 @@ make
 # -> build/SwiftMenu-v$V.zip  (also copied to updates/)
 # -> updates/swiftmenu.rb     (regenerated homebrew cask)
 
-# 6. Upload to GitHub release
-gh release create "v$V" "build/SwiftMenu-v$V.zip" --title "v$V" --generate-notes
+# 6. Create the GitHub release with the zip (one-sentence note, no changelog)
+gh release create "v$V" "updates/SwiftMenu-v$V.zip" --title "v$V" --notes "One sentence describing the change."
 
-# 7. Update the homebrew cask: copy updates/swiftmenu.rb into the tap and push
+# 7. Bump the homebrew cask in the tap and push.
+#    Edit version + sha256 in place rather than overwriting with updates/swiftmenu.rb,
+#    so hand-made tap fixes (e.g. depends_on) survive. Commit style: "swiftmenu: $V".
+TAP=~/src/toothbrush/homebrew-toothbrush
+SHA=$(sha256sum updates/SwiftMenu-v$V.zip | cut -d' ' -f1)
+perl -pi -e "s/version \".*\"/version \"$V\"/; s/sha256 \".*\"/sha256 \"$SHA\"/" "$TAP/Casks/swiftmenu.rb"
+git -C "$TAP" commit -am "swiftmenu: $V" && git -C "$TAP" push
 ```
