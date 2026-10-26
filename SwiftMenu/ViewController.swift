@@ -30,7 +30,8 @@ class ViewController: NSViewController {
     }
 
     var candidatesProvider: AbstractCandidateList!
-    let windowBackgroundColor = NSColor.systemPurple
+    // systemPurple leans magenta; use true purple
+    let windowBackgroundColor = NSColor(srgbRed: 0.42, green: 0.18, blue: 0.75, alpha: 1.0)
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -68,6 +69,24 @@ class ViewController: NSViewController {
         inputField.drawsBackground = true
         inputField.needsDisplay = true
         candidatesTableView.backgroundColor = windowBackgroundColor
+
+        // Layer border draws above all subviews
+        view.wantsLayer = true
+        view.layer?.borderWidth = 2
+        view.layer?.borderColor = NSColor.black.cgColor
+
+        // Black divider between input and list
+        let divider = NSView()
+        divider.wantsLayer = true
+        divider.layer?.backgroundColor = NSColor.black.cgColor
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(divider)
+        NSLayoutConstraint.activate([
+            divider.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            divider.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            divider.topAnchor.constraint(equalTo: inputPaddingView.bottomAnchor),
+            divider.heightAnchor.constraint(equalToConstant: 2),
+        ])
         startSpinnerLoading()
     }
 
