@@ -60,3 +60,18 @@ func sendReturn() {
     keyUpEvent.flags = []
     keyUpEvent.post(tap: CGEventTapLocation.cghidEventTap);
 }
+
+// Finder and login items do not inherit the user's interactive shell PATH.
+// Include the stable Nix profiles, then retain any caller-provided commands.
+func externalCommand(_ name: String, arguments: [String]) -> Process {
+    let task = Process()
+    var environment = ProcessInfo.processInfo.environment
+    let nixPaths = ["/run/current-system/sw/bin", NSHomeDirectory() + "/.nix-profile/bin"]
+    environment["PATH"] = (nixPaths + [environment["PATH"] ?? "/usr/bin:/bin:/usr/sbin:/sbin"])
+        .joined(separator: ":")
+    environment["HOME"] = NSHomeDirectory()
+    task.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+    task.arguments = [name] + arguments
+    task.environment = environment
+    return task
+}

@@ -26,7 +26,7 @@ AC_USERNAME := $(shell pass spotiqueue-itc-signing | grep email | awk '{print $$
 export AC_PASSWORD := $(shell pass spotiqueue-itc-signing | grep app-specific-pass | awk '{print $$2}')
 
 .PHONY: build
-build: archive notarize sign make-zip make-homebrew
+build: archive notarize sign make-zip make-nix
 
 # --- MAIN WORKFLOW FUNCTIONS --- #
 
@@ -91,29 +91,12 @@ make-zip: sign
 	mkdir -p updates/
 	cp -v $(ZIP_PATH) updates/
 
-define HOMEBREW
-cask "swiftmenu" do
-  version "${VERSION}"
-  sha256 "__SHA256__"
-
-  url "https://github.com/toothbrush/SwiftMenu/releases/download/v#{version}/SwiftMenu-v#{version}.zip"
-  name "SwiftMenu"
-  desc "Crappy GUI options picker"
-  homepage "https://github.com/toothbrush/SwiftMenu"
-
-  depends_on macos: :monterey
-
-  app "SwiftMenu.app"
-end
-endef
-
-export HOMEBREW
-
-.PHONY: make-homebrew
-make-homebrew:
-	mkdir -p updates
-	SHA=$$(sha256sum $(ZIP_PATH) | cut -s -d ' ' -f 1); \
-	echo "$$HOMEBREW" | sed "s/__SHA256__/$$SHA/" > updates/swiftmenu.rb
+.PHONY: make-nix
+make-nix:
+	SHA=$$(nix hash file --type sha256 --sri $(ZIP_PATH)); \
+	sed -i '' -E \
+	  -e 's|version = "[^"]+";|version = "$(VERSION)";|' \
+	  -e "s|hash = \"[^\"]+\";|hash = \"$$SHA\";|" package.nix
 
 .PHONY: prepare-dSYM
 prepare-dSYM:

@@ -12,9 +12,7 @@ class TOTPList: AbstractCandidateList {
     override class func reloadEntries() throws -> [String] {
         var items : [String] = []
 
-        let task = Process()
-        task.launchPath = "/opt/homebrew/bin/clitotp-go"
-        task.arguments = ["ls"]
+        let task = externalCommand("clitotp-go", arguments: ["ls"])
 
         let pipe = Pipe()
         let errPipe = Pipe()
@@ -51,13 +49,7 @@ class TOTPList: AbstractCandidateList {
             return nil
         }
 
-        let task = Process()
-        task.launchPath = "/opt/homebrew/bin/clitotp-go" // let's see if this bites me in the future
-        task.arguments = ["generate", choice]
-        task.environment = [
-            "HOME": NSString(string: "~").expandingTildeInPath, // without HOME, it fails with "sh" command not found 🤔 probably GPG being desperate and trying to find my ~/.gnupg folder...
-            "PATH": "/opt/homebrew/bin", // to locate gpg binary
-        ]
+        let task = externalCommand("clitotp-go", arguments: ["generate", choice])
 
         var outString: String?
 

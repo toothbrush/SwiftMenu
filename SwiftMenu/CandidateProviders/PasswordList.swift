@@ -63,9 +63,7 @@ class PasswordList: AbstractCandidateList {
     }
 
     override func retrieveSnippet(for choice: String) -> String? {
-        let task = Process()
-        task.launchPath = "/opt/homebrew/bin/gpg" // let's see if this bites me in the future
-        task.arguments = ["--decrypt", "--batch", "\(PasswordList.PATH)/\(choice).gpg"]
+        let task = externalCommand("gpg", arguments: ["--decrypt", "--batch", "\(PasswordList.PATH)/\(choice).gpg"])
 
         var outString: String?
 

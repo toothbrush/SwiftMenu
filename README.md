@@ -23,6 +23,27 @@ Here's a screenshot:
 
 Special thanks to the fine folks behind [The Ultimate Oldschool PC Font Pack](https://int10h.org/oldschool-pc-fonts/readme).
 
+## Nix
+
+Install the signed, notarized release on macOS:
+
+```sh
+nix profile add github:toothbrush/SwiftMenu
+```
+
+The app is installed under `~/.nix-profile/Applications/SwiftMenu.app`; open that
+bundle or use nix-darwin's `environment.systemPackages` to expose it through
+`/Applications/Nix Apps`. This packages the release ZIP, so installation does not
+require Xcode. Building the app from source still uses the existing Xcode workflow.
+
+Install `clitotp-go` and GnuPG separately for the TOTP and password features. The
+app searches the Nix system and user profiles followed by its inherited PATH,
+including when launched by Finder or a login item.
+
+`package.nix` pins the release version and ZIP hash; `flake.nix` exposes it as
+`packages.<system>.swiftmenu` and `packages.<system>.default` on Apple Silicon
+Macs.
+
 ## Configuration
 
 By default the global hotkeys are `cmd-shift-p` (passwords) and `cmd-shift-t` (TOTP).  You can

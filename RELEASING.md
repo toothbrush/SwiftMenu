@@ -4,33 +4,28 @@
 Set `V` to the new version, then:
 
 ```sh
-V=0.7.0
+V=0.7.2
 
-# 1. Bump version (both app + test targets)
+# 1. Bump version (both app + test targets).
 perl -pi -e "s/MARKETING_VERSION = .*/MARKETING_VERSION = $V;/" SwiftMenu.xcodeproj/project.pbxproj
 
-# 2. Commit
-git commit -am "Bump to $V"
+# 2. Build, notarize, staple, zip, and update the Nix package version/hash.
+make
+# -> build/SwiftMenu-v$V.zip (also copied to updates/)
+# -> package.nix updated to match the signed release ZIP
 
-# 3. Tag
+# 3. Commit the version and Nix metadata together, tag, and push.
+git add SwiftMenu.xcodeproj/project.pbxproj package.nix
+git commit -m "Release $V"
 git tag "v$V"
-
-# 4. Push
 git push && git push --tags
 
-# 5. Build: archive, notarise, staple, zip, regenerate cask
-make
-# -> build/SwiftMenu-v$V.zip  (also copied to updates/)
-# -> updates/swiftmenu.rb     (regenerated homebrew cask)
-
-# 6. Create the GitHub release with the zip (one-sentence note, no changelog)
+# 4. Publish the ZIP referenced by package.nix.
 gh release create "v$V" "updates/SwiftMenu-v$V.zip" --title "v$V" --notes "One sentence describing the change."
 
-# 7. Bump the homebrew cask in the tap and push.
-#    Edit version + sha256 in place rather than overwriting with updates/swiftmenu.rb,
-#    so hand-made tap fixes (e.g. depends_on) survive. Commit style: "swiftmenu: $V".
-TAP=~/src/toothbrush/homebrew-toothbrush
-SHA=$(sha256sum updates/SwiftMenu-v$V.zip | cut -d' ' -f1)
-perl -pi -e "s/version \".*\"/version \"$V\"/; s/sha256 \".*\"/sha256 \"$SHA\"/" "$TAP/Casks/swiftmenu.rb"
-git -C "$TAP" commit -am "swiftmenu: $V" && git -C "$TAP" push
+# 5. Check the published Nix package.
+nix build "github:toothbrush/SwiftMenu/v$V"
 ```
+
+Nix installs the signed release without modifying the bundle. Do not patch its
+executable or strip its binaries, as either would invalidate the signature.
