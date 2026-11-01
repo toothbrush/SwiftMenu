@@ -94,7 +94,7 @@ make-zip: sign
 .PHONY: make-nix
 make-nix:
 	SHA=$$(nix hash file --type sha256 --sri $(ZIP_PATH)); \
-	sed -i '' -E \
+	/usr/bin/sed -i '' -E \
 	  -e 's|version = "[^"]+";|version = "$(VERSION)";|' \
 	  -e "s|hash = \"[^\"]+\";|hash = \"$$SHA\";|" package.nix
 
