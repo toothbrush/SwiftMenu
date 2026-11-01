@@ -4,7 +4,7 @@
 Set `V` to the new version, then:
 
 ```sh
-V=0.7.2
+V=0.7.3
 
 # 1. Bump version (both app + test targets).
 perl -pi -e "s/MARKETING_VERSION = .*/MARKETING_VERSION = $V;/" SwiftMenu.xcodeproj/project.pbxproj

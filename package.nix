@@ -2,12 +2,12 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "swiftmenu";
-  version = "0.7.2";
+  version = "0.7.3";
 
   # Keep the upstream Developer ID signature and notarization intact.
   src = fetchurl {
     url = "https://github.com/toothbrush/SwiftMenu/releases/download/v${version}/SwiftMenu-v${version}.zip";
-    hash = "sha256-6CAITbpVdKzARxCONg5LFm+jRrousJV/wGTK7O7Kq8Q=";
+    hash = "sha256-sOSzDDMsF0tXyB5l+bQVOElse404vPHr/xRc1WUngyw=";
   };
 
   nativeBuildInputs = [ unzip ];
