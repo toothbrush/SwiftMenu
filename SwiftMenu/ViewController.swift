@@ -179,11 +179,34 @@ extension ViewController {
 
     func hideMe() {
         self.stopSpinnerLoading()
-        self.view.window!.resignKey() // this appears to be enough to give back focus to the previous app
-        self.view.window!.setIsVisible(false)
+        // Let AppKit release the panel's stolen keyboard focus. resignKey() is a
+        // notification hook, not a request to transfer focus to another window.
+        self.view.window!.orderOut(self)
+        // Launchers such as Alfred can activate the app itself. Ordering out its
+        // panel alone doesn't reactivate the app that should receive the text.
+        if NSApp.isActive {
+            NSApp.hide(self)
+        }
+    }
+
+    private func afterFocusReturns(deadline: DispatchTime, perform action: @escaping () -> Void) {
+        // App hiding is asynchronous. A single dispatch to the next run-loop
+        // turn can still run before the previous application becomes active.
+        guard self.view.window?.isVisible == false else { return }
+        if !NSApp.isActive, self.view.window?.isKeyWindow == false {
+            action()
+        } else if DispatchTime.now() < deadline {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
+                self.afterFocusReturns(deadline: deadline, perform: action)
+            }
+        } else {
+            NSLog("Refusing to type while SwiftMenu still has focus")
+            NSSound.beep()
+        }
     }
 
     func showMe() {
+        NSApp.unhideWithoutActivation()
         // Even though this stuff appears to work now, bear in mind that https://stackoverflow.com/questions/17528157/nstextfield-and-firstresponder and https://stackoverflow.com/a/17547777 specifically say you need to
         // [[NSApp mainWindow] resignFirstResponder];
         // (context: "I need to capture this event the NSTextField loses the focus ring to save the uncommitted changes .")
@@ -304,10 +327,33 @@ extension ViewController: NSTextFieldDelegate {
         if commandSelector.description == "insertNewline:" {
             if let choice = self.filteredEntries[safe: candidatesTableView.selectedRow] {
                 ViewController.shared().hideMe()
-                if let snippet = candidatesProvider.retrieveSnippet(for: choice) {
-                    keyStrokes(theString: snippet)
-                    if candidatesProvider.wantsAutoReturnKey() {
-                        sendReturn()
+                let provider = candidatesProvider!
+                // Finish handling Return and let AppKit complete the focus
+                // handoff before retrieving and posting any password or code.
+                DispatchQueue.main.async {
+                    self.afterFocusReturns(deadline: .now() + .seconds(1)) {
+                        guard let recipient = NSWorkspace.shared.frontmostApplication,
+                              recipient.processIdentifier != ProcessInfo.processInfo.processIdentifier,
+                              recipient.bundleIdentifier != Bundle.main.bundleIdentifier else {
+                            NSLog("Refusing to type without a destination app")
+                            NSSound.beep()
+                            return
+                        }
+                        if let snippet = provider.retrieveSnippet(for: choice) {
+                            // A pinentry dialog or another activation during retrieval
+                            // must not redirect the secret into a different app.
+                            guard !recipient.isTerminated,
+                                  NSWorkspace.shared.frontmostApplication?.processIdentifier == recipient.processIdentifier,
+                                  !NSApp.isActive, self.view.window?.isVisible == false else {
+                                NSLog("Refusing to type because the destination changed")
+                                NSSound.beep()
+                                return
+                            }
+                            keyStrokes(theString: snippet)
+                            if provider.wantsAutoReturnKey() {
+                                sendReturn()
+                            }
+                        }
                     }
                 }
             } else {
